@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://dxhvjt3a14gyj"]
+
+[ext_resource type="Script" path="res://body.gd" id="1_disp8"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uw3sg"]
+albedo_color = Color(0, 0.619608, 0.756863, 1)
+roughness = 0.0
+emission_enabled = true
+emission = Color(1.44392e-06, 0.618435, 0.757595, 1)
+emission_energy_multiplier = 500.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_cpmb8"]
+material = SubResource("StandardMaterial3D_uw3sg")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_xowde"]
+
+[node name="body" type="Node3D"]
+script = ExtResource("1_disp8")
+size = {
+"max": 5000,
+"min": 7500
+}
+type = "planetBlue"
+
+[node name="RigidBody3D" type="RigidBody3D" parent="."]
+gravity_scale = 0.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D"]
+visibility_range_begin_margin = 10000.0
+visibility_range_end = 150000.0
+visibility_range_end_margin = 10000.0
+visibility_range_fade_mode = 2
+mesh = SubResource("SphereMesh_cpmb8")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+shape = SubResource("SphereShape3D_xowde")

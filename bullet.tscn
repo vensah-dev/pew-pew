@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://b7sa02arh0p24"]
+
+[ext_resource type="Script" path="res://bullet.gd" id="1_tbaxy"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rkc2x"]
+emission_enabled = true
+emission = Color(0, 0.635294, 0.937255, 1)
+emission_energy_multiplier = 5.0
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_aypa8"]
+material = SubResource("StandardMaterial3D_rkc2x")
+height = 10.0
+
+[node name="Bullet" type="Node3D"]
+script = ExtResource("1_tbaxy")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 5)
+mesh = SubResource("CapsuleMesh_aypa8")

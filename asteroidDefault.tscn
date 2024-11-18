@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://b7ovojnx8c2n2"]
+
+[ext_resource type="Script" path="res://body.gd" id="1_5nc0f"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kwmhk"]
+emission_enabled = true
+emission = Color(0.6, 0.5487, 0.486, 1)
+billboard_mode = 1
+proximity_fade_enabled = true
+
+[sub_resource type="SphereMesh" id="SphereMesh_cpmb8"]
+material = SubResource("StandardMaterial3D_kwmhk")
+height = 1.5
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_xowde"]
+radius = 0.6
+
+[node name="asteroidDefault" type="Node3D"]
+script = ExtResource("1_5nc0f")
+type = "asteroidDefault"
+axisRotationalSpeed = Vector3(0, 0, 2.5)
+
+[node name="RigidBody3D" type="RigidBody3D" parent="."]
+mass = 0.01
+gravity_scale = 0.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D"]
+visibility_range_begin_margin = 100.0
+visibility_range_end = 2500.0
+visibility_range_end_margin = 100.0
+visibility_range_fade_mode = 2
+mesh = SubResource("SphereMesh_cpmb8")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+visible = false
+shape = SubResource("SphereShape3D_xowde")

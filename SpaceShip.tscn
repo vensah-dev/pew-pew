@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://c3ry10wwp2mtq"]
+
+[ext_resource type="PackedScene" uid="uid://b0hnadewv4py6" path="res://Assets/Models/Spaceship by Liz Reddington.glb" id="1_7370u"]
+
+[node name="Spaceship by Liz Reddington" instance=ExtResource("1_7370u")]

@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://kek3bkygl6my"]
+
+[ext_resource type="Script" path="res://SolarSystemSpawner.gd" id="1_ydthi"]
+[ext_resource type="PackedScene" uid="uid://bxtudok6crrjx" path="res://solarSystem.tscn" id="2_2gtm8"]
+
+[node name="Solar System Spawner" type="Node3D"]
+visible = false
+script = ExtResource("1_ydthi")
+maxNumber = 5
+minNumber = 5
+maxSpawnRadius = 500000.0
+solarSystems = Array[PackedScene]([ExtResource("2_2gtm8")])
