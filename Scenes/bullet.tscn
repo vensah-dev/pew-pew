@@ -3,9 +3,10 @@
 [ext_resource type="Script" path="res://Scripts/bullet.gd" id="1_tbaxy"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rkc2x"]
+albedo_color = Color(0, 0.642333, 0.94, 0.498039)
 emission_enabled = true
-emission = Color(0, 0.635294, 0.937255, 1)
-emission_energy_multiplier = 5.0
+emission = Color(0, 0.643137, 0.941176, 1)
+emission_energy_multiplier = 1.5
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_aypa8"]
 material = SubResource("StandardMaterial3D_rkc2x")

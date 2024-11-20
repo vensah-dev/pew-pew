@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=3 uid="uid://buow2cclieyvp"]
+
+[ext_resource type="Script" path="res://Scripts/body.gd" id="1_cxiul"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kigfh"]
+albedo_color = Color(0, 0.816667, 1, 1)
+emission = Color(0, 0.815686, 1, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_cpmb8"]
+material = SubResource("StandardMaterial3D_kigfh")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_xowde"]
+
+[node name="bluePlanet" type="Node3D"]
+script = ExtResource("1_cxiul")
+size = {
+"max": 5000,
+"min": 7500
+}
+type = "bluePlanet"
+mass = 1000
+is_sun = true
+
+[node name="RigidBody3D" type="RigidBody3D" parent="."]
+mass = 1000.0
+gravity_scale = 0.0
+lock_rotation = true
+freeze = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D"]
+layers = 1023
+lod_bias = 0.001
+mesh = SubResource("SphereMesh_cpmb8")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+shape = SubResource("SphereShape3D_xowde")

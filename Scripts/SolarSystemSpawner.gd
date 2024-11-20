@@ -20,7 +20,7 @@ func _ready():
 	
 func in_another_body(bodyInstance):
 	for b in spawnedSystems:
-		if bodyInstance.position.distance_to(b.position) < ((b.areaNode.scale.z/2)*bodySpacingBuffer):
+		if bodyInstance.origin.distance_to(b.origin) < ((b.areaNode.scale.z)*bodySpacingBuffer):
 			return true
 	return false
 

@@ -1,10 +1,12 @@
 extends CharacterBody3D
 
 @export_group("Speed")
-@export var forwardSpeed = 25;
+@export var forwardSpeedRange = {"min": 25, "max": 500};
 @export var strifeSpeed = 7.5;
 @export var hoverSpeed = 5.0;
 @export var rollSpeed = 5.0;
+var forwardSpeed = forwardSpeedRange.min;
+@onready var actualPosition = Vector3(0, 0, 0)
 
 @export var boostSpeed = 10.0;
 
@@ -33,7 +35,9 @@ var currentFOV = 75.0
 @onready var cam = $Camera
 @onready var guns = $Lo_poly_Spaceship_01_by_Liz_Reddington2/Guns
 @onready var world = $"../world"
-@onready var distanceLabel = $UI/Label
+@onready var distanceLabel = $"../UI/distance"
+@onready var speedLabel = $"../UI/speed"
+
 
 @onready var camNode = get_viewport().get_camera_3d()
 @onready var centre = get_viewport().get_visible_rect().size / 2
@@ -55,8 +59,6 @@ var up = transform.basis.y
 
 var y = 0
 var x = 0
-
-
 
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CONFINED
@@ -87,15 +89,12 @@ func _physics_process(_delta):
 	var result = space_state.intersect_ray(params)
 	
 	distanceLabel.text = ""
-	
-	print(result)
-	
+		
 	if result:
 		var hit_origin = result.collider.global_transform.origin
 		var distanceM = global_position.distance_to(hit_origin)
 		var distanceKM:float = snappedf(distanceM/1000, 0.001)
-		distanceLabel.text = str(distanceKM) + "KM\n\n"
-		print(result.position)
+		distanceLabel.text = str(distanceKM) + "KM"
 	
 func _process(delta):
 	
@@ -117,6 +116,7 @@ func _process(delta):
 	
 	move(delta)
 	move_and_slide()
+	speedLabel.text = str(int(velocity.length())) + "U/s"
 	
 
 func move(delta):
@@ -141,8 +141,8 @@ func move(delta):
 	velocity = velocity.lerp(up * inputVector.y * hoverSpeed, hoverAcceleration * delta)
 	
 	#ChatGPT sucks, good thing I deleted my account
-	var quaternion = Quaternion.from_euler(Vector3(y * mouseSpeed * delta, -x * mouseSpeed * delta, roll * rollSpeed * delta))
-	transform.basis *= Basis(quaternion)
+	var quaternionRot = Quaternion.from_euler(Vector3(y * mouseSpeed * delta, -x * mouseSpeed * delta, roll * rollSpeed * delta))
+	transform.basis *= Basis(quaternionRot)
 	
 	#camera movement
 	cam.fov = lerpf(cam.fov, currentFOV, fovDamping * delta)

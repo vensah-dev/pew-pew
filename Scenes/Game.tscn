@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bae0rrler2lwr"]
+[gd_scene load_steps=19 format=3 uid="uid://bae0rrler2lwr"]
 
 [ext_resource type="Script" path="res://Scripts/gameManager.gd" id="1_jmc7e"]
 [ext_resource type="PackedScene" uid="uid://cgng6km46j0vt" path="res://Scenes/player.tscn" id="2_de30o"]
@@ -6,6 +6,9 @@
 [ext_resource type="Script" path="res://Scripts/SolarSystemSpawner.gd" id="4_s4hp0"]
 [ext_resource type="PackedScene" uid="uid://bxtudok6crrjx" path="res://Scenes/solarSystem.tscn" id="5_synb3"]
 [ext_resource type="PackedScene" uid="uid://bqlcfe1mwgjsh" path="res://Scenes/asteroid_spawner.tscn" id="6_83vop"]
+[ext_resource type="Script" path="res://Scripts/crosshair.gd" id="7_mhgb4"]
+[ext_resource type="PackedScene" uid="uid://34hbmj2ovvb2" path="res://miniMap.tscn" id="9_7ngw5"]
+[ext_resource type="PackedScene" uid="uid://cydpyr360sp2s" path="res://Scenes/cam_minimap.tscn" id="9_i6eme"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_0hsjf"]
 
@@ -24,7 +27,9 @@ sky_material = SubResource("ProceduralSkyMaterial_vdd1u")
 [sub_resource type="Environment" id="Environment_mqi2g"]
 background_mode = 1
 sky = SubResource("Sky_062vn")
-glow_enabled = true
+ambient_light_source = 2
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_energy = 0.5
 glow_levels/1 = 1.0
 glow_levels/2 = 1.0
 glow_levels/4 = 1.0
@@ -34,24 +39,41 @@ glow_normalized = true
 glow_intensity = 5.0
 glow_mix = 0.413
 fog_enabled = true
+fog_mode = 1
 fog_light_color = Color(0, 0, 0, 1)
-fog_density = 0.0001
-volumetric_fog_enabled = true
+fog_density = 1.0
+fog_depth_begin = 500000.0
+fog_depth_end = 1e+06
 volumetric_fog_density = 0.0001
 volumetric_fog_albedo = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_8opnt"]
+line_spacing = 60.0
+font_size = 32
+font_color = Color(0, 0, 0, 1)
+outline_size = 10
+
+[sub_resource type="LabelSettings" id="LabelSettings_7r6wg"]
+font_size = 32
+
+[sub_resource type="LabelSettings" id="LabelSettings_3un3w"]
+font_size = 24
+font_color = Color(1, 0.883333, 0, 1)
 
 [node name="Game" type="Node3D"]
 script = ExtResource("1_jmc7e")
 
 [node name="player" parent="." instance=ExtResource("2_de30o")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.22567, 7994.67, -0.923349)
-forwardSpeed = 100
-boostSpeed = 1000.0
+forwardSpeedRange = {
+"max": 500,
+"min": 500
+}
+boostSpeed = 10000.0
+mouseIdleThreshold = 0.01
 raycastRange = 10000000
 
 [node name="world" type="Node3D" parent="."]
 script = ExtResource("3_aiun5")
-distanceThreshold = 1000.0
 
 [node name="StaticBody3D" type="StaticBody3D" parent="world"]
 transform = Transform3D(999.999, -0.0144896, -0.388446, 1.44894, 9.99999, -0.0508776, 0.38852, 0.000503117, 1000, 0, 0, 0)
@@ -73,7 +95,7 @@ environment = SubResource("Environment_mqi2g")
 script = ExtResource("4_s4hp0")
 maxNumber = 5
 minNumber = 1
-maxSpawnRadius = 500000.0
+maxSpawnRadius = 1.5e+06
 bodySpacingBuffer = 5.0
 solarSystems = Array[PackedScene]([ExtResource("5_synb3")])
 
@@ -94,3 +116,97 @@ light_color = Color(0.701741, 0.735211, 0.796835, 1)
 light_energy = 250.0
 spot_range = 1494.51
 spot_angle = 77.27
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Crosshair" type="CenterContainer" parent="UI"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(16, 16)
+script = ExtResource("7_mhgb4")
+
+[node name="distance" type="Label" parent="UI"]
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -71.0
+offset_bottom = -26.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "distance"
+label_settings = SubResource("LabelSettings_8opnt")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="speed" type="Label" parent="UI"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 128.0
+offset_top = -173.0
+offset_right = 239.0
+offset_bottom = -128.0
+grow_vertical = 0
+text = "100 u/s"
+label_settings = SubResource("LabelSettings_7r6wg")
+
+[node name="FPS" type="Label" parent="UI"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = -50.0
+offset_right = 90.0
+offset_bottom = -16.0
+grow_vertical = 0
+pivot_offset = Vector2(37, 17)
+text = "FPS 60"
+label_settings = SubResource("LabelSettings_3un3w")
+
+[node name="minimap" parent="UI" instance=ExtResource("9_i6eme")]
+anchors_preset = 15
+anchor_left = 0.0
+anchor_bottom = 1.0
+offset_left = 37.0
+offset_top = 32.0
+offset_right = -867.0
+offset_bottom = -32.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(508, 0)
+target = NodePath("../../player")
+cameraDistance = 3e+06
+keyBind = &"map"
+
+[node name="rotation" parent="UI" instance=ExtResource("9_i6eme")]
+anchors_preset = 3
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = -432.0
+offset_top = -432.0
+offset_right = -32.0
+offset_bottom = -32.0
+grow_vertical = 0
+color = Color(1, 1, 1, 0.0392157)
+target = NodePath("../../player")
+followTarget = true
+
+[node name="MiniMap2" parent="UI" instance=ExtResource("9_7ngw5")]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -1080.0
+offset_right = 0.0
+offset_bottom = 1080.0
+grow_horizontal = 0
+playerPath = NodePath("../../player")

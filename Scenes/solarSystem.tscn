@@ -3,9 +3,9 @@
 [ext_resource type="Script" path="res://Scripts/solarSystem.gd" id="1_nynkk"]
 [ext_resource type="PackedScene" uid="uid://bxhfbhpiubqlf" path="res://Scenes/star.tscn" id="2_iv6tc"]
 [ext_resource type="Script" path="res://Scripts/celestialBodySpawner.gd" id="2_jlk52"]
-[ext_resource type="PackedScene" uid="uid://dxhvjt3a14gyj" path="res://Scenes/planetBlue.tscn" id="3_6vlfv"]
-[ext_resource type="PackedScene" uid="uid://b6h5b7cc7kf0y" path="res://Scenes/planetGreen.tscn" id="4_gbmfi"]
-[ext_resource type="PackedScene" uid="uid://mbm4ko8klohf" path="res://Scenes/planetRed.tscn" id="5_2ccls"]
+[ext_resource type="PackedScene" uid="uid://cf5feuw5a0xw7" path="res://Scenes/redPlanet.tscn" id="4_av28a"]
+[ext_resource type="PackedScene" uid="uid://cceo0v6crva0c" path="res://Scenes/greenPlanet.tscn" id="5_jfsbo"]
+[ext_resource type="PackedScene" uid="uid://buow2cclieyvp" path="res://Scenes/bluePlanet.tscn" id="6_an82u"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_p2e1a"]
 
@@ -21,7 +21,7 @@ minNumberOfBodies = 1
 maxNumberOfBodies = 10
 randomizePositions = false
 aoidOverlap = false
-bodies = Array[PackedScene]([ExtResource("3_6vlfv"), ExtResource("4_gbmfi"), ExtResource("5_2ccls")])
+bodies = Array[PackedScene]([ExtResource("4_av28a"), ExtResource("5_jfsbo"), ExtResource("6_an82u")])
 
 [node name="Area" type="Area3D" parent="."]
 

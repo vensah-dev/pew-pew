@@ -2,7 +2,7 @@ extends Node3D
 
 @export var stars: Array[PackedScene]
 @export var bodySpacingBuffer = 2.0
-@export var areaBuffer = 10000.0
+@export var areaBuffer = 100000.0
 @export var spawnSeed: int
 
 @onready var root = get_tree().root.get_child(0)
@@ -51,6 +51,9 @@ func set_planets():
 		
 		var randomRotationSpeed = Vector3(0, (root.randomf(i)/children[i].scale.z), 0)
 		children[i].pivotRotationalSpeed = randomRotationSpeed
+		children[i].rotation_degrees.x = root.randomi_range(0, 360, i)
 		children[i].rotation_degrees.y = root.randomi_range(0, 360, i)
+		children[i].rotation_degrees.z = root.randomi_range(0, 360, i)
+
 		
-	areaNode.scale = Vector3(closestDistToStar+areaBuffer, closestDistToStar+areaBuffer, closestDistToStar+areaBuffer)
+	areaNode.scale = Vector3(closestDistToStar*areaBuffer, closestDistToStar*areaBuffer, closestDistToStar*areaBuffer)

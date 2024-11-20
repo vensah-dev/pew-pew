@@ -8,7 +8,7 @@ extends Node3D
 
 @export var gunPoints: Array[Node3D]
 
-@onready var Bullet = load("res://bullet.tscn")
+@onready var Bullet = load("res://Scenes/bullet.tscn")
 
 @onready var main = get_tree().current_scene
 @onready var cam = get_viewport().get_camera_3d()

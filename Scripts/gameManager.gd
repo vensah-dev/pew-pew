@@ -6,6 +6,9 @@ extends Node
 @onready var player = $player
 @onready var world = $world
 
+@onready var fpsLabel = $"UI/FPS"
+
+
 signal seed_ready
 
 var spawnSeedHashed: int
@@ -25,7 +28,7 @@ func _ready():
 	print("Spawn Seed Hashed: " + str(spawnSeedHashed))
 	
 func _process(_delta):
-	print("FPS " + str(Engine.get_frames_per_second()))
+	fpsLabel.text = "FPS " + str(Engine.get_frames_per_second())
 	
 ##seed random functions
 func randomf(x):

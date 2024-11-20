@@ -9,6 +9,7 @@ extends Node3D
 @export var axisRotationalSpeed = Vector3(0, 0, 0)
 @export var mass = 100
 @export var is_sun = false
+@export var appearOnMinimap := true
 
 @onready var rigidbody = $RigidBody3D
 #@onready var light = get_node("/RigidBody3D/MeshInstance3D/Light")
@@ -17,6 +18,8 @@ extends Node3D
 @onready var player
 
 func _ready():
+	if appearOnMinimap:
+		add_to_group("StaticMinimapItems")
 	player = root.get_child(0)
 
 func _process(_delta):
