@@ -29,8 +29,8 @@ func spawnStars():
 		var randomx = rng.randi_range(0, 360)
 		var randomz = rng.randi_range(0, 360)
 		
-		var quaternion = Quaternion.from_euler(Vector3(randomy, randomx, randomz))	
-		transform.basis *= Basis(quaternion)
+		var quaternionRot = Quaternion.from_euler(Vector3(randomy, randomx, randomz))	
+		transform.basis *= Basis(quaternionRot)
 		
 		star.position += transform.basis * Vector3(0, 0, spawnRadius)
 		

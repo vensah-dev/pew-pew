@@ -45,15 +45,17 @@ func set_planets():
 	
 	var children = planetNode.get_children()
 	for i in children.size():
+		# children[i].rotation_degrees.x = root.randomi_range(-360, 360, i)
+		# children[i].rotation_degrees.y = root.randomi_range(-360, 360, i+1)
+		# children[i].rotation_degrees.z = root.randomi_range(-360, 360, i+3)
+
 		closestDistToStar += children[i].scale.z*bodySpacingBuffer
 		children[i].rigidbody.global_position.z += closestDistToStar
 		closestDistToStar += children[i].scale.z*bodySpacingBuffer
 		
-		var randomRotationSpeed = Vector3(0, (root.randomf(i)/children[i].scale.z), 0)
+		var randomRotationSpeed = Vector3(0, (root.randomf(i)/children[i].scale.z)*10000, 0)
 		children[i].pivotRotationalSpeed = randomRotationSpeed
-		children[i].rotation_degrees.x = root.randomi_range(0, 360, i)
-		children[i].rotation_degrees.y = root.randomi_range(0, 360, i)
-		children[i].rotation_degrees.z = root.randomi_range(0, 360, i)
+
 
 		
 	areaNode.scale = Vector3(closestDistToStar*areaBuffer, closestDistToStar*areaBuffer, closestDistToStar*areaBuffer)

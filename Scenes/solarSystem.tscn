@@ -19,6 +19,7 @@ stars = Array[PackedScene]([ExtResource("2_iv6tc")])
 script = ExtResource("2_jlk52")
 minNumberOfBodies = 1
 maxNumberOfBodies = 10
+maxSpawnRadius = 0.0
 randomizePositions = false
 aoidOverlap = false
 bodies = Array[PackedScene]([ExtResource("4_av28a"), ExtResource("5_jfsbo"), ExtResource("6_an82u")])

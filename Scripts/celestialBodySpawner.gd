@@ -37,7 +37,8 @@ func spawn_body():
 	
 	print("Celestial Spawner: " + str(spawnSeed))
 	
-	var numberOfBodies = root.randomi_range(minNumberOfBodies, maxNumberOfBodies, 4)
+	var numberOfBodies = root.randomi_range(minNumberOfBodies, maxNumberOfBodies, rng.seed)
+
 	for x in numberOfBodies:
 		var randomIndex = rand_from_seed(rng.seed + x)[0]%bodies.size()
 		var bodyInstance = bodies[randomIndex].instantiate()
@@ -75,7 +76,7 @@ func _process(_delta):
 			#remove_child(c)
 			#c.queue_free()
 			#
-	print(children.size())
+	# print("children.size(): ", children.size())
 
 func random_point_in_sphere(minRadius, maxRadius) -> Vector3:
 	var random_direction = Vector3(rng.randf_range(-1.0, 1.0), rng.randf_range(-1.0, 1.0), rng.randf_range(-1.0, 1.0)).normalized()

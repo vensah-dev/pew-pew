@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://bxtudok6crrjx" path="res://Scenes/solarSystem.tscn" id="5_synb3"]
 [ext_resource type="PackedScene" uid="uid://bqlcfe1mwgjsh" path="res://Scenes/asteroid_spawner.tscn" id="6_83vop"]
 [ext_resource type="Script" path="res://Scripts/crosshair.gd" id="7_mhgb4"]
-[ext_resource type="PackedScene" uid="uid://34hbmj2ovvb2" path="res://miniMap.tscn" id="9_7ngw5"]
+[ext_resource type="PackedScene" uid="uid://34hbmj2ovvb2" path="res://Scenes/miniMap.tscn" id="9_7ngw5"]
 [ext_resource type="PackedScene" uid="uid://cydpyr360sp2s" path="res://Scenes/cam_minimap.tscn" id="9_i6eme"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_0hsjf"]
@@ -62,6 +62,7 @@ font_color = Color(1, 0.883333, 0, 1)
 
 [node name="Game" type="Node3D"]
 script = ExtResource("1_jmc7e")
+spawnSeed = "2891365617"
 
 [node name="player" parent="." instance=ExtResource("2_de30o")]
 forwardSpeedRange = {
@@ -100,6 +101,9 @@ bodySpacingBuffer = 5.0
 solarSystems = Array[PackedScene]([ExtResource("5_synb3")])
 
 [node name="asteroidSpawner" parent="world" instance=ExtResource("6_83vop")]
+visible = false
+minNumberOfBodies = 0
+maxNumberOfBodies = 0
 
 [node name="Star Light" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 41.4585, 0)
@@ -173,7 +177,8 @@ pivot_offset = Vector2(37, 17)
 text = "FPS 60"
 label_settings = SubResource("LabelSettings_3un3w")
 
-[node name="minimap" parent="UI" instance=ExtResource("9_i6eme")]
+[node name="minimapCam" parent="UI" instance=ExtResource("9_i6eme")]
+visible = false
 anchors_preset = 15
 anchor_left = 0.0
 anchor_bottom = 1.0
@@ -186,7 +191,6 @@ grow_vertical = 2
 pivot_offset = Vector2(508, 0)
 target = NodePath("../../player")
 cameraDistance = 3e+06
-keyBind = &"map"
 
 [node name="rotation" parent="UI" instance=ExtResource("9_i6eme")]
 anchors_preset = 3
@@ -200,13 +204,11 @@ grow_vertical = 0
 color = Color(1, 1, 1, 0.0392157)
 target = NodePath("../../player")
 followTarget = true
+keyBind = &"gyroscope"
 
-[node name="MiniMap2" parent="UI" instance=ExtResource("9_7ngw5")]
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -1080.0
-offset_right = 0.0
-offset_bottom = 1080.0
-grow_horizontal = 0
+[node name="minimap" parent="UI" instance=ExtResource("9_7ngw5")]
+offset_left = -520.0
+offset_top = 21.0
+offset_right = -20.0
+offset_bottom = 521.0
 playerPath = NodePath("../../player")

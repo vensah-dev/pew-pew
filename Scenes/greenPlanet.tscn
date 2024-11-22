@@ -20,7 +20,6 @@ size = {
 }
 type = "greenPlanet"
 mass = 1000
-is_sun = true
 
 [node name="RigidBody3D" type="RigidBody3D" parent="."]
 mass = 1000.0

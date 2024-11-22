@@ -28,6 +28,7 @@ version_control/autoload_on_startup=true
 [global_group]
 
 StaticMinimapItems="for stuff that should appear on the minimap"
+CelestialBody="for calculating body's actualPosition"
 
 [input]
 

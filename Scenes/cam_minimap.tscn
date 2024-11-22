@@ -38,5 +38,5 @@ transform = Transform3D(-1, 8.74228e-08, 0, 3.82137e-15, 4.37114e-08, 1, 8.74228
 environment = SubResource("Environment_4xabh")
 projection = 1
 current = true
-size = 200.0
-far = 6e+06
+size = 3e+06
+far = 9e+06

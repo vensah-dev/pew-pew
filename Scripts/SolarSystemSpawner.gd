@@ -15,6 +15,8 @@ extends Node3D
 
 var spawnedSystems: Array
 
+var maxSpawnDiameter = maxSpawnRadius*2
+
 func _ready():
 	root.connect("seed_ready", spawn_systems)
 	
@@ -28,7 +30,7 @@ func spawn_systems():
 	rng.seed = root.spawnSeedHashed
 	print("spawner: " + str(rng.seed))
 	
-	var numberOfSystems = root.randomi_range(minNumber, maxNumber, 4)
+	var numberOfSystems = root.randomi_range(minNumber, maxNumber, rng.seed)
 	for x in numberOfSystems:
 		var randomIndex = rand_from_seed(rng.seed + x)[0]%solarSystems.size()
 		var bodyInstance = solarSystems[randomIndex].instantiate()

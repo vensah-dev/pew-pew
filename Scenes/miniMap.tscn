@@ -1,47 +1,62 @@
 [gd_scene load_steps=5 format=3 uid="uid://34hbmj2ovvb2"]
 
-[ext_resource type="Script" path="res://mini_map.gd" id="1_hnhga"]
+[ext_resource type="Script" path="res://Scripts/mini_map.gd" id="1_hnhga"]
 [ext_resource type="Texture2D" uid="uid://drph0c56jxfcg" path="res://Assets/UI/Graduation Hat.png" id="2_6edfv"]
 [ext_resource type="Texture2D" uid="uid://dn6gmbx86b4gl" path="res://Assets/UI/CrossHair.png" id="3_fyii6"]
 [ext_resource type="Texture2D" uid="uid://3b1d5pso3p" path="res://Assets/star.png" id="4_rrny5"]
 
 [node name="MiniMap" type="MarginContainer"]
-offset_right = 200.0
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -200.0
 offset_bottom = 200.0
+grow_horizontal = 0
 mouse_default_cursor_shape = 6
 script = ExtResource("1_hnhga")
 
-[node name="border" type="ColorRect" parent="."]
+[node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 2
-color = Color(0.74, 0.74, 0.74, 0.0745098)
+color = Color(0, 0.483333, 1, 0.105882)
 
-[node name="contents" type="MarginContainer" parent="."]
+[node name="contentsBorder" type="MarginContainer" parent="."]
 layout_mode = 2
-mouse_default_cursor_shape = 6
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="bg" type="ColorRect" parent="contents"]
+[node name="bg" type="ColorRect" parent="contentsBorder"]
+layout_mode = 2
+color = Color(0, 1, 0, 1)
+
+[node name="contents" type="MarginContainer" parent="contentsBorder"]
+layout_mode = 2
+mouse_default_cursor_shape = 6
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
+
+[node name="grid" type="ColorRect" parent="contentsBorder/contents"]
 layout_mode = 2
 mouse_filter = 1
 mouse_default_cursor_shape = 6
 color = Color(0, 0, 0, 1)
 
-[node name="star" type="Sprite2D" parent="contents/bg"]
+[node name="star" type="Sprite2D" parent="contentsBorder/contents/grid"]
 visible = false
 position = Vector2(41, 54)
 scale = Vector2(0.01, 0.01)
 texture = ExtResource("4_rrny5")
 
-[node name="planet" type="Sprite2D" parent="contents/bg"]
+[node name="planet" type="Sprite2D" parent="contentsBorder/contents/grid"]
 visible = false
 position = Vector2(161, 129)
 scale = Vector2(0.01, 0.01)
 texture = ExtResource("3_fyii6")
 
-[node name="player" type="Sprite2D" parent="contents/bg"]
+[node name="player" type="Sprite2D" parent="contentsBorder/contents/grid"]
 position = Vector2(95, 95)
 scale = Vector2(0.01, 0.01)
 texture = ExtResource("2_6edfv")

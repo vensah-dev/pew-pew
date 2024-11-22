@@ -12,6 +12,7 @@ extends ColorRect
 
 
 func _ready() -> void:
+	await get_tree().process_frame
 
 	print("self:", self)
 
@@ -25,11 +26,13 @@ func _ready() -> void:
 
 	# print("subViewportContainer", str(subViewportContainer.position))
 	# print("size", str(position))
+	
+	visible = false
 
-	if keyBind != "":
-		visible = false
-	else:
-		visible = true
+	# if keyBind != "":
+	# 	visible = false
+	# else:
+	# 	visible = true
 
 
 func _process(_delta: float) -> void:
