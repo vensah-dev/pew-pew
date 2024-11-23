@@ -14,8 +14,8 @@ material = SubResource("StandardMaterial3D_kigfh")
 [node name="bluePlanet" type="Node3D"]
 script = ExtResource("1_cxiul")
 size = {
-"max": 5000,
-"min": 7500
+"max": 7500,
+"min": 12500
 }
 type = "bluePlanet"
 mass = 1000
@@ -29,6 +29,10 @@ freeze = true
 [node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D"]
 layers = 1023
 lod_bias = 0.001
+visibility_range_begin_margin = 1.5e+06
+visibility_range_end = 1.5e+06
+visibility_range_end_margin = 1.5e+06
+visibility_range_fade_mode = 1
 mesh = SubResource("SphereMesh_cpmb8")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]

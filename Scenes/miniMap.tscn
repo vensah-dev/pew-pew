@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://34hbmj2ovvb2"]
 
-[ext_resource type="Script" path="res://Scripts/mini_map.gd" id="1_hnhga"]
+[ext_resource type="Script" path="res://Scripts/minimap.gd" id="1_hnhga"]
 [ext_resource type="Texture2D" uid="uid://drph0c56jxfcg" path="res://Assets/UI/Graduation Hat.png" id="2_6edfv"]
 [ext_resource type="Texture2D" uid="uid://dn6gmbx86b4gl" path="res://Assets/UI/CrossHair.png" id="3_fyii6"]
 [ext_resource type="Texture2D" uid="uid://3b1d5pso3p" path="res://Assets/star.png" id="4_rrny5"]

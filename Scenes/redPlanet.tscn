@@ -17,8 +17,8 @@ material = SubResource("StandardMaterial3D_kwmhk")
 [node name="redPlanet" type="Node3D"]
 script = ExtResource("1_mpe8i")
 size = {
-"max": 5000,
-"min": 7500
+"max": 12500,
+"min": 17500
 }
 type = "redPlanet"
 mass = 1000
@@ -32,6 +32,10 @@ freeze = true
 [node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D"]
 layers = 1023
 lod_bias = 0.001
+visibility_range_begin_margin = 1.5e+06
+visibility_range_end = 1.5e+06
+visibility_range_end_margin = 1.5e+06
+visibility_range_fade_mode = 1
 mesh = SubResource("SphereMesh_cpmb8")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]

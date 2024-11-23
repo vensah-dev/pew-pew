@@ -18,8 +18,8 @@ material = SubResource("StandardMaterial3D_kwmhk")
 [node name="Star" type="Node3D"]
 script = ExtResource("1_cjb4e")
 size = {
-"max": 7500,
-"min": 10000
+"max": 30000,
+"min": 50000
 }
 type = "star"
 mass = 1000
@@ -40,9 +40,10 @@ skeleton = NodePath("../..")
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.229223, 0)
 layers = 511
 light_color = Color(0.983333, 1, 0, 1)
-light_energy = 10.0
+light_energy = 100.0
+light_indirect_energy = 10.0
 light_cull_mask = 4294966782
-omni_range = 4096.0
+omni_range = 3e+07
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
 shape = SubResource("SphereShape3D_xowde")

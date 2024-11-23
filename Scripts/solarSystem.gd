@@ -29,6 +29,7 @@ func set_star():
 	var star = stars[randomIndex].instantiate()
 	var randomSize = rng.randi_range(star.size.min, star.size.max)
 	star.scale = Vector3(randomSize, randomSize, randomSize)
+	star.position = Vector3(0, 0, 0)
 	add_child(star)
 	
 	closestDistToStar = star.scale.z
@@ -47,14 +48,19 @@ func set_planets():
 	for i in children.size():
 		# children[i].rotation_degrees.x = root.randomi_range(-360, 360, i)
 		# children[i].rotation_degrees.y = root.randomi_range(-360, 360, i+1)
-		# children[i].rotation_degrees.z = root.randomi_range(-360, 360, i+3)
 
+		children[i].position = Vector3(0, 0, 0)
 		closestDistToStar += children[i].scale.z*bodySpacingBuffer
 		children[i].rigidbody.global_position.z += closestDistToStar
 		closestDistToStar += children[i].scale.z*bodySpacingBuffer
 		
-		var randomRotationSpeed = Vector3(0, (root.randomf(i)/children[i].scale.z)*10000, 0)
+		var randomRotationSpeed = Vector3(0, root.randomf(i)/children[i].scale.y, 0)
 		children[i].pivotRotationalSpeed = randomRotationSpeed
+
+		# children[i].rotation_degrees.x = root.randomi_range(-360, 360, i+3)
+		children[i].rotation_degrees.y = root.randomi_range(-360, 360, i)
+
+
 
 
 		

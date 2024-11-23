@@ -7,8 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://bxtudok6crrjx" path="res://Scenes/solarSystem.tscn" id="5_synb3"]
 [ext_resource type="PackedScene" uid="uid://bqlcfe1mwgjsh" path="res://Scenes/asteroid_spawner.tscn" id="6_83vop"]
 [ext_resource type="Script" path="res://Scripts/crosshair.gd" id="7_mhgb4"]
-[ext_resource type="PackedScene" uid="uid://34hbmj2ovvb2" path="res://Scenes/miniMap.tscn" id="9_7ngw5"]
-[ext_resource type="PackedScene" uid="uid://cydpyr360sp2s" path="res://Scenes/cam_minimap.tscn" id="9_i6eme"]
+[ext_resource type="PackedScene" uid="uid://34hbmj2ovvb2" path="res://Scenes/minimap.tscn" id="9_7ngw5"]
+[ext_resource type="PackedScene" uid="uid://cydpyr360sp2s" path="res://Scenes/cameraView.tscn" id="9_i6eme"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_0hsjf"]
 
@@ -38,7 +38,6 @@ glow_levels/7 = 1.0
 glow_normalized = true
 glow_intensity = 5.0
 glow_mix = 0.413
-fog_enabled = true
 fog_mode = 1
 fog_light_color = Color(0, 0, 0, 1)
 fog_density = 1.0
@@ -96,8 +95,8 @@ environment = SubResource("Environment_mqi2g")
 script = ExtResource("4_s4hp0")
 maxNumber = 5
 minNumber = 1
-maxSpawnRadius = 1.5e+06
-bodySpacingBuffer = 5.0
+maxSpawnRadius = 1.5e+07
+bodySpacingBuffer = 0.0
 solarSystems = Array[PackedScene]([ExtResource("5_synb3")])
 
 [node name="asteroidSpawner" parent="world" instance=ExtResource("6_83vop")]
