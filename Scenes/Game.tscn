@@ -66,9 +66,9 @@ spawnSeed = "2891365617"
 [node name="player" parent="." instance=ExtResource("2_de30o")]
 forwardSpeedRange = {
 "max": 500,
-"min": 500
+"min": 50000
 }
-boostSpeed = 10000.0
+boostSpeed = 100.0
 mouseIdleThreshold = 0.01
 raycastRange = 10000000
 
@@ -93,14 +93,12 @@ environment = SubResource("Environment_mqi2g")
 
 [node name="Solar System Spawner" type="Node3D" parent="world"]
 script = ExtResource("4_s4hp0")
-maxNumber = 5
-minNumber = 1
+maxNumber = 25
+minNumber = 10
 maxSpawnRadius = 1.5e+07
-bodySpacingBuffer = 0.0
 solarSystems = Array[PackedScene]([ExtResource("5_synb3")])
 
 [node name="asteroidSpawner" parent="world" instance=ExtResource("6_83vop")]
-visible = false
 minNumberOfBodies = 0
 maxNumberOfBodies = 0
 

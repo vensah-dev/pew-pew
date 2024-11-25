@@ -8,4 +8,5 @@ script = ExtResource("1_ydthi")
 maxNumber = 5
 minNumber = 5
 maxSpawnRadius = 500000.0
+bodySpacingBuffer = 50.0
 solarSystems = Array[PackedScene]([ExtResource("2_2gtm8")])

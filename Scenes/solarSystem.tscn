@@ -12,6 +12,7 @@
 [node name="SolarSystem" type="Node3D"]
 script = ExtResource("1_nynkk")
 stars = Array[PackedScene]([ExtResource("2_iv6tc")])
+areaBuffer = 1.1
 
 [node name="Star" type="Node3D" parent="."]
 

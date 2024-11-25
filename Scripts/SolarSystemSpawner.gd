@@ -4,7 +4,7 @@ extends Node3D
 @export var minNumber = 100
 @export var maxSpawnRadius = 50.0
 @export var minSpawnRadius = 0.0
-@export var bodySpacingBuffer = 2.0
+@export var bodySpacingBuffer = 10.0
 @export var aoidOverlap = true
 
 @export var solarSystems: Array[PackedScene]
@@ -22,8 +22,11 @@ func _ready():
 	
 func in_another_body(bodyInstance):
 	for b in spawnedSystems:
-		if bodyInstance.origin.distance_to(b.origin) < ((b.areaNode.scale.z)*bodySpacingBuffer):
-			return true
+		if bodyInstance != b:
+			var distanceBetweenSystems = bodyInstance.position.distance_to(b.position) - (bodyInstance.areaNode.scale.z/2 + b.areaNode.scale.z/2)
+			if distanceBetweenSystems < ((bodyInstance.areaNode.scale.z/2 + b.areaNode.scale.z/2)*bodySpacingBuffer):
+				return true
+
 	return false
 
 func spawn_systems():
@@ -35,15 +38,18 @@ func spawn_systems():
 		var randomIndex = rand_from_seed(rng.seed + x)[0]%solarSystems.size()
 		var bodyInstance = solarSystems[randomIndex].instantiate()
 		
-		bodyInstance.position = random_point_in_sphere(minSpawnRadius, maxSpawnRadius)
-		
-		#if aoidOverlap:
-			#while in_another_body(bodyInstance):
-				#bodyInstance.position = random_point_in_sphere(minSpawnRadius, maxSpawnRadius)
+		var randomPosition = random_point_in_sphere(minSpawnRadius, maxSpawnRadius)
+		bodyInstance.position = randomPosition
 
 		bodyInstance.spawnSeed = rng.seed + x
 		add_child(bodyInstance)
 		bodyInstance.setSystem()
+
+		while in_another_body(bodyInstance):
+			bodyInstance.position = random_point_in_sphere(minSpawnRadius, maxSpawnRadius)
+
+
+		print("Position of ", bodyInstance, ": ", bodyInstance.position)
 
 		spawnedSystems.append(bodyInstance)
 

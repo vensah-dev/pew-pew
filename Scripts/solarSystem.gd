@@ -11,7 +11,7 @@ extends Node3D
 @onready var planetNode = $Planets
 @onready var areaNode = $Area
 
-var closestDistToStar: float
+var distToStar: float
 
 func _ready():
 	print("solar system: " + str(spawnSeed))
@@ -32,7 +32,7 @@ func set_star():
 	star.position = Vector3(0, 0, 0)
 	add_child(star)
 	
-	closestDistToStar = star.scale.z
+	distToStar = star.scale.z
 
 func set_planets():
 	##delete all the children in case some planets were already generated
@@ -49,19 +49,28 @@ func set_planets():
 		# children[i].rotation_degrees.x = root.randomi_range(-360, 360, i)
 		# children[i].rotation_degrees.y = root.randomi_range(-360, 360, i+1)
 
-		children[i].position = Vector3(0, 0, 0)
-		closestDistToStar += children[i].scale.z*bodySpacingBuffer
-		children[i].rigidbody.global_position.z += closestDistToStar
-		closestDistToStar += children[i].scale.z*bodySpacingBuffer
+		var child = children[i]
+
+		child.position = Vector3(0, 0, 0)
+		distToStar += child.scale.z*bodySpacingBuffer
+		child.rigidbody.global_position.z += distToStar
+		distToStar += child.scale.z*bodySpacingBuffer
 		
-		var randomRotationSpeed = Vector3(0, root.randomf(i)/children[i].scale.y, 0)
-		children[i].pivotRotationalSpeed = randomRotationSpeed
+		var randomRotationSpeed = Vector3(0, root.randomf(i)/distToStar, 0)
+		child.pivotRotationalSpeed = randomRotationSpeed
 
 		# children[i].rotation_degrees.x = root.randomi_range(-360, 360, i+3)
-		children[i].rotation_degrees.y = root.randomi_range(-360, 360, i)
+		child.rotation_degrees.y = root.randomi_range(-360, 360, i)
+		child.rigidbody.rotation_degrees.x = root.randomi_range(-360, 360, i+1)
+		child.axisRotationalSpeed = Vector3(0, root.randomf(i)/inverse_lerp(child.size.min, child.size.max, child.scale.z), 0)
+
+
 
 
 
 
 		
-	areaNode.scale = Vector3(closestDistToStar*areaBuffer, closestDistToStar*areaBuffer, closestDistToStar*areaBuffer)
+	areaNode.scale = Vector3(distToStar*areaBuffer, distToStar*areaBuffer, distToStar*areaBuffer)
+
+
+	# print(self, " | AreaNode Scale:", areaNode.scale)

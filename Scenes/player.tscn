@@ -98,7 +98,8 @@ blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_2nexg")
 
 [node name="player" type="CharacterBody3D"]
-collision_layer = 2
+disable_mode = 1
+collision_layer = 255
 collision_mask = 2
 script = ExtResource("1_ho7d4")
 strifeSpeed = 15.0
@@ -112,13 +113,13 @@ raycastRange = 100000
 [node name="Camera" type="Camera3D" parent="."]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 4, -10)
 current = true
-near = 2.0
-far = 3e+07
+near = 3.0
+far = 5e+07
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(0.01, 0, 0, 0, 0.01, 0, 0, 0, 0.01, 0, 0, 0)
-visible = false
 shape = SubResource("ConcavePolygonShape3D_ijtb7")
+disabled = true
 
 [node name="Lo_poly_Spaceship_01_by_Liz_Reddington2" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.01, 0, 0, 0, 0.01, 0, 0, 0, 0.01, 0, 0, 0)

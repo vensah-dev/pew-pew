@@ -141,5 +141,6 @@ camera_pan={
 
 renderer/rendering_method.mobile="gl_compatibility"
 renderer/rendering_method.web="forward_plus"
+anti_aliasing/quality/msaa_3d=1
 viewport/transparent_background=true
 viewport/hdr_2d=true

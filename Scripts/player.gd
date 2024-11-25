@@ -1,7 +1,7 @@
 extends CharacterBody3D
 
 @export_group("Speed")
-@export var forwardSpeedRange = {"min": 25, "max": 500};
+@export var forwardSpeedRange = {"min": 5000, "max": 500};
 @export var strifeSpeed = 7.5;
 @export var hoverSpeed = 5.0;
 @export var rollSpeed = 5.0;

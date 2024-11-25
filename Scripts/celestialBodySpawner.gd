@@ -24,8 +24,9 @@ func _ready():
 	
 func in_another_body(bodyInstance):
 	for b in spawnedBodies:
-		if bodyInstance.position.distance_to(b.position) < ((b.scale/2)*bodySpacingBuffer):
-			return true
+		if bodyInstance != b:
+			if bodyInstance.position.distance_to(b.position) < ((bodyInstance.size.z)*bodySpacingBuffer):
+				return true
 	return false
 	
 func set_seed():
@@ -58,7 +59,7 @@ func spawn_body():
 		add_child(bodyInstance)
 		spawnedBodies.append(bodyInstance)
 
-func _process(_delta):
+# func _process(_delta):
 	#for i in spawnedBodies.size():
 		#if 0 >= i and i < spawnedBodies.size():
 			#var bodyInstance = spawnedBodies[i]
@@ -68,7 +69,7 @@ func _process(_delta):
 					#add_child(bodyInstance)
 					#spawnedBodies.remove_at(i)
 #
-	var children = self.get_children()
+	# var children = self.get_children()
 	#for c in children:
 		#if root.player.position.distance_to(c.position) > c.visibilityRange:
 			##update position and data

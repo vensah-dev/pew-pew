@@ -34,5 +34,4 @@ mesh = SubResource("SphereMesh_cpmb8")
 skeleton = NodePath("../..")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
-visible = false
 shape = SubResource("SphereShape3D_xowde")
