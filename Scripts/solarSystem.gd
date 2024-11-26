@@ -4,41 +4,19 @@ extends Node3D
 @export var bodySpacingBuffer = 2.0
 @export var areaBuffer = 100000.0
 @export var spawnSeed: int
-@export var unloadPlanetsDistance = 1500000.0
 
 @onready var root = get_tree().root.get_child(0)
 @onready var rng = RandomNumberGenerator.new()
 
 @onready var planetNode = $Planets
 @onready var areaNode = $Area
-@onready var player = root.get_child(0)
+
 var distToStar: float
-var starChild 
 
 func _ready():
 	print("solar system: " + str(spawnSeed))
 	#root.connect("seed_ready", setSystem)
 	#setSystem()
-
-func _process(_delta: float) -> void:
-	if global_position.distance_to(player.global_position) < unloadPlanetsDistance:
-
-		if planetNode.get_child_count() == 0:
-			set_planets()
-
-			# for child in planetNode.get_children():
-			# 	child.queue_free()
-			# 	planetNode.remove_child(child)
-
-
-	else:
-
-		for child in planetNode.get_children():
-			planetNode.remove_child(child)
-			child.queue_free()
-
-		
-	
 
 func setSystem():
 	#rng.seed = root.spawnSeedHashed
@@ -53,7 +31,7 @@ func set_star():
 	star.scale = Vector3(randomSize, randomSize, randomSize)
 	star.position = Vector3(0, 0, 0)
 	add_child(star)
-	starChild = star
+	
 	distToStar = star.scale.z
 
 func set_planets():
@@ -84,9 +62,7 @@ func set_planets():
 		# children[i].rotation_degrees.x = root.randomi_range(-360, 360, i+3)
 		child.rotation_degrees.y = root.randomi_range(-360, 360, i)
 		child.rigidbody.rotation_degrees.x = root.randomi_range(-360, 360, i+1)
-		
-		var rotationOnAxis = Vector3(0, root.randomf(i)/inverse_lerp(child.size.min, child.size.max, child.scale.z)/1000, 0)
-		child.axisRotationalSpeed = rotationOnAxis
+		child.axisRotationalSpeed = Vector3(0, root.randomf(i)/inverse_lerp(child.size.min, child.size.max, child.scale.z), 0)
 
 
 
@@ -95,7 +71,6 @@ func set_planets():
 
 		
 	areaNode.scale = Vector3(distToStar*areaBuffer, distToStar*areaBuffer, distToStar*areaBuffer)
-	distToStar = 0.0
 
 
 	# print(self, " | AreaNode Scale:", areaNode.scale)

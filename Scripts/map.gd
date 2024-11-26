@@ -178,4 +178,3 @@ func scrollToZoom(event):
 
 		if event.button_index == MOUSE_BUTTON_WHEEL_UP and event.pressed:
 			self.zoom -= zoomStep * zoom
-
