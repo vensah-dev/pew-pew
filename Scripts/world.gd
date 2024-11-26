@@ -14,6 +14,7 @@ func _ready():
 
 func _process(_delta):
 	
+	
 	var originOffset = player.global_position
 	# var dstFromOrigin = originOffset.distance_to(Vector3(0, 0, 0))
 
@@ -23,7 +24,8 @@ func _process(_delta):
 	player.actualPosition += originOffset
 
 	for b in celestialBodies:
-		b.actualPosition = b.rigidbody.global_position + player.actualPosition
+		if is_instance_valid(b):
+			b.actualPosition = b.rigidbody.global_position + player.actualPosition
 
 
 	# for b in celestialBodies:
@@ -31,7 +33,13 @@ func _process(_delta):
 
 
 
-	print("player position: ", player.actualPosition)
+	# print("player position: ", player.actualPosition)
+
+
+	# Print the vertex count to the console for debugging
+	# print("Vertex count: ", str(RenderingServer.viewport_get_render_info(%SubViewport.get_viewport_rid(), RenderingServer.VIEWPORT_RENDER_INFO_TYPE_VISIBLE, RenderingServer.VIEWPORT_RENDER_INFO_PRIMITIVES_IN_FRAME)) )
+
+
 
 
 	

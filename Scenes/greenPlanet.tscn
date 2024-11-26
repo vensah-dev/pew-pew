@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://cceo0v6crva0c"]
+[gd_scene load_steps=6 format=3 uid="uid://cceo0v6crva0c"]
 
 [ext_resource type="Script" path="res://Scripts/body.gd" id="1_1t1i3"]
+[ext_resource type="Texture2D" uid="uid://cg6xpkc32ew2" path="res://Assets/Texture/earth.jpeg" id="2_faufn"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7umjt"]
 albedo_color = Color(0, 1, 0.0999999, 1)
+albedo_texture = ExtResource("2_faufn")
 emission = Color(0, 0.15, 0.015, 1)
 emission_energy_multiplier = 0.0
 
@@ -15,8 +17,8 @@ material = SubResource("StandardMaterial3D_7umjt")
 [node name="greenPlanet" type="Node3D"]
 script = ExtResource("1_1t1i3")
 size = {
-"max": 5000,
-"min": 7500
+"max": 7500,
+"min": 5000
 }
 type = "greenPlanet"
 mass = 1000
@@ -30,9 +32,9 @@ freeze = true
 [node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D"]
 layers = 1023
 lod_bias = 0.001
-visibility_range_begin_margin = 1.5e+06
+visibility_range_begin_margin = 1e+06
 visibility_range_end = 1.5e+06
-visibility_range_end_margin = 1.5e+06
+visibility_range_end_margin = 1e+06
 visibility_range_fade_mode = 1
 mesh = SubResource("SphereMesh_cpmb8")
 

@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://buow2cclieyvp"]
+[gd_scene load_steps=6 format=3 uid="uid://buow2cclieyvp"]
 
 [ext_resource type="Script" path="res://Scripts/body.gd" id="1_cxiul"]
+[ext_resource type="Texture2D" uid="uid://b412vurs6f155" path="res://Assets/Texture/mars.jpeg" id="2_10fmh"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kigfh"]
-albedo_color = Color(0, 0.816667, 1, 1)
+albedo_color = Color(0.933333, 0, 1, 1)
+albedo_texture = ExtResource("2_10fmh")
 emission = Color(0, 0.815686, 1, 1)
 
 [sub_resource type="SphereMesh" id="SphereMesh_cpmb8"]
@@ -14,8 +16,8 @@ material = SubResource("StandardMaterial3D_kigfh")
 [node name="bluePlanet" type="Node3D"]
 script = ExtResource("1_cxiul")
 size = {
-"max": 7500,
-"min": 12500
+"max": 12500,
+"min": 7500
 }
 type = "bluePlanet"
 mass = 1000
@@ -29,9 +31,9 @@ freeze = true
 [node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D"]
 layers = 1023
 lod_bias = 0.001
-visibility_range_begin_margin = 1.5e+06
+visibility_range_begin_margin = 1e+06
 visibility_range_end = 1.5e+06
-visibility_range_end_margin = 1.5e+06
+visibility_range_end_margin = 1e+06
 visibility_range_fade_mode = 1
 mesh = SubResource("SphereMesh_cpmb8")
 

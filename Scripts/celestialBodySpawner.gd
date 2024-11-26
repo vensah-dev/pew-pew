@@ -36,7 +36,7 @@ func set_seed():
 func spawn_body():
 	rng.seed = spawnSeed
 	
-	print("Celestial Spawner: " + str(spawnSeed))
+	# print("Celestial Spawner: " + str(spawnSeed))
 	
 	var numberOfBodies = root.randomi_range(minNumberOfBodies, maxNumberOfBodies, rng.seed)
 

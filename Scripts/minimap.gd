@@ -76,22 +76,25 @@ func _ready():
 
 	#set staticMarkerPositions
 	for item in staticMarkers:
-		var objPos
+		if is_instance_valid(item):
 
-		objPos = (Vector2(item.rigidbody.global_position.x, item.rigidbody.global_position.z))
+			var objPos
 
-		staticMarkersPositions[item] = objPos
+			objPos = (Vector2(item.rigidbody.global_position.x, item.rigidbody.global_position.z))
+
+			staticMarkersPositions[item] = objPos
 
 	#Update StaticMarkers
 	for item in staticMarkers:
+		if is_instance_valid(item):
 
-		var pos = ((staticMarkersPositions[item] - Vector2(player.actualPosition.x, player.actualPosition.z)) * gridScale + grid.size / 2)
+			var pos = ((staticMarkersPositions[item] - Vector2(player.actualPosition.x, player.actualPosition.z)) * gridScale + grid.size / 2)
 
-		staticMarkers[item].position = pos
+			staticMarkers[item].position = pos
 
-		staticMarkers[item].scale = Vector2(item.scale.z, item.scale.z) * gridScale * 0.01
+			staticMarkers[item].scale = Vector2(item.scale.z, item.scale.z) * gridScale * 0.01
 
-		pos = pos.clamp(Vector2.ZERO, grid.size)
+			pos = pos.clamp(Vector2.ZERO, grid.size)
 	
 		
 	set_minimap(true)
@@ -121,11 +124,12 @@ func _process(_delta: float) -> void:
 
 	
 	for item in staticMarkers:
-		var objPos
 
-		objPos = (Vector2(item.actualPosition.x, item.actualPosition.z))
+			var objPos
+			if is_instance_valid(item):
+				objPos = (Vector2(item.actualPosition.x, item.actualPosition.z))
 
-		staticMarkersPositions[item] = objPos
+				staticMarkersPositions[item] = objPos
 
 	if minimap:
 
@@ -135,7 +139,10 @@ func _process(_delta: float) -> void:
 
 			staticMarkers[item].position = pos
 
-			staticMarkers[item].scale = Vector2(item.scale.z, item.scale.z) * gridScale * 0.01
+			if is_instance_valid(item):
+				staticMarkers[item].scale = Vector2(item.scale.z, item.scale.z) * gridScale * 0.01
+			else:
+				staticMarkers[item].scale = Vector2(0, 0)
 
 			pos = pos.clamp(Vector2.ZERO, grid.size)
 
@@ -150,8 +157,11 @@ func _process(_delta: float) -> void:
 
 			staticMarkers[item].position = pos
 
-			staticMarkers[item].scale = Vector2(item.scale.z, item.scale.z) * gridScale * 0.01
-
+			if is_instance_valid(item):
+				staticMarkers[item].scale = Vector2(item.scale.z, item.scale.z) * gridScale * 0.01
+			else:
+				staticMarkers[item].scale = Vector2(0, 0)
+				
 			pos = pos.clamp(Vector2.ZERO, grid.size)
 
 	
@@ -188,14 +198,15 @@ func set_minimap(value):
 		playerMarker.position = Vector2.ZERO + grid.size / 2
 
 		for item in staticMarkers:
+			if is_instance_valid(item):
 
-			var pos = ((staticMarkersPositions[item] - Vector2(player.actualPosition.x, player.actualPosition.z)) * gridScale + grid.size / 2)
+				var pos = ((staticMarkersPositions[item] - Vector2(player.actualPosition.x, player.actualPosition.z)) * gridScale + grid.size / 2)
 
-			staticMarkers[item].position = pos
+				staticMarkers[item].position = pos
 
-			staticMarkers[item].scale = Vector2(item.scale.z, item.scale.z) * gridScale * 0.01
+				staticMarkers[item].scale = Vector2(item.scale.z, item.scale.z) * gridScale * 0.01
 
-			pos = pos.clamp(Vector2.ZERO, grid.size)
+				pos = pos.clamp(Vector2.ZERO, grid.size)
 
 		zoom = 5.0
 

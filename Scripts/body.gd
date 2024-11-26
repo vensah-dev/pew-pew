@@ -1,7 +1,7 @@
 class_name Body
 extends Node3D
 
-@export var size = {"min": 5, "max": 10}
+@export var size = {"max": 10, "min": 5}
 @export var type = "planet"
 #@export var visibilityRange = 1000
 #@export var lightRange = 250

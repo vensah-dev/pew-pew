@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://cf5feuw5a0xw7"]
+[gd_scene load_steps=6 format=3 uid="uid://cf5feuw5a0xw7"]
 
 [ext_resource type="Script" path="res://Scripts/body.gd" id="1_mpe8i"]
+[ext_resource type="Texture2D" uid="uid://b8pyy6jj645n4" path="res://Assets/Texture/jupiter.jpeg" id="2_hp3rm"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kwmhk"]
 albedo_color = Color(0.98, 0, 0, 1)
+albedo_texture = ExtResource("2_hp3rm")
 roughness = 0.8
 emission = Color(0.98, 0, 0, 1)
 emission_energy_multiplier = 100.0
@@ -17,8 +19,8 @@ material = SubResource("StandardMaterial3D_kwmhk")
 [node name="redPlanet" type="Node3D"]
 script = ExtResource("1_mpe8i")
 size = {
-"max": 12500,
-"min": 17500
+"max": 17500,
+"min": 12500
 }
 type = "redPlanet"
 mass = 1000
@@ -32,9 +34,9 @@ freeze = true
 [node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D"]
 layers = 1023
 lod_bias = 0.001
-visibility_range_begin_margin = 1.5e+06
+visibility_range_begin_margin = 1e+06
 visibility_range_end = 1.5e+06
-visibility_range_end_margin = 1.5e+06
+visibility_range_end_margin = 1e+06
 visibility_range_fade_mode = 1
 mesh = SubResource("SphereMesh_cpmb8")
 

@@ -1,9 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://34hbmj2ovvb2"]
+[gd_scene load_steps=4 format=3 uid="uid://34hbmj2ovvb2"]
 
 [ext_resource type="Script" path="res://Scripts/minimap.gd" id="1_hnhga"]
 [ext_resource type="Texture2D" uid="uid://drph0c56jxfcg" path="res://Assets/UI/Graduation Hat.png" id="2_6edfv"]
-[ext_resource type="Texture2D" uid="uid://dn6gmbx86b4gl" path="res://Assets/UI/CrossHair.png" id="3_fyii6"]
-[ext_resource type="Texture2D" uid="uid://3b1d5pso3p" path="res://Assets/star.png" id="4_rrny5"]
+[ext_resource type="Texture2D" uid="uid://3b1d5pso3p" path="res://Assets/UI/star.png" id="4_rrny5"]
 
 [node name="MiniMap" type="MarginContainer"]
 anchors_preset = 1
@@ -53,8 +52,8 @@ texture = ExtResource("4_rrny5")
 [node name="planet" type="Sprite2D" parent="contentsBorder/contents/grid"]
 visible = false
 position = Vector2(161, 129)
-scale = Vector2(0.01, 0.01)
-texture = ExtResource("3_fyii6")
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("4_rrny5")
 
 [node name="player" type="Sprite2D" parent="contentsBorder/contents/grid"]
 position = Vector2(95, 95)

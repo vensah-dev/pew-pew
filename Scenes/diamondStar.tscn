@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://pxp6rfd80h0o"]
 
-[ext_resource type="Texture2D" uid="uid://3b1d5pso3p" path="res://Assets/star.png" id="1_h5n4f"]
+[ext_resource type="Texture2D" uid="uid://3b1d5pso3p" path="res://Assets/UI/star.png" id="1_h5n4f"]
 
 [node name="star" type="Node3D"]
 process_priority = 100
