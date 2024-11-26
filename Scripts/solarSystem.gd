@@ -62,7 +62,7 @@ func set_planets():
 		# children[i].rotation_degrees.x = root.randomi_range(-360, 360, i+3)
 		child.rotation_degrees.y = root.randomi_range(-360, 360, i)
 		child.rigidbody.rotation_degrees.x = root.randomi_range(-360, 360, i+1)
-		child.axisRotationalSpeed = Vector3(0, root.randomf(i)/inverse_lerp(child.size.min, child.size.max, child.scale.z), 0)
+		child.axisRotationalSpeed = Vector3(0, root.randomf(i)/inverse_lerp(child.size.min, child.size.max, child.scale.z)/1000, 0)
 
 
 
