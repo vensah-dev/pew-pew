@@ -119,6 +119,11 @@ far = 5e+07
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(0.01, 0, 0, 0, 0.01, 0, 0, 0, 0.01, 0, 0, 0)
 shape = SubResource("ConcavePolygonShape3D_ijtb7")
+
+[node name="boxCollider" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.01, 0, 0, 0, 0.01, 0, 0, 0, 0.01, 0, 0, 0)
+visible = false
+shape = SubResource("ConcavePolygonShape3D_ijtb7")
 disabled = true
 
 [node name="Lo_poly_Spaceship_01_by_Liz_Reddington2" type="MeshInstance3D" parent="."]

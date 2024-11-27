@@ -1,23 +1,13 @@
-[gd_scene load_steps=19 format=3 uid="uid://bae0rrler2lwr"]
+[gd_scene load_steps=18 format=3 uid="uid://bae0rrler2lwr"]
 
 [ext_resource type="Script" path="res://Scripts/gameManager.gd" id="1_jmc7e"]
 [ext_resource type="PackedScene" uid="uid://cgng6km46j0vt" path="res://Scenes/player.tscn" id="2_de30o"]
 [ext_resource type="Script" path="res://Scripts/world.gd" id="3_aiun5"]
 [ext_resource type="Script" path="res://Scripts/SolarSystemSpawner.gd" id="4_s4hp0"]
 [ext_resource type="PackedScene" uid="uid://bxtudok6crrjx" path="res://Scenes/solarSystem.tscn" id="5_synb3"]
-[ext_resource type="PackedScene" uid="uid://bqlcfe1mwgjsh" path="res://Scenes/asteroid_spawner.tscn" id="6_83vop"]
 [ext_resource type="Script" path="res://Scripts/crosshair.gd" id="7_mhgb4"]
 [ext_resource type="PackedScene" uid="uid://34hbmj2ovvb2" path="res://Scenes/minimap.tscn" id="9_7ngw5"]
 [ext_resource type="PackedScene" uid="uid://cydpyr360sp2s" path="res://Scenes/cameraView.tscn" id="9_i6eme"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_0hsjf"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k7uc6"]
-albedo_color = Color(1, 0, 0, 1)
-emission = Color(1, 1, 1, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_6dl3c"]
-material = SubResource("StandardMaterial3D_k7uc6")
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_vdd1u"]
 
@@ -36,8 +26,10 @@ glow_levels/2 = 1.0
 glow_levels/4 = 1.0
 glow_levels/6 = 1.0
 glow_levels/7 = 1.0
-glow_mix = 0.413
-glow_blend_mode = 0
+glow_strength = 1.25
+glow_mix = 0.4
+glow_blend_mode = 4
+glow_hdr_threshold = 1.1
 glow_hdr_luminance_cap = 0.5
 fog_mode = 1
 fog_light_color = Color(0, 0, 0, 1)
@@ -60,47 +52,21 @@ font_size = 32
 font_size = 24
 font_color = Color(1, 0.883333, 0, 1)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_0hsjf"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k7uc6"]
+albedo_color = Color(1, 0, 0, 1)
+emission = Color(1, 1, 1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_6dl3c"]
+material = SubResource("StandardMaterial3D_k7uc6")
+
 [node name="Game" type="Node3D"]
 script = ExtResource("1_jmc7e")
 spawnSeed = "2891365617"
 
-[node name="player" parent="." instance=ExtResource("2_de30o")]
-forwardSpeedRange = {
-"max": 500,
-"min": 50000
-}
-boostSpeed = 1000.0
-mouseIdleThreshold = 0.01
-raycastRange = 10000000
-
-[node name="world" type="Node3D" parent="."]
-script = ExtResource("3_aiun5")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="world"]
-transform = Transform3D(999.999, -0.0144896, -0.388446, 1.44894, 9.99999, -0.0508776, 0.38852, 0.000503117, 1000, 0, 0, 0)
-visible = false
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="world/StaticBody3D"]
-shape = SubResource("BoxShape3D_0hsjf")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="world/StaticBody3D"]
-layers = 3
-mesh = SubResource("BoxMesh_6dl3c")
-
-[node name="env" type="Node3D" parent="world"]
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="world/env"]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_mqi2g")
-
-[node name="Solar System Spawner" type="Node3D" parent="world"]
-script = ExtResource("4_s4hp0")
-maxSpawnRadius = 3e+07
-bodySpacingBuffer = 25.0
-solarSystems = Array[PackedScene]([ExtResource("5_synb3")])
-
-[node name="asteroidSpawner" parent="world" instance=ExtResource("6_83vop")]
-minNumberOfBodies = 0
-maxNumberOfBodies = 0
 
 [node name="UI" type="CanvasLayer" parent="."]
 
@@ -183,3 +149,34 @@ zoomClamp = {
 "max": 50.0,
 "min": 1.0
 }
+
+[node name="player" parent="." instance=ExtResource("2_de30o")]
+forwardSpeedRange = {
+"max": 500,
+"min": 50000
+}
+boostSpeed = 1000.0
+mouseIdleThreshold = 0.01
+raycastRange = 10000000
+
+[node name="world" type="Node3D" parent="."]
+script = ExtResource("3_aiun5")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="world"]
+transform = Transform3D(999.999, -0.0144896, -0.388446, 1.44894, 9.99999, -0.0508776, 0.38852, 0.000503117, 1000, 0, 0, 0)
+visible = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="world/StaticBody3D"]
+shape = SubResource("BoxShape3D_0hsjf")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="world/StaticBody3D"]
+layers = 3
+mesh = SubResource("BoxMesh_6dl3c")
+
+[node name="env" type="Node3D" parent="world"]
+
+[node name="Solar System Spawner" type="Node3D" parent="world"]
+script = ExtResource("4_s4hp0")
+maxSpawnRadius = 3e+07
+bodySpacingBuffer = 25.0
+solarSystems = Array[PackedScene]([ExtResource("5_synb3")])

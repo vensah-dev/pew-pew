@@ -13,13 +13,21 @@ config_version=5
 config/name="Space-Shooter"
 run/main_scene="res://Scenes/Game.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
+run/max_fps=120
+run/low_processor_mode=true
 config/icon="res://icon.svg"
+
+[debug]
+
+settings/stdout/print_fps=true
+settings/stdout/print_gpu_profile=true
+settings/stdout/verbose_stdout=true
 
 [display]
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
-window/size/mode=3
+window/size/mode=4
 window/vsync/vsync_mode=0
 
 [editor]
@@ -138,11 +146,17 @@ camera_pan={
 3d/physics_engine="GodotPhysics3D"
 3d/default_linear_damp=0.0
 3d/default_angular_damp=0.0
+jolt_3d/limits/world_boundary_shape_size=1e+08
+jolt_3d/limits/max_linear_velocity=5e+07
+jolt_3d/limits/max_angular_velocity=5e+07
+jolt_3d/limits/max_temporary_memory=1024
 
 [rendering]
 
 renderer/rendering_method.mobile="gl_compatibility"
 renderer/rendering_method.web="forward_plus"
-anti_aliasing/quality/msaa_3d=1
+textures/vram_compression/import_etc2_astc=true
+environment/glow/upscale_mode=0
 viewport/transparent_background=true
 viewport/hdr_2d=true
+anti_aliasing/quality/use_taa=true

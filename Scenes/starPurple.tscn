@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://34tgoolebh5g"]
+[gd_scene load_steps=5 format=3 uid="uid://34tgoolebh5g"]
 
 [ext_resource type="Script" path="res://Scripts/body.gd" id="1_nd73u"]
 
@@ -12,39 +12,11 @@ material = SubResource("StandardMaterial3D_n4bu6")
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_xowde"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_rnfb1"]
-
-[sub_resource type="Sky" id="Sky_mcwgi"]
-sky_material = SubResource("ProceduralSkyMaterial_rnfb1")
-
-[sub_resource type="Environment" id="Environment_gjv8x"]
-background_mode = 1
-sky = SubResource("Sky_mcwgi")
-ambient_light_source = 2
-ambient_light_color = Color(1, 1, 1, 1)
-ambient_light_energy = 0.5
-glow_enabled = true
-glow_levels/1 = 1.0
-glow_levels/2 = 1.0
-glow_levels/4 = 1.0
-glow_levels/6 = 1.0
-glow_levels/7 = 1.0
-glow_mix = 0.413
-glow_blend_mode = 0
-glow_hdr_luminance_cap = 0.5
-fog_mode = 1
-fog_light_color = Color(0, 0, 0, 1)
-fog_density = 1.0
-fog_depth_begin = 500000.0
-fog_depth_end = 1e+06
-volumetric_fog_density = 0.0001
-volumetric_fog_albedo = Color(0, 0, 0, 1)
-
 [node name="Star" type="Node3D"]
 script = ExtResource("1_nd73u")
 size = {
-"max": 50000,
-"min": 30000
+"max": 100000,
+"min": 75000
 }
 type = "star"
 mass = 1000
@@ -74,6 +46,3 @@ omni_range = 3e+07
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
 shape = SubResource("SphereShape3D_xowde")
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_gjv8x")
