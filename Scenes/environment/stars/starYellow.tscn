@@ -1,9 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://wb2dlil4pr68"]
+[gd_scene load_steps=5 format=3 uid="uid://nwvrr3e0j3gk"]
 
-[ext_resource type="Script" path="res://Scripts/body.gd" id="1_td2aq"]
+[ext_resource type="Script" path="res://Scripts/world/body.gd" id="1_lhjhc"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n4bu6"]
-albedo_color = Color(2, 2, 2, 1)
+albedo_color = Color(2, 2, 0, 1)
 emission = Color(1, 0.433333, 0, 1)
 emission_energy_multiplier = 1.25
 
@@ -13,9 +13,9 @@ material = SubResource("StandardMaterial3D_n4bu6")
 [sub_resource type="SphereShape3D" id="SphereShape3D_xowde"]
 
 [node name="Star" type="Node3D"]
-script = ExtResource("1_td2aq")
+script = ExtResource("1_lhjhc")
 size = {
-"max": 60000,
+"max": 40000,
 "min": 30000
 }
 type = "star"

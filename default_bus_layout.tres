@@ -1,0 +1,14 @@
+[gd_resource type="AudioBusLayout" load_steps=3 format=3 uid="uid://bsi8qxst8t4be"]
+
+[sub_resource type="AudioEffectStereoEnhance" id="AudioEffectStereoEnhance_2e8iq"]
+resource_name = "StereoEnhance"
+
+[sub_resource type="AudioEffectAmplify" id="AudioEffectAmplify_yvq40"]
+resource_name = "Amplify"
+
+[resource]
+bus/0/volume_db = -0.030508
+bus/0/effect/0/effect = SubResource("AudioEffectStereoEnhance_2e8iq")
+bus/0/effect/0/enabled = true
+bus/0/effect/1/effect = SubResource("AudioEffectAmplify_yvq40")
+bus/0/effect/1/enabled = true

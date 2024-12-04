@@ -1,7 +1,7 @@
 extends CharacterBody3D
 
 @export_group("Speed")
-@export var forwardSpeedRange = {"min": 5000, "max": 500};
+@export var forwardSpeedRange = {"min": 500, "max": 500};
 @export var strifeSpeed = 7.5;
 @export var hoverSpeed = 5.0;
 @export var rollSpeed = 5.0;
@@ -30,14 +30,19 @@ var currentFOV = 75.0
 @export_group("Raycast")
 @export var raycastRange = 1000
 
+@export_group("Health")
+@export var healthbar:Node
+
 @onready var vw = DisplayServer.window_get_size()
 
 @onready var cam = $Camera
-@onready var guns = $Lo_poly_Spaceship_01_by_Liz_Reddington2/Guns
+@onready var guns = $model/Guns
 @onready var world = $"../world"
+
 @onready var distanceLabel = $"../UI/distance"
 @onready var speedLabel = $"../UI/speed"
 
+@onready var healthData = $healthData
 
 @onready var camNode = get_viewport().get_camera_3d()
 @onready var centre = get_viewport().get_visible_rect().size / 2
@@ -60,8 +65,12 @@ var up = transform.basis.y
 var y = 0
 var x = 0
 
-func _ready():
+func _ready() -> void:
+	await get_tree().process_frame
 	Input.mouse_mode = Input.MOUSE_MODE_CONFINED
+	# updateHealth()
+	healthData.setHealth(healthData.maxHealth)
+	# updateHealth()
 
 func _input(event):
 	if event is InputEventMouse:
@@ -172,3 +181,10 @@ func directions():
 	forward = transform.basis.z
 	left = transform.basis.x
 	up = transform.basis.y
+
+func _on_health_node_health_changed(_value:Variant) -> void:
+	updateHealth()
+
+func updateHealth():
+	healthbar.max_value = healthData.maxHealth
+	healthbar.value = healthData.health

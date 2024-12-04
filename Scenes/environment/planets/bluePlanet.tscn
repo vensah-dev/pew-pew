@@ -1,26 +1,25 @@
-[gd_scene load_steps=6 format=3 uid="uid://cceo0v6crva0c"]
+[gd_scene load_steps=6 format=3 uid="uid://buow2cclieyvp"]
 
-[ext_resource type="Script" path="res://Scripts/body.gd" id="1_1t1i3"]
-[ext_resource type="Texture2D" uid="uid://cg6xpkc32ew2" path="res://Assets/Texture/earth.jpeg" id="2_faufn"]
+[ext_resource type="Script" path="res://Scripts/world/body.gd" id="1_cxiul"]
+[ext_resource type="Texture2D" uid="uid://b412vurs6f155" path="res://Assets/Texture/mars.jpeg" id="2_10fmh"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7umjt"]
-albedo_color = Color(0, 1, 0.0999999, 1)
-albedo_texture = ExtResource("2_faufn")
-emission = Color(0, 0.15, 0.015, 1)
-emission_energy_multiplier = 0.0
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kigfh"]
+albedo_color = Color(0.933333, 0, 1, 1)
+albedo_texture = ExtResource("2_10fmh")
+emission = Color(0, 0.815686, 1, 1)
 
 [sub_resource type="SphereMesh" id="SphereMesh_cpmb8"]
-material = SubResource("StandardMaterial3D_7umjt")
+material = SubResource("StandardMaterial3D_kigfh")
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_xowde"]
 
-[node name="greenPlanet" type="Node3D"]
-script = ExtResource("1_1t1i3")
+[node name="bluePlanet" type="Node3D"]
+script = ExtResource("1_cxiul")
 size = {
-"max": 7500,
-"min": 5000
+"max": 12500,
+"min": 7500
 }
-type = "greenPlanet"
+type = "bluePlanet"
 mass = 1000
 
 [node name="RigidBody3D" type="RigidBody3D" parent="."]

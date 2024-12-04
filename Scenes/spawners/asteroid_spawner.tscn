@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bqlcfe1mwgjsh"]
 
-[ext_resource type="Script" path="res://Scripts/celestialBodySpawner.gd" id="1_bviun"]
+[ext_resource type="Script" path="res://Scripts/spawners/celestialBodySpawner.gd" id="1_bviun"]
 [ext_resource type="PackedScene" uid="uid://b7ovojnx8c2n2" path="res://Scenes/asteroidDefault.tscn" id="2_bf4xq"]
 
 [node name="asteroidSpawner" type="Node3D"]

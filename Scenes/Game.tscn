@@ -2,48 +2,19 @@
 
 [ext_resource type="Script" path="res://Scripts/gameManager.gd" id="1_jmc7e"]
 [ext_resource type="PackedScene" uid="uid://cgng6km46j0vt" path="res://Scenes/player.tscn" id="2_de30o"]
-[ext_resource type="Script" path="res://Scripts/world.gd" id="3_aiun5"]
-[ext_resource type="Script" path="res://Scripts/SolarSystemSpawner.gd" id="4_s4hp0"]
-[ext_resource type="PackedScene" uid="uid://bxtudok6crrjx" path="res://Scenes/solarSystem.tscn" id="5_synb3"]
+[ext_resource type="Script" path="res://Scripts/world/world.gd" id="3_aiun5"]
+[ext_resource type="Script" path="res://Scripts/spawners/SolarSystemSpawner.gd" id="4_s4hp0"]
+[ext_resource type="PackedScene" uid="uid://bxtudok6crrjx" path="res://Scenes/environment/starSystems/solarSystem.tscn" id="5_synb3"]
 [ext_resource type="Script" path="res://Scripts/crosshair.gd" id="7_mhgb4"]
 [ext_resource type="PackedScene" uid="uid://34hbmj2ovvb2" path="res://Scenes/minimap.tscn" id="9_7ngw5"]
+[ext_resource type="PackedScene" uid="uid://dmlb8utavpi4c" path="res://Scenes/enemy.tscn" id="9_c21h0"]
 [ext_resource type="PackedScene" uid="uid://cydpyr360sp2s" path="res://Scenes/cameraView.tscn" id="9_i6eme"]
-
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_vdd1u"]
-
-[sub_resource type="Sky" id="Sky_gytt6"]
-sky_material = SubResource("ProceduralSkyMaterial_vdd1u")
-
-[sub_resource type="Environment" id="Environment_mqi2g"]
-background_mode = 1
-sky = SubResource("Sky_gytt6")
-ambient_light_source = 2
-ambient_light_color = Color(1, 1, 1, 1)
-ambient_light_energy = 0.5
-glow_enabled = true
-glow_levels/1 = 1.0
-glow_levels/2 = 1.0
-glow_levels/4 = 1.0
-glow_levels/6 = 1.0
-glow_levels/7 = 1.0
-glow_strength = 1.25
-glow_mix = 0.4
-glow_blend_mode = 4
-glow_hdr_threshold = 1.1
-glow_hdr_luminance_cap = 0.5
-fog_mode = 1
-fog_light_color = Color(0, 0, 0, 1)
-fog_density = 1.0
-fog_depth_begin = 500000.0
-fog_depth_end = 1e+06
-volumetric_fog_density = 0.0001
-volumetric_fog_albedo = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_8opnt"]
 line_spacing = 60.0
-font_size = 32
+font_size = 26
 font_color = Color(0, 0, 0, 1)
-outline_size = 10
+outline_size = 5
 
 [sub_resource type="LabelSettings" id="LabelSettings_7r6wg"]
 font_size = 32
@@ -52,21 +23,75 @@ font_size = 32
 font_size = 24
 font_color = Color(1, 0.883333, 0, 1)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_0hsjf"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7axhe"]
+bg_color = Color(0.5, 0.5, 0.5, 0.0980392)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k7uc6"]
-albedo_color = Color(1, 0, 0, 1)
-emission = Color(1, 1, 1, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yj6ht"]
+bg_color = Color(0.329412, 0.819608, 0.4, 1)
+border_width_right = 5
+border_color = Color(0.328, 0.82, 0.4018, 0.498039)
 
-[sub_resource type="BoxMesh" id="BoxMesh_6dl3c"]
-material = SubResource("StandardMaterial3D_k7uc6")
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_vdd1u"]
+
+[sub_resource type="Sky" id="Sky_ewu1b"]
+sky_material = SubResource("ProceduralSkyMaterial_vdd1u")
+
+[sub_resource type="Environment" id="Environment_mqi2g"]
+background_mode = 3
+sky = SubResource("Sky_ewu1b")
+ambient_light_source = 2
+ambient_light_color = Color(1, 1, 1, 1)
+tonemap_mode = 3
+glow_enabled = true
+glow_levels/1 = 1.0
+glow_levels/2 = 1.0
+glow_levels/4 = 1.0
+glow_levels/6 = 1.0
+glow_levels/7 = 1.0
+glow_normalized = true
+glow_strength = 1.25
+glow_mix = 0.4
+glow_blend_mode = 4
+glow_hdr_threshold = 1.1
+glow_hdr_luminance_cap = 2.0
+fog_mode = 1
+fog_light_color = Color(0, 0, 0, 1)
+fog_density = 1.0
+fog_depth_begin = 500000.0
+fog_depth_end = 1e+06
+volumetric_fog_density = 0.0001
+volumetric_fog_albedo = Color(0, 0, 0, 1)
 
 [node name="Game" type="Node3D"]
 script = ExtResource("1_jmc7e")
 spawnSeed = "2891365617"
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_mqi2g")
+[node name="player" parent="." node_paths=PackedStringArray("healthbar") instance=ExtResource("2_de30o")]
+boostSpeed = 2.0
+mouseIdleThreshold = 0.01
+raycastRange = 10000000
+healthbar = NodePath("../UI/healthbar")
+
+[node name="world" type="Node3D" parent="."]
+script = ExtResource("3_aiun5")
+
+[node name="Solar System Spawner" type="Node3D" parent="world"]
+script = ExtResource("4_s4hp0")
+maxSpawnRadius = 3e+07
+bodySpacingBuffer = 25.0
+solarSystems = Array[PackedScene]([ExtResource("5_synb3")])
+
+[node name="enemy" parent="world" instance=ExtResource("9_c21h0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 400)
+
+[node name="enemy2" parent="world" instance=ExtResource("9_c21h0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 500)
+
+[node name="enemy3" parent="world" instance=ExtResource("9_c21h0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 600)
+
+[node name="enemy4" parent="world" instance=ExtResource("9_c21h0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 700)
 
 [node name="UI" type="CanvasLayer" parent="."]
 
@@ -124,7 +149,7 @@ pivot_offset = Vector2(37, 17)
 text = "FPS 60"
 label_settings = SubResource("LabelSettings_3un3w")
 
-[node name="rotation" parent="UI" instance=ExtResource("9_i6eme")]
+[node name="gyroscope" parent="UI" instance=ExtResource("9_i6eme")]
 anchors_preset = 3
 anchor_top = 1.0
 anchor_bottom = 1.0
@@ -150,33 +175,19 @@ zoomClamp = {
 "min": 1.0
 }
 
-[node name="player" parent="." instance=ExtResource("2_de30o")]
-forwardSpeedRange = {
-"max": 500,
-"min": 50000
-}
-boostSpeed = 1000.0
-mouseIdleThreshold = 0.01
-raycastRange = 10000000
+[node name="healthbar" type="ProgressBar" parent="UI"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 128.0
+offset_top = -273.0
+offset_right = 768.0
+offset_bottom = -193.0
+grow_vertical = 0
+theme_override_colors/font_color = Color(0, 0, 0, 0.74902)
+theme_override_font_sizes/font_size = 24
+theme_override_styles/background = SubResource("StyleBoxFlat_7axhe")
+theme_override_styles/fill = SubResource("StyleBoxFlat_yj6ht")
 
-[node name="world" type="Node3D" parent="."]
-script = ExtResource("3_aiun5")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="world"]
-transform = Transform3D(999.999, -0.0144896, -0.388446, 1.44894, 9.99999, -0.0508776, 0.38852, 0.000503117, 1000, 0, 0, 0)
-visible = false
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="world/StaticBody3D"]
-shape = SubResource("BoxShape3D_0hsjf")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="world/StaticBody3D"]
-layers = 3
-mesh = SubResource("BoxMesh_6dl3c")
-
-[node name="env" type="Node3D" parent="world"]
-
-[node name="Solar System Spawner" type="Node3D" parent="world"]
-script = ExtResource("4_s4hp0")
-maxSpawnRadius = 3e+07
-bodySpacingBuffer = 25.0
-solarSystems = Array[PackedScene]([ExtResource("5_synb3")])
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_mqi2g")

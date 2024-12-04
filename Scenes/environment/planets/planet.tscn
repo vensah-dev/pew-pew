@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://7on2bl8x8q61"]
 
-[ext_resource type="Script" path="res://Scripts/body.gd" id="1_fys5o"]
+[ext_resource type="Script" path="res://Scripts/world/body.gd" id="1_fys5o"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kwmhk"]
 emission_enabled = true

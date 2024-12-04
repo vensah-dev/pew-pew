@@ -14,7 +14,6 @@ func _ready():
 
 func _process(_delta):
 	
-	
 	var originOffset = player.global_position
 	# var dstFromOrigin = originOffset.distance_to(Vector3(0, 0, 0))
 

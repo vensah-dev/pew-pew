@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://cf5feuw5a0xw7"]
 
-[ext_resource type="Script" path="res://Scripts/body.gd" id="1_mpe8i"]
+[ext_resource type="Script" path="res://Scripts/world/body.gd" id="1_mpe8i"]
 [ext_resource type="Texture2D" uid="uid://b8pyy6jj645n4" path="res://Assets/Texture/jupiter.jpeg" id="2_hp3rm"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kwmhk"]

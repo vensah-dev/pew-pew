@@ -14,14 +14,8 @@ config/name="Space-Shooter"
 run/main_scene="res://Scenes/Game.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 run/max_fps=120
-run/low_processor_mode=true
+boot_splash/bg_color=Color(0, 0, 0, 1)
 config/icon="res://icon.svg"
-
-[debug]
-
-settings/stdout/print_fps=true
-settings/stdout/print_gpu_profile=true
-settings/stdout/verbose_stdout=true
 
 [display]
 
@@ -39,6 +33,8 @@ version_control/autoload_on_startup=true
 
 StaticMinimapItems="for stuff that should appear on the minimap"
 CelestialBody="for calculating body's actualPosition"
+playerNode=""
+enemy=""
 
 [input]
 
@@ -159,4 +155,3 @@ textures/vram_compression/import_etc2_astc=true
 environment/glow/upscale_mode=0
 viewport/transparent_background=true
 viewport/hdr_2d=true
-anti_aliasing/quality/use_taa=true

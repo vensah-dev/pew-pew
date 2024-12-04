@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://kek3bkygl6my"]
 
-[ext_resource type="Script" path="res://Scripts/SolarSystemSpawner.gd" id="1_ydthi"]
-[ext_resource type="PackedScene" uid="uid://bxtudok6crrjx" path="res://Scenes/solarSystem.tscn" id="2_2gtm8"]
+[ext_resource type="Script" path="res://Scripts/spawners/SolarSystemSpawner.gd" id="1_ydthi"]
+[ext_resource type="PackedScene" uid="uid://bxtudok6crrjx" path="res://Scenes/environment/starSystems/solarSystem.tscn" id="2_2gtm8"]
 
 [node name="Solar System Spawner" type="Node3D"]
 script = ExtResource("1_ydthi")

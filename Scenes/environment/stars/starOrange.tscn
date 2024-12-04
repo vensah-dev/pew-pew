@@ -1,9 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://cktgvl8e52khw"]
+[gd_scene load_steps=5 format=3 uid="uid://bxhfbhpiubqlf"]
 
-[ext_resource type="Script" path="res://Scripts/body.gd" id="1_npuxr"]
+[ext_resource type="Script" path="res://Scripts/world/body.gd" id="1_gwgyk"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n4bu6"]
-albedo_color = Color(0, 0.8, 3, 1)
+albedo_color = Color(2, 0.5, 0, 1)
 emission = Color(1, 0.433333, 0, 1)
 emission_energy_multiplier = 1.25
 
@@ -13,10 +13,10 @@ material = SubResource("StandardMaterial3D_n4bu6")
 [sub_resource type="SphereShape3D" id="SphereShape3D_xowde"]
 
 [node name="Star" type="Node3D"]
-script = ExtResource("1_npuxr")
+script = ExtResource("1_gwgyk")
 size = {
-"max": 75000,
-"min": 50000
+"max": 30000,
+"min": 20000
 }
 type = "star"
 mass = 1000
@@ -45,5 +45,4 @@ light_cull_mask = 4294966782
 omni_range = 3e+07
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
-transform = Transform3D(1.01, 0, 0, 0, 1.01, 0, 0, 0, 1.01, 0, 0, 0)
 shape = SubResource("SphereShape3D_xowde")

@@ -1,14 +1,21 @@
 extends Node3D
 
-@export var automatic = true
-@export var reloadInterval = 0.25
+@export_group("Bullets")
 @export var bulletSpeed = 100
 @export var bulletRange = 1000
+@export var bulletDamage = 5
+
+@onready var Bullet = load("res://Scenes/bullet.tscn")
+
+
+@export_group("Gun Settings")
+@export var automatic = true
+@export var reloadInterval = 0.25
 @export var pointToCrosshair = true
+@export var fireAllGunsAtOnce = false
 
 @export var gunPoints: Array[Node3D]
 
-@onready var Bullet = load("res://Scenes/bullet.tscn")
 
 @onready var main = get_tree().current_scene
 @onready var cam = get_viewport().get_camera_3d()
@@ -41,10 +48,10 @@ func shoot(results):
 		
 		bullet.global_transform = gun.global_transform
 		bullet.speed = bulletSpeed
+		bullet.damage = bulletDamage
 		bullet.scale = Vector3(1, 1, 1)
-		main.add_child(bullet) 
 		
-		# check fi the gun need to aim the bullets toward the crosshair or not
+		# check if the gun need to aim the bullets toward the crosshair or not
 		if pointToCrosshair:
 			if results:
 				if gun.position.distance_to(results.position) > 10:
@@ -54,7 +61,15 @@ func shoot(results):
 					
 			else:
 				bullet.look_at_from_position(gun.global_position, cam.project_position(centre, 75), bullet.basis.y, true)
+
+		main.add_child(bullet) 
+
+		if !fireAllGunsAtOnce:
+			canShoot = false
+			await get_tree().create_timer(reloadInterval).timeout
+			canShoot = true
 			
-	canShoot = false
-	await get_tree().create_timer(reloadInterval).timeout
-	canShoot = true
+	if fireAllGunsAtOnce:
+		canShoot = false
+		await get_tree().create_timer(reloadInterval).timeout
+		canShoot = true
