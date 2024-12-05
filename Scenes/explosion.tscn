@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://brhvvyyekkbfn"]
+[gd_scene load_steps=28 format=3 uid="uid://brhvvyyekkbfn"]
 
 [ext_resource type="Animation" uid="uid://dbb73h1u3x74b" path="res://explode.res" id="1_ivybg"]
 [ext_resource type="AudioStream" uid="uid://dsmj0kr8tox8w" path="res://Assets/Explode.wav" id="2_5exlc"]
@@ -113,7 +113,8 @@ spread = 180.0
 radial_velocity_min = 0.999978
 radial_velocity_max = 1.99998
 gravity = Vector3(0, 0, 0)
-scale_max = 3.0
+scale_min = 2.0
+scale_max = 4.0
 scale_curve = SubResource("CurveTexture_l4snd")
 color_ramp = SubResource("GradientTexture1D_kjj0k")
 emission_curve = SubResource("CurveTexture_0dwtf")
@@ -140,6 +141,14 @@ point_count = 2
 [sub_resource type="CurveTexture" id="CurveTexture_dlk0h"]
 curve = SubResource("Curve_5q7e4")
 
+[sub_resource type="Curve" id="Curve_abjfu"]
+max_value = 10.0
+_data = [Vector2(0, 0), -5.87477, 0.0, 0, 0, Vector2(1, 9.73878), 21.5477, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_ss51f"]
+curve = SubResource("Curve_abjfu")
+
 [sub_resource type="Curve" id="Curve_j6nhk"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -3.18116, 0.0, 0, 0]
 point_count = 2
@@ -153,7 +162,8 @@ emission_shape = 1
 emission_sphere_radius = 1.0
 direction = Vector3(0, 0, 0)
 radial_velocity_min = 4.99998
-radial_velocity_max = 4.99998
+radial_velocity_max = 9.99998
+radial_velocity_curve = SubResource("CurveTexture_ss51f")
 gravity = Vector3(0, 0, 0)
 scale_min = 0.0
 scale_max = 0.5

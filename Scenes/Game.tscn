@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://bae0rrler2lwr"]
+[gd_scene load_steps=16 format=3 uid="uid://bae0rrler2lwr"]
 
 [ext_resource type="Script" path="res://Scripts/gameManager.gd" id="1_jmc7e"]
 [ext_resource type="PackedScene" uid="uid://cgng6km46j0vt" path="res://Scenes/player.tscn" id="2_de30o"]
@@ -9,6 +9,30 @@
 [ext_resource type="PackedScene" uid="uid://34hbmj2ovvb2" path="res://Scenes/minimap.tscn" id="9_7ngw5"]
 [ext_resource type="PackedScene" uid="uid://dmlb8utavpi4c" path="res://Scenes/enemy.tscn" id="9_c21h0"]
 [ext_resource type="PackedScene" uid="uid://cydpyr360sp2s" path="res://Scenes/cameraView.tscn" id="9_i6eme"]
+
+[sub_resource type="Environment" id="Environment_mqi2g"]
+background_mode = 1
+ambient_light_source = 2
+ambient_light_color = Color(1, 1, 1, 1)
+tonemap_mode = 3
+glow_enabled = true
+glow_levels/1 = 1.0
+glow_levels/2 = 1.0
+glow_levels/4 = 1.0
+glow_levels/6 = 1.0
+glow_levels/7 = 1.0
+glow_normalized = true
+glow_mix = 0.4
+glow_blend_mode = 1
+glow_hdr_threshold = 1.1
+glow_hdr_luminance_cap = 2.0
+fog_mode = 1
+fog_light_color = Color(0, 0, 0, 1)
+fog_density = 1.0
+fog_depth_begin = 500000.0
+fog_depth_end = 1e+06
+volumetric_fog_density = 0.0001
+volumetric_fog_albedo = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_8opnt"]
 line_spacing = 60.0
@@ -31,46 +55,21 @@ bg_color = Color(0.329412, 0.819608, 0.4, 1)
 border_width_right = 5
 border_color = Color(0.328, 0.82, 0.4018, 0.498039)
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_vdd1u"]
-
-[sub_resource type="Sky" id="Sky_ewu1b"]
-sky_material = SubResource("ProceduralSkyMaterial_vdd1u")
-
-[sub_resource type="Environment" id="Environment_mqi2g"]
-background_mode = 3
-sky = SubResource("Sky_ewu1b")
-ambient_light_source = 2
-ambient_light_color = Color(1, 1, 1, 1)
-tonemap_mode = 3
-glow_enabled = true
-glow_levels/1 = 1.0
-glow_levels/2 = 1.0
-glow_levels/4 = 1.0
-glow_levels/6 = 1.0
-glow_levels/7 = 1.0
-glow_normalized = true
-glow_strength = 1.25
-glow_mix = 0.4
-glow_blend_mode = 4
-glow_hdr_threshold = 1.1
-glow_hdr_luminance_cap = 2.0
-fog_mode = 1
-fog_light_color = Color(0, 0, 0, 1)
-fog_density = 1.0
-fog_depth_begin = 500000.0
-fog_depth_end = 1e+06
-volumetric_fog_density = 0.0001
-volumetric_fog_albedo = Color(0, 0, 0, 1)
-
 [node name="Game" type="Node3D"]
 script = ExtResource("1_jmc7e")
 spawnSeed = "2891365617"
 
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_mqi2g")
+
 [node name="player" parent="." node_paths=PackedStringArray("healthbar") instance=ExtResource("2_de30o")]
-boostSpeed = 2.0
+boostSpeed = 100.0
 mouseIdleThreshold = 0.01
 raycastRange = 10000000
 healthbar = NodePath("../UI/healthbar")
+
+[node name="enemy" parent="." instance=ExtResource("9_c21h0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 400)
 
 [node name="world" type="Node3D" parent="."]
 script = ExtResource("3_aiun5")
@@ -80,18 +79,6 @@ script = ExtResource("4_s4hp0")
 maxSpawnRadius = 3e+07
 bodySpacingBuffer = 25.0
 solarSystems = Array[PackedScene]([ExtResource("5_synb3")])
-
-[node name="enemy" parent="world" instance=ExtResource("9_c21h0")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 400)
-
-[node name="enemy2" parent="world" instance=ExtResource("9_c21h0")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 500)
-
-[node name="enemy3" parent="world" instance=ExtResource("9_c21h0")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 600)
-
-[node name="enemy4" parent="world" instance=ExtResource("9_c21h0")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 700)
 
 [node name="UI" type="CanvasLayer" parent="."]
 
@@ -188,6 +175,3 @@ theme_override_colors/font_color = Color(0, 0, 0, 0.74902)
 theme_override_font_sizes/font_size = 24
 theme_override_styles/background = SubResource("StyleBoxFlat_7axhe")
 theme_override_styles/fill = SubResource("StyleBoxFlat_yj6ht")
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_mqi2g")

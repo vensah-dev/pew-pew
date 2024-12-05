@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=4 uid="uid://dmlb8utavpi4c"]
+[gd_scene load_steps=11 format=4 uid="uid://dmlb8utavpi4c"]
 
 [ext_resource type="Script" path="res://Scripts/enemy.gd" id="1_ytayr"]
 [ext_resource type="PackedScene" uid="uid://brhvvyyekkbfn" path="res://Scenes/explosion.tscn" id="2_4rav5"]
 [ext_resource type="Script" path="res://Scripts/components/health.gd" id="2_jum0b"]
+[ext_resource type="Script" path="res://Scripts/gun.gd" id="4_jovxb"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_reb5r"]
 resource_name = "lambert2SG"
@@ -97,7 +98,7 @@ shadow_mesh = SubResource("ArrayMesh_2nexg")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_m3v3r"]
 resource_local_to_scene = true
-size = Vector3(10, 10, 10)
+size = Vector3(10, 7, 10)
 
 [node name="enemy" type="CharacterBody3D" groups=["enemy"]]
 collision_layer = 2
@@ -105,9 +106,10 @@ collision_mask = 2
 motion_mode = 1
 script = ExtResource("1_ytayr")
 maxSpeed = 25.0
+turningSpeed = 2.0
 explode = ExtResource("2_4rav5")
 
-[node name="health" type="Node" parent="."]
+[node name="healthData" type="Node" parent="."]
 script = ExtResource("2_jum0b")
 
 [node name="mesh" type="MeshInstance3D" parent="."]
@@ -116,8 +118,10 @@ layers = 1023
 mesh = SubResource("ArrayMesh_1n7fv")
 skeleton = NodePath("")
 
-[node name="Guns" type="Node3D" parent="mesh"]
+[node name="Guns" type="Node3D" parent="mesh" node_paths=PackedStringArray("gunPoints")]
 transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 0, 0, 0)
+script = ExtResource("4_jovxb")
+gunPoints = [NodePath("Gun0"), NodePath("Gun1")]
 
 [node name="Gun0" type="Node3D" parent="mesh/Guns"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3, -0.025, 4.4)

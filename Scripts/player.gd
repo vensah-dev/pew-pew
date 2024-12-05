@@ -23,7 +23,7 @@ var forwardSpeed = forwardSpeedRange.min;
 
 @export_group("Camera")
 @export var normalFOV = 75.0
-var boostFOV = normalFOV + 25.0
+var boostFOV = normalFOV + 50.0
 @export var fovDamping = 2.5
 var currentFOV = 75.0
 
@@ -125,8 +125,20 @@ func _process(delta):
 	
 	move(delta)
 	move_and_slide()
+
+	shoot()
+
 	speedLabel.text = str(int(velocity.length())) + "U/s"
-	
+
+
+func shoot():
+	if guns.automatic:
+		if Input.is_action_pressed("fire") and guns.canShoot:
+			guns.shoot()
+
+	else:
+		if Input.is_action_just_pressed("fire"):
+			guns.shoot()
 
 func move(delta):
 	#State Handling
@@ -182,9 +194,15 @@ func directions():
 	left = transform.basis.x
 	up = transform.basis.y
 
+func hit(damage):
+	healthData.setHealth(healthData.health - damage)
+	print(self, "health: ", healthData.health)
+
+
 func _on_health_node_health_changed(_value:Variant) -> void:
 	updateHealth()
 
 func updateHealth():
 	healthbar.max_value = healthData.maxHealth
 	healthbar.value = healthData.health
+
