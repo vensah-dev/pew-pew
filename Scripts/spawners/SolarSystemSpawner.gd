@@ -16,7 +16,8 @@ extends Node3D
 var spawnedSystems: Array
 
 var maxSpawnDiameter = maxSpawnRadius*2
-
+ 
+ 
 func _ready():
 	root.connect("seed_ready", spawn_systems)
 	

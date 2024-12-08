@@ -1,0 +1,95 @@
+[gd_scene load_steps=10 format=3 uid="uid://cl3jfdc3m0j2x"]
+
+[ext_resource type="Script" path="res://Scripts/bullet.gd" id="1_niwft"]
+[ext_resource type="AudioStream" uid="uid://dmbusqiv375ii" path="res://Assets/pew-pew-sound-effect.wav" id="2_rjiwv"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ylci4"]
+albedo_color = Color(1, 0.147, 0.063, 1)
+emission_enabled = true
+emission = Color(1, 0, 0, 1)
+emission_energy_multiplier = 0.1
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_aypa8"]
+material = SubResource("StandardMaterial3D_ylci4")
+height = 10.0
+
+[sub_resource type="Curve" id="Curve_o4oqm"]
+_data = [Vector2(0, 0.989953), 0.0, -2.39777, 0, 0, Vector2(1, 0), 0.10215, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_85rrc"]
+curve = SubResource("Curve_o4oqm")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_u3sro"]
+particle_flag_align_y = true
+emission_shape = 1
+emission_sphere_radius = 1.0
+direction = Vector3(0, 0, -1)
+spread = 90.0
+initial_velocity_min = 50.0
+initial_velocity_max = 50.0
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_85rrc")
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_qpiv7"]
+material = SubResource("StandardMaterial3D_ylci4")
+height = 5.0
+radial_segments = 8
+rings = 2
+
+[sub_resource type="Environment" id="Environment_mqi2g"]
+background_mode = 1
+ambient_light_source = 2
+ambient_light_color = Color(1, 1, 1, 1)
+tonemap_mode = 3
+glow_enabled = true
+glow_levels/1 = 1.0
+glow_levels/2 = 1.0
+glow_levels/4 = 1.0
+glow_levels/6 = 1.0
+glow_levels/7 = 1.0
+glow_normalized = true
+glow_mix = 0.4
+glow_blend_mode = 1
+glow_hdr_threshold = 1.1
+glow_hdr_luminance_cap = 2.0
+fog_mode = 1
+fog_light_color = Color(0, 0, 0, 1)
+fog_density = 1.0
+fog_depth_begin = 500000.0
+fog_depth_end = 1e+06
+volumetric_fog_density = 0.0001
+volumetric_fog_albedo = Color(0, 0, 0, 1)
+
+[node name="Bullet" type="Node3D"]
+script = ExtResource("1_niwft")
+
+[node name="mesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+mesh = SubResource("CapsuleMesh_aypa8")
+skeleton = NodePath("")
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+transform = Transform3D(5, 0, 0, 0, -2.18557e-07, 5, 0, -5, -2.18557e-07, 0, 0, 5)
+collision_mask = 2
+collide_with_areas = true
+debug_shape_thickness = 5
+
+[node name="impact" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5)
+emitting = false
+amount = 4
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_u3sro")
+draw_pass_1 = SubResource("CapsuleMesh_qpiv7")
+
+[node name="sound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("2_rjiwv")
+volume_db = -20.0
+max_db = -20.0
+max_distance = 50.0
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_mqi2g")

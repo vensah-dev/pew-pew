@@ -1,0 +1,24 @@
+res://Scenes/asteroidDefault.tscn::6c03a4d24a9e341fbc938edbb4e4b3b8::1732617868::res://.godot/exported/133200997/export-8aead36a71acaeea9b52fe441b08711d-asteroidDefault.scn
+res://Scenes/asteroid_spawner.tscn::dd4ef688891b19a30fcf9b90768b20eb::1731940282::res://.godot/exported/133200997/export-7441addd727604e22b24866ad81403c8-asteroid_spawner.scn
+res://Scenes/bluePlanet.tscn::2bfa606a9e50ff1bd233cea1b3d8b490::1732706112::res://.godot/exported/133200997/export-be477d858aa8c3507a29df20592d1453-bluePlanet.scn
+res://Scenes/bullet.tscn::401b7a6314879f57c36647cab3fefb17::1732617868::res://.godot/exported/133200997/export-ebb3521b4f0ab2fc80eef1183e18e924-bullet.scn
+res://Scenes/cameraView.tscn::0b26ad107793fe9846143a16a6d8ec7b::1732290496::res://.godot/exported/133200997/export-6d6c34e160ec848158c0a00bac44bed3-cameraView.scn
+res://Scenes/diamondStar.tscn::71eb7f1510989d07596a704e1084ee80::1732621361::res://.godot/exported/133200997/export-dc3e246f7a7bdc6ac7a89ab8e9ed9fb7-diamondStar.scn
+res://Scenes/enemy.tscn::d47ee42dd9ef23a28821ad5b56a52b0a::1731938363::res://.godot/exported/133200997/export-7111e2a4ba75c4a329f0f9553f2950f2-enemy.scn
+res://Scenes/Game.tscn::f909a0f1077abc59cc46a8e0528ed6cd::1732706109::res://.godot/exported/133200997/export-8ec1ce4394550eef6b399142f35b815f-Game.scn
+res://Scenes/greenPlanet.tscn::2b210a2061a5f6f80377762ad44815d5::1732706112::res://.godot/exported/133200997/export-4a1cdcf128ce572cbef273a15cfed817-greenPlanet.scn
+res://Scenes/minimap.tscn::7fbec0c75d5b1048722860a305008b74::1732621361::res://.godot/exported/133200997/export-789bf596de23f569cd0c0cde7dee3a99-minimap.scn
+res://Scenes/planet.tscn::dcef89c859cd4eff5f19131776a09b1b::1731940273::res://.godot/exported/133200997/export-1439d5e330c3cdbd969bafd72a5cdb13-planet.scn
+res://Scenes/player.tscn::1ca83506962b33f3311bd84098a32f52::1732706112::res://.godot/exported/133200997/export-1753c997600d68ab5d20ae99fddb15c6-player.scn
+res://Scenes/playerBackup.tscn::e7a8c00d245dacbaaecd2bab4dfc28e9::1731940294::res://.godot/exported/133200997/export-2b99627d1d899534589def1d047bf4f1-playerBackup.scn
+res://Scenes/redPlanet.tscn::a560241106bf1b8f475bd2b30e4d301b::1732706112::res://.godot/exported/133200997/export-ad81c1c1585b52803018add56a9e748d-redPlanet.scn
+res://Scenes/solarSystem.tscn::6064760fdf12b8bdf43a3e051eb0f887::1732706109::res://.godot/exported/133200997/export-b33bfeedb0bd70d7be74e9d84cc1098a-solarSystem.scn
+res://Scenes/solar_system_spawner.tscn::3576017230db70ce885926ac400c3ff9::1732365028::res://.godot/exported/133200997/export-d0dde2abcdee3908665505f4deeff1c5-solar_system_spawner.scn
+res://Scenes/spaceship collisions.tscn::589dc9912ca31cc42ece8f5dc02631f0::1731938363::res://.godot/exported/133200997/export-3faa48b704948930943065c7a05b11ca-spaceship collisions.scn
+res://Scenes/SpaceShip.tscn::2d349aef775a60d98beb1c262a2fec9e::1731938362::res://.godot/exported/133200997/export-5bc1ab89e4c21708e2f7b2a836aaee9e-SpaceShip.scn
+res://Scenes/starBlue.tscn::d1b4b5191dd87af45e6f29f4d2bb05e1::1732706109::res://.godot/exported/133200997/export-c82832e60458d657e63a28452f5ff49f-starBlue.scn
+res://Scenes/starOrange.tscn::103171ab86974d38b75dcb93a9b47da8::1732706109::res://.godot/exported/133200997/export-db4d54a2cc74c1b83f50e031a2139a81-starOrange.scn
+res://Scenes/starPurple.tscn::e9e15620cda2c482be017a7e3ceb8ee3::1732706109::res://.godot/exported/133200997/export-f2e8f06fd2eedd1bd741b347c8e6da98-starPurple.scn
+res://Scenes/starRed.tscn::fe7dfab85ffd33b3d92be8d21ce680c9::1732706110::res://.godot/exported/133200997/export-b0ad292805828ac381e431daf9716089-starRed.scn
+res://Scenes/starWhite.tscn::523ab25b57bb72df4af3c24889313864::1732706110::res://.godot/exported/133200997/export-e65f58d57e10f0c757730267414b1478-starWhite.scn
+res://Scenes/starYellow.tscn::f19b6e011df87b97dd67f226303c358f::1732706110::res://.godot/exported/133200997/export-4ba6f0034776e3b240e4d2ae9edf4b5e-starYellow.scn

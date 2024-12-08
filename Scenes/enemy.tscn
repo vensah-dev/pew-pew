@@ -1,9 +1,15 @@
-[gd_scene load_steps=11 format=4 uid="uid://dmlb8utavpi4c"]
+[gd_scene load_steps=17 format=4 uid="uid://dmlb8utavpi4c"]
 
 [ext_resource type="Script" path="res://Scripts/enemy.gd" id="1_ytayr"]
 [ext_resource type="PackedScene" uid="uid://brhvvyyekkbfn" path="res://Scenes/explosion.tscn" id="2_4rav5"]
 [ext_resource type="Script" path="res://Scripts/components/health.gd" id="2_jum0b"]
 [ext_resource type="Script" path="res://Scripts/gun.gd" id="4_jovxb"]
+[ext_resource type="Texture2D" uid="uid://3heoeqy1bffv" path="res://Assets/Reticle.png" id="5_xqs6i"]
+[ext_resource type="PackedScene" uid="uid://cl3jfdc3m0j2x" path="res://Scenes/Guns and Bullets/bulletRed.tscn" id="10_xkdk2"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_m3v3r"]
+resource_local_to_scene = true
+size = Vector3(10, 7, 10)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_reb5r"]
 resource_name = "lambert2SG"
@@ -17,7 +23,7 @@ emission_enabled = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8fmvc"]
 resource_name = "lambert3SG"
-albedo_color = Color(0.2196, 0.43432, 0.61, 1)
+albedo_color = Color(0.9, 0.1467, 0.063, 1)
 emission_enabled = true
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_2nexg"]
@@ -96,21 +102,44 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_2nexg")
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_m3v3r"]
-resource_local_to_scene = true
-size = Vector3(10, 7, 10)
+[sub_resource type="ViewportTexture" id="ViewportTexture_fts2o"]
+viewport_path = NodePath("mesh/healthbars/predictionReticleSubViewport")
 
-[node name="enemy" type="CharacterBody3D" groups=["enemy"]]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dj2q0"]
+bg_color = Color(0.5, 0.5, 0.5, 0.792157)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hi704"]
+bg_color = Color(0.91, 0.961, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3qxla"]
+bg_color = Color(0.909804, 1, 0.921569, 1)
+
+[node name="enemy" type="CharacterBody3D" node_paths=PackedStringArray("healthbar", "shieldbar") groups=["enemy"]]
 collision_layer = 2
 collision_mask = 2
 motion_mode = 1
 script = ExtResource("1_ytayr")
 maxSpeed = 25.0
+surroundRadius = 150.0
+acceleration = 1.5
 turningSpeed = 2.0
 explode = ExtResource("2_4rav5")
+healthbar = NodePath("mesh/healthbars/predictionReticleSubViewport/healthbar")
+shieldbar = NodePath("mesh/healthbars/predictionReticleSubViewport/shieldbar")
+predictionReticleDisapearDistance = 75
+healthbarsVisibilityDistance = 150
 
 [node name="healthData" type="Node" parent="."]
 script = ExtResource("2_jum0b")
+
+[node name="boxCollider" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0201297, -0.0420356, 0.626787)
+shape = SubResource("BoxShape3D_m3v3r")
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+transform = Transform3D(1000, 0, 0, 0, -4.37114e-05, 1000, 0, -1000, -4.37114e-05, 0, 0, 0)
+collision_mask = 255
+debug_shape_thickness = 1
 
 [node name="mesh" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.01, 0, 0, 0, 0.01, 0, 0, 0, 0.01, 0, 0, 0)
@@ -118,9 +147,57 @@ layers = 1023
 mesh = SubResource("ArrayMesh_1n7fv")
 skeleton = NodePath("")
 
+[node name="Lighting" type="Node3D" parent="mesh"]
+transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 0, 0, 0)
+
+[node name="Top" type="SpotLight3D" parent="mesh/Lighting"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 16.851, 0)
+layers = 2
+light_cull_mask = 4294966274
+spot_range = 38.0
+spot_angle = 78.0
+
+[node name="Bottom" type="SpotLight3D" parent="mesh/Lighting"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -9.65373, 0)
+layers = 2
+light_cull_mask = 4294966274
+spot_range = 38.0
+spot_angle = 78.0
+
+[node name="Left" type="SpotLight3D" parent="mesh/Lighting"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 25, 4, -12)
+layers = 2
+light_cull_mask = 4294966274
+spot_range = 51.8009
+spot_angle = 43.0694
+
+[node name="Right" type="SpotLight3D" parent="mesh/Lighting"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -23, 2, -12)
+layers = 2
+light_cull_mask = 4294966274
+spot_range = 51.8009
+spot_angle = 43.0694
+
+[node name="Back" type="SpotLight3D" parent="mesh/Lighting"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -26.5303)
+layers = 2
+light_cull_mask = 4294966274
+spot_range = 29.4883
+spot_angle = 59.6476
+
+[node name="Front" type="SpotLight3D" parent="mesh/Lighting"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 24.9292)
+layers = 2
+light_cull_mask = 4294966274
+spot_range = 21.4166
+spot_angle = 25.8688
+
 [node name="Guns" type="Node3D" parent="mesh" node_paths=PackedStringArray("gunPoints")]
 transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 0, 0, 0)
 script = ExtResource("4_jovxb")
+bulletSpeed = 500
+bulletNode = ExtResource("10_xkdk2")
+isPlayer = false
 gunPoints = [NodePath("Gun0"), NodePath("Gun1")]
 
 [node name="Gun0" type="Node3D" parent="mesh/Guns"]
@@ -129,57 +206,47 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3, -0.025, 4.4)
 [node name="Gun1" type="Node3D" parent="mesh/Guns"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.306363, -0.025, 4.4)
 
-[node name="Lighting" type="Node3D" parent="mesh"]
-transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 0, 0, 0)
+[node name="predictionReticle" type="Sprite3D" parent="mesh"]
+transform = Transform3D(25, 0, 0, 0, 25, 0, 0, 0, 25, 0, 0, 500)
+layers = 1023
+modulate = Color(100, 100, 100, 1)
+pixel_size = 0.0001
+billboard = 1
+no_depth_test = true
+fixed_size = true
+texture = ExtResource("5_xqs6i")
 
-[node name="Top" type="SpotLight3D" parent="mesh/Lighting"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 16.851, 0)
-layers = 2
-light_energy = 5.0
-light_cull_mask = 4294966274
-spot_range = 38.0
-spot_angle = 78.0
+[node name="healthbars" type="Sprite3D" parent="mesh"]
+transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 0, 250, 0)
+layers = 3
+visibility_range_end = 100.0
+visibility_range_end_margin = 10.0
+visibility_range_fade_mode = 1
+billboard = 1
+no_depth_test = true
+texture = SubResource("ViewportTexture_fts2o")
 
-[node name="Bottom" type="SpotLight3D" parent="mesh/Lighting"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -9.65373, 0)
-layers = 2
-light_energy = 5.0
-light_cull_mask = 4294966274
-spot_range = 38.0
-spot_angle = 78.0
+[node name="predictionReticleSubViewport" type="SubViewport" parent="mesh/healthbars"]
+transparent_bg = true
+size = Vector2i(640, 56)
 
-[node name="Left" type="SpotLight3D" parent="mesh/Lighting"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 25, 4, -12)
-layers = 2
-light_energy = 5.0
-light_cull_mask = 4294966274
-spot_range = 51.8009
-spot_angle = 43.0694
+[node name="shieldbar" type="ProgressBar" parent="mesh/healthbars/predictionReticleSubViewport"]
+offset_right = 640.0
+offset_bottom = 24.0
+theme_override_colors/font_color = Color(0.5, 0.5, 0.5, 1)
+theme_override_font_sizes/font_size = 16
+theme_override_styles/background = SubResource("StyleBoxFlat_dj2q0")
+theme_override_styles/fill = SubResource("StyleBoxFlat_hi704")
+value = 50.0
+show_percentage = false
 
-[node name="Right" type="SpotLight3D" parent="mesh/Lighting"]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -23, 2, -12)
-layers = 2
-light_energy = 5.0
-light_cull_mask = 4294966274
-spot_range = 51.8009
-spot_angle = 43.0694
-
-[node name="Back" type="SpotLight3D" parent="mesh/Lighting"]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -26.5303)
-layers = 2
-light_energy = 5.0
-light_cull_mask = 4294966274
-spot_range = 29.4883
-spot_angle = 59.6476
-
-[node name="Front" type="SpotLight3D" parent="mesh/Lighting"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 24.9292)
-layers = 2
-light_energy = 5.0
-light_cull_mask = 4294966274
-spot_range = 21.4166
-spot_angle = 25.8688
-
-[node name="boxCollider" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0201297, -0.0420356, 0.626787)
-shape = SubResource("BoxShape3D_m3v3r")
+[node name="healthbar" type="ProgressBar" parent="mesh/healthbars/predictionReticleSubViewport"]
+offset_top = 32.0
+offset_right = 640.0
+offset_bottom = 56.0
+theme_override_colors/font_color = Color(0.5, 0.5, 0.5, 1)
+theme_override_font_sizes/font_size = 16
+theme_override_styles/background = SubResource("StyleBoxFlat_dj2q0")
+theme_override_styles/fill = SubResource("StyleBoxFlat_3qxla")
+value = 50.0
+show_percentage = false

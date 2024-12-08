@@ -1,7 +1,7 @@
 extends Node3D
 
 @export var speed = 40
-@export var despawnRange = 5000
+@export var despawnTime = 5.0
 
 @onready var player = get_tree().get_nodes_in_group("player")[0]
 
@@ -12,17 +12,25 @@ extends Node3D
 
 var damage
 
+var target
+var lockOnTarget = false
+
 func _ready():
 	scale = Vector3(0.1, 0.1, 0.5)
 	sound.play()
-
-	await get_tree().create_timer(5.0).timeout
-
-	queue_free()
+	
+	if is_instance_valid(target):
+		await get_tree().create_timer(5.0).timeout
+		queue_free()
 
 
 func _process(delta):
-	position += transform.basis * Vector3(0, 0, speed) * delta
+	if is_instance_valid(target):
+		look_at(target.global_position, transform.basis.y, true)
+		global_position += transform.basis * Vector3(0, 0, speed) * delta
+
+	else:
+		position += transform.basis * Vector3(0, 0, speed) * delta
 
 	# if global_position.distance_to(player.global_position) > despawnRange:	
 	# 	queue_free()
@@ -39,7 +47,9 @@ func _physics_process(_delta: float) -> void:
 
 		# 	if collided_object.get_child(0).health <= 0:
 		# 		collided_object.die()
+		hit()
 
+func hit():
 		rayCast.enabled = false
 		mesh.visible = false
 		impact.emitting = true

@@ -24,7 +24,7 @@ func _process(_delta):
 		player.actualPosition += originOffset
 
 		prevPlayerPos = player.global_position
-
+   
 	var dstFromOrigin = originOffset.distance_to(Vector3(0, 0, 0))
 	if dstFromOrigin >= distanceThreshold:
 

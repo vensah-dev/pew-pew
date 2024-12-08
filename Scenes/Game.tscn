@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://bae0rrler2lwr"]
+[gd_scene load_steps=17 format=3 uid="uid://bae0rrler2lwr"]
 
 [ext_resource type="Script" path="res://Scripts/gameManager.gd" id="1_jmc7e"]
 [ext_resource type="PackedScene" uid="uid://cgng6km46j0vt" path="res://Scenes/player.tscn" id="2_de30o"]
@@ -51,9 +51,10 @@ font_color = Color(1, 0.883333, 0, 1)
 bg_color = Color(0.5, 0.5, 0.5, 0.0980392)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yj6ht"]
-bg_color = Color(0.329412, 0.819608, 0.4, 1)
-border_width_right = 5
-border_color = Color(0.328, 0.82, 0.4018, 0.498039)
+bg_color = Color(0.91, 0.961, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8eld4"]
+bg_color = Color(0.909804, 1, 0.921569, 1)
 
 [node name="Game" type="Node3D"]
 script = ExtResource("1_jmc7e")
@@ -62,14 +63,14 @@ spawnSeed = "2891365617"
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_mqi2g")
 
-[node name="player" parent="." node_paths=PackedStringArray("healthbar") instance=ExtResource("2_de30o")]
-boostSpeed = 100.0
+[node name="player" parent="." node_paths=PackedStringArray("healthbar", "shieldbar") instance=ExtResource("2_de30o")]
 mouseIdleThreshold = 0.01
-raycastRange = 10000000
+raycastRange = 250000
 healthbar = NodePath("../UI/healthbar")
+shieldbar = NodePath("../UI/shieldbar")
 
 [node name="enemy" parent="." instance=ExtResource("9_c21h0")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 400)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 500)
 
 [node name="world" type="Node3D" parent="."]
 script = ExtResource("3_aiun5")
@@ -96,6 +97,10 @@ grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(16, 16)
 script = ExtResource("7_mhgb4")
+innerRadius = 4.0
+outerRadius = 100.0
+outerColor = Color(1, 1, 1, 1)
+outerThickness = 4.0
 
 [node name="distance" type="Label" parent="UI"]
 anchors_preset = 14
@@ -162,16 +167,34 @@ zoomClamp = {
 "min": 1.0
 }
 
+[node name="shieldbar" type="ProgressBar" parent="UI"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 128.0
+offset_top = -268.0
+offset_right = 768.0
+offset_bottom = -244.0
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.5, 0.5, 0.5, 1)
+theme_override_font_sizes/font_size = 16
+theme_override_styles/background = SubResource("StyleBoxFlat_7axhe")
+theme_override_styles/fill = SubResource("StyleBoxFlat_yj6ht")
+value = 50.0
+show_percentage = false
+
 [node name="healthbar" type="ProgressBar" parent="UI"]
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
 offset_left = 128.0
-offset_top = -273.0
+offset_top = -236.0
 offset_right = 768.0
-offset_bottom = -193.0
+offset_bottom = -212.0
 grow_vertical = 0
-theme_override_colors/font_color = Color(0, 0, 0, 0.74902)
-theme_override_font_sizes/font_size = 24
+theme_override_colors/font_color = Color(0.5, 0.5, 0.5, 1)
+theme_override_font_sizes/font_size = 16
 theme_override_styles/background = SubResource("StyleBoxFlat_7axhe")
-theme_override_styles/fill = SubResource("StyleBoxFlat_yj6ht")
+theme_override_styles/fill = SubResource("StyleBoxFlat_8eld4")
+value = 50.0
+show_percentage = false

@@ -1,0 +1,44 @@
+[gd_scene load_steps=9 format=3 uid="uid://b0ngn2k5pixhs"]
+
+[ext_resource type="Shader" path="res://addons/GPUTrail-main/shaders/trail.gdshader" id="1_6p8bh"]
+[ext_resource type="Shader" path="res://addons/GPUTrail-main/shaders/trail_draw_pass.gdshader" id="2_yxan4"]
+[ext_resource type="Texture2D" uid="uid://crk6pkb7e5rwc" path="res://addons/GPUTrail-main/defaults/texture.tres" id="3_62ahy"]
+[ext_resource type="Texture2D" uid="uid://ct31fhxvcragr" path="res://addons/GPUTrail-main/defaults/curve.tres" id="4_b0h7l"]
+[ext_resource type="Script" path="res://addons/GPUTrail-main/GPUTrail3D.gd" id="5_ns1xl"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vjfqe"]
+shader = ExtResource("1_6p8bh")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_h3hav"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("2_yxan4")
+shader_parameter/uv_offset = Vector2(0, 0)
+shader_parameter/emmission_transform = Projection(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)
+shader_parameter/flags = 4
+shader_parameter/tex = ExtResource("3_62ahy")
+shader_parameter/color_ramp = ExtResource("3_62ahy")
+shader_parameter/curve = ExtResource("4_b0h7l")
+
+[sub_resource type="QuadMesh" id="QuadMesh_p3cfq"]
+material = SubResource("ShaderMaterial_h3hav")
+
+[node name="playerTrail" type="GPUParticles3D"]
+auto_translate_mode = 1
+transform = Transform3D(0.1, 0, 8.88173e-17, 0, 0.1, 0, -8.88173e-17, 0, 0.1, 1.25, -0.570001, -4)
+emitting = false
+amount = 100
+lifetime = 100.0
+one_shot = true
+explosiveness = 1.0
+fixed_fps = 0
+process_material = SubResource("ShaderMaterial_vjfqe")
+draw_pass_1 = SubResource("QuadMesh_p3cfq")
+script = ExtResource("5_ns1xl")
+length_seconds = inf
+color_ramp = ExtResource("3_62ahy")
+curve = ExtResource("4_b0h7l")
+billboard = true
+dewiggle = false
+clip_overlaps = false
+_defaults_have_been_set = true

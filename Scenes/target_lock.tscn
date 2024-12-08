@@ -1,0 +1,34 @@
+[gd_scene load_steps=3 format=3 uid="uid://cx7vdmwhs2ds6"]
+
+[ext_resource type="Texture2D" uid="uid://d1s4v5nmj4yux" path="res://Assets/UI/targetLock.png" id="1_13ao2"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_7g4p4"]
+viewport_path = NodePath("SubViewport")
+
+[node name="targetLocked" type="Sprite3D"]
+transform = Transform3D(0.01, 0, 0, 0, 0.01, 0, 0, 0, 0.01, 0, 0, 0)
+billboard = 1
+no_depth_test = true
+fixed_size = true
+alpha_scissor_threshold = 0.0
+alpha_hash_scale = 0.0
+texture_filter = 0
+texture = SubResource("ViewportTexture_7g4p4")
+region_rect = Rect2(8, 8, 448, 448)
+
+[node name="SubViewport" type="SubViewport" parent="."]
+transparent_bg = true
+scaling_3d_scale = 0.5
+size = Vector2i(638, 638)
+size_2d_override = Vector2i(1, 1)
+
+[node name="NinePatchRect" type="NinePatchRect" parent="SubViewport"]
+offset_right = 638.0
+offset_bottom = 638.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource("1_13ao2")
+patch_margin_left = 319
+patch_margin_top = 319
+patch_margin_right = 319
+patch_margin_bottom = 319

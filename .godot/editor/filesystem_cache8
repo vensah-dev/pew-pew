@@ -1,0 +1,100 @@
+fc8a56933c4b1c8d796fdb8f7a9f9475
+::res://::1733679028
+default_bus_layout.tres::AudioBusLayout::3668368361425619106::1733677229::0::1::::<><>::
+explode.res::Animation::7233508627244692947::1733677281::0::1::::<><>::
+export_presets.cfg::TextFile::-1::1732706372::0::1::::<><>::
+icon.svg::CompressedTexture2D::6384358348292850358::1721298927::1733494956::1::::<><>::
+::res://Assets/::1733393118
+Explode.wav::AudioStreamWAV::8448025420415637844::1733223091::1733223104::1::::<><>::
+pew-pew-sound-effect.wav::AudioStreamWAV::8004839890360260592::1733219874::1733220507::1::::<><>::
+Reticle.png::CompressedTexture2D::1980006371164571003::1733393049::1733393118::1::::<><>::
+::res://Assets/materials/::1733677281
+bulletMaterial.tres::StandardMaterial3D::6551778105195157754::1733677281::0::1::::<><>::
+enemyTrails.tres::Gradient::3442768878180799711::1733625773::0::1::::<><>::
+particleEffectMaterial.tres::StandardMaterial3D::3438658006372308021::1733623830::0::1::::<><>::
+playerTrails.tres::GradientTexture1D::1762367714182076055::1733625524::0::1::::<><>::
+::res://Assets/Models/::1733275121
+model.obj::Mesh::5142926225691739160::1733275102::1733275121::1::::<><>::
+Spaceship by Liz Reddington.glb::PackedScene::4156381904606361603::1721711127::1721735574::1::::<><>::
+::res://Assets/Texture/::1732706168
+earth.jpeg::CompressedTexture2D::154688057263647599::1732621401::1732706168::1::::<><>::
+jupiter.jpeg::CompressedTexture2D::4735119899517793415::1732621401::1732706168::1::::<><>::
+mars.jpeg::CompressedTexture2D::4477248908866461338::1732621401::1732706168::1::::<><>::
+::res://Assets/UI/::1733642584
+CrossHair.png::CompressedTexture2D::8136098549827754915::1721540392::1721540423::1::::<><>::
+Graduation Hat.png::CompressedTexture2D::8383907875846005766::1722747354::1732087585::1::::<><>::
+icon 128x128.png::CompressedTexture2D::3490361850731265049::1723978349::1732087584::1::::<><>::
+star.png::CompressedTexture2D::1703233216715263::1721708509::1732706168::1::::<><>::
+targetLock.png::CompressedTexture2D::9023130676044833495::1733642571::1733642584::1::::<><>::
+::res://godot-jolt/::1732706435
+godot-jolt.gdextension::GDExtension::-1::1732700643::0::1::::<><>::
+LICENSE.txt::TextFile::-1::1732700643::0::1::::<><>::
+THIRDPARTY.txt::TextFile::-1::1732700644::0::1::::<><>::
+::res://godot-jolt/android/::1732700643
+::res://godot-jolt/ios/::1732700643
+::res://godot-jolt/ios/godot-jolt_ios.framework/::1732700643
+::res://godot-jolt/ios/godot-jolt_ios_editor.framework/::1732700643
+::res://godot-jolt/linux/::1732700643
+::res://godot-jolt/macos/::1732700643
+::res://godot-jolt/macos/godot-jolt_macos.framework/::1732700643
+::res://godot-jolt/macos/godot-jolt_macos.framework/_CodeSignature/::1732700643
+::res://godot-jolt/macos/godot-jolt_macos.framework/Resources/::1732700643
+::res://godot-jolt/macos/godot-jolt_macos_editor.framework/::1732700644
+::res://godot-jolt/macos/godot-jolt_macos_editor.framework/_CodeSignature/::1732700644
+::res://godot-jolt/macos/godot-jolt_macos_editor.framework/Resources/::1732700644
+::res://godot-jolt/windows/::1732700644
+::res://Scenes/::1733678939
+asteroidDefault.tscn::PackedScene::4662665520511571329::1733147304::0::1::::<><>::res://Scripts/world/body.gd
+cameraView.tscn::PackedScene::6464521299500481508::1732290496::0::1::::<><>::res://Scripts/cameraView.gd
+diamondStar.tscn::PackedScene::1101280358218780788::1732621361::0::1::::<><>::uid://3b1d5pso3p::::res://Assets/UI/star.png
+enemy.tscn::PackedScene::8024357058068926980::1733678939::0::1::::<><>::res://Scripts/enemy.gd<>uid://brhvvyyekkbfn::::res://Scenes/explosion.tscn<>res://Scripts/components/health.gd<>res://Scripts/gun.gd<>uid://3heoeqy1bffv::::res://Assets/Reticle.png<>uid://cl3jfdc3m0j2x::::res://Scenes/Guns and Bullets/bulletRed.tscn
+explosion.tscn::PackedScene::3595395526169377451::1733678939::0::1::::<><>::uid://dbb73h1u3x74b::::res://explode.res<>uid://dsmj0kr8tox8w::::res://Assets/Explode.wav<>uid://bo8ygvnen1iyf::::res://Assets/materials/particleEffectMaterial.tres
+Game.tscn::PackedScene::2396227388120220113::1733678939::0::1::::<><>::res://Scripts/gameManager.gd<>uid://cgng6km46j0vt::::res://Scenes/player.tscn<>res://Scripts/world/world.gd<>res://Scripts/spawners/SolarSystemSpawner.gd<>uid://bxtudok6crrjx::::res://Scenes/environment/starSystems/solarSystem.tscn<>res://Scripts/crosshair.gd<>uid://34hbmj2ovvb2::::res://Scenes/minimap.tscn<>uid://dmlb8utavpi4c::::res://Scenes/enemy.tscn<>uid://cydpyr360sp2s::::res://Scenes/cameraView.tscn
+minimap.tscn::PackedScene::2025582026905666745::1733379689::0::1::::<><>::res://Scripts/minimap.gd<>uid://drph0c56jxfcg::::res://Assets/UI/Graduation Hat.png<>uid://3b1d5pso3p::::res://Assets/UI/star.png
+player.tscn::PackedScene::5221231546715415577::1733678939::0::1::::<><>::res://Scripts/player.gd<>res://Scripts/components/health.gd<>uid://cx7vdmwhs2ds6::::res://Scenes/target_lock.tscn<>res://Scripts/gun.gd<>uid://cfjjijsltwvae::::res://Assets/Models/model.obj<>uid://dvon531nr1ynt::::res://Scenes/Guns and Bullets/homingBullet.tscn<>uid://b7sa02arh0p24::::res://Scenes/Guns and Bullets/bullet.tscn
+playerBackup.tscn::PackedScene::915283746208274767::1731940294::0::1::::<><>::res://Scripts/player.gd<>res://Scripts/crosshair.gd<>uid://dn6gmbx86b4gl::::res://Assets/UI/CrossHair.png<>res://Scripts/gun.gd
+player_trail.tscn::PackedScene::4168367637685997260::1733554797::0::1::::<><>::res://addons/GPUTrail-main/shaders/trail.gdshader<>res://addons/GPUTrail-main/shaders/trail_draw_pass.gdshader<>uid://crk6pkb7e5rwc::::res://addons/GPUTrail-main/defaults/texture.tres<>uid://ct31fhxvcragr::::res://addons/GPUTrail-main/defaults/curve.tres<>res://addons/GPUTrail-main/GPUTrail3D.gd
+spaceship collisions.tscn::PackedScene::2436383273125467146::1731938363::0::1::::<><>::uid://b0hnadewv4py6::::res://Assets/Models/Spaceship by Liz Reddington.glb
+SpaceShip.tscn::PackedScene::6774728397628198350::1731938362::0::1::::<><>::uid://b0hnadewv4py6::::res://Assets/Models/Spaceship by Liz Reddington.glb
+target_lock.tscn::PackedScene::6454525938029736423::1733678939::0::1::::<><>::uid://d1s4v5nmj4yux::::res://Assets/UI/targetLock.png
+::res://Scenes/environment/::1733146827
+::res://Scenes/environment/planets/::1733678939
+bluePlanet.tscn::PackedScene::3820482943933855161::1733678939::0::1::::<><>::res://Scripts/world/body.gd<>uid://b412vurs6f155::::res://Assets/Texture/mars.jpeg
+greenPlanet.tscn::PackedScene::4922372399418563596::1733147304::0::1::::<><>::res://Scripts/world/body.gd<>uid://cg6xpkc32ew2::::res://Assets/Texture/earth.jpeg
+planet.tscn::PackedScene::2275781893362889424::1733147304::0::1::::<><>::res://Scripts/world/body.gd
+redPlanet.tscn::PackedScene::5186028732154381936::1733147304::0::1::::<><>::res://Scripts/world/body.gd<>uid://b8pyy6jj645n4::::res://Assets/Texture/jupiter.jpeg
+::res://Scenes/environment/stars/::1733678939
+starBlue.tscn::PackedScene::5514355413680565412::1733147304::0::1::::<><>::res://Scripts/world/body.gd
+starOrange.tscn::PackedScene::4015520493629787075::1733147304::0::1::::<><>::res://Scripts/world/body.gd
+starPurple.tscn::PackedScene::2026319671817979718::1733678939::0::1::::<><>::res://Scripts/world/body.gd
+starRed.tscn::PackedScene::4153137976046072510::1733147304::0::1::::<><>::res://Scripts/world/body.gd
+starWhite.tscn::PackedScene::1547864244631622059::1733147304::0::1::::<><>::res://Scripts/world/body.gd
+starYellow.tscn::PackedScene::959177629595227550::1733147304::0::1::::<><>::res://Scripts/world/body.gd
+::res://Scenes/environment/starSystems/::1733379689
+solarSystem.tscn::PackedScene::4041207714118830741::1733379689::0::1::::<><>::res://Scripts/world/solarSystem.gd<>uid://bxhfbhpiubqlf::::res://Scenes/environment/stars/starOrange.tscn<>res://Scripts/spawners/celestialBodySpawner.gd<>uid://cktgvl8e52khw::::res://Scenes/environment/stars/starBlue.tscn<>uid://34tgoolebh5g::::res://Scenes/environment/stars/starPurple.tscn<>uid://cf5feuw5a0xw7::::res://Scenes/environment/planets/redPlanet.tscn<>uid://cceo0v6crva0c::::res://Scenes/environment/planets/greenPlanet.tscn<>uid://b0f2ttqx3argo::::res://Scenes/environment/stars/starRed.tscn<>uid://nwvrr3e0j3gk::::res://Scenes/environment/stars/starYellow.tscn<>uid://buow2cclieyvp::::res://Scenes/environment/planets/bluePlanet.tscn<>uid://wb2dlil4pr68::::res://Scenes/environment/stars/starWhite.tscn
+::res://Scenes/Guns and Bullets/::1733656115
+bullet.tscn::PackedScene::4669668543444047047::1733656115::0::1::::<><>::res://Scripts/bullet.gd<>uid://c0ly3fmh1oikw::::res://Assets/materials/bulletMaterial.tres<>uid://dmbusqiv375ii::::res://Assets/pew-pew-sound-effect.wav
+bulletRed.tscn::PackedScene::5603276768371535833::1733656115::0::1::::<><>::res://Scripts/bullet.gd<>uid://dmbusqiv375ii::::res://Assets/pew-pew-sound-effect.wav
+homingBullet.tscn::PackedScene::8662973462191078189::1733656115::0::1::::<><>::res://Scripts/bullet.gd<>uid://dmbusqiv375ii::::res://Assets/pew-pew-sound-effect.wav
+::res://Scenes/spawners/::1733656115
+asteroid_spawner.tscn::PackedScene::3532280950984520863::1733147165::0::1::::<><>::res://Scripts/spawners/celestialBodySpawner.gd<>uid://b7ovojnx8c2n2::::res://Scenes/asteroidDefault.tscn
+solar_system_spawner.tscn::PackedScene::710803188623895780::1733656115::0::1::::<><>::res://Scripts/spawners/SolarSystemSpawner.gd<>uid://bxtudok6crrjx::::res://Scenes/environment/starSystems/solarSystem.tscn
+::res://Scripts/::1733652354
+bullet.gd::GDScript::-1::1733652789::0::1::::<>Node3D<>::
+cameraView.gd::GDScript::-1::1732187592::0::1::::<>ColorRect<>::
+crosshair.gd::GDScript::-1::1733665100::0::1::::<>CenterContainer<>::
+enemy.gd::GDScript::-1::1733636331::0::1::::<>CharacterBody3D<>::
+gameManager.gd::GDScript::-1::1732204307::0::1::::<>Node<>::
+gun.gd::GDScript::-1::1733678918::0::1::::<>Node3D<>::
+minimap.gd::GDScript::-1::1732585685::0::1::::<>MarginContainer<>::
+player.gd::GDScript::-1::1733678926::0::1::::<>CharacterBody3D<>::
+::res://Scripts/components/::1733147144
+health.gd::GDScript::-1::1733627583::0::1::::healthNode<>Node<>::
+::res://Scripts/spawners/::1733147211
+celestialBodySpawner.gd::GDScript::-1::1732754381::0::1::::<>Node3D<>::
+SolarSystemSpawner.gd::GDScript::-1::1733632242::0::1::::<>Node3D<>::
+starSpawner.gd::GDScript::-1::1732247200::0::1::::<>Node3D<>::
+::res://Scripts/world/::1733147304
+body.gd::GDScript::-1::1732754381::0::1::::Body<>Node3D<>::
+solarSystem.gd::GDScript::-1::1733147301::0::1::::<>Node3D<>::
+world.gd::GDScript::-1::1733668885::0::1::::<>Node3D<>::

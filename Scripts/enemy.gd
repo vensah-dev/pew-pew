@@ -3,9 +3,18 @@ extends CharacterBody3D
 @export var maxSpeed = 50.0
 @export var stoppingDistance = 25.0
 @export var surroundRadius = 100.0
+@export var attackRadius = 10.0
 @export var acceleration = 10.0   
 @export var turningSpeed = 2.5
 @export var explode:PackedScene
+
+@export_group("UI")
+@export var healthbar:Node
+@export var shieldbar:Node
+
+@export var predictionReticleDisapearDistance = 50
+@export var healthbarsVisibilityDistance = 100
+
 
 @onready var player = get_tree().get_nodes_in_group("player")[0]
 
@@ -13,9 +22,13 @@ extends CharacterBody3D
 @onready var destination = random_point_in_sphere_surface(player.global_position, surroundRadius)
 
 @onready var healthData = $healthData
+@onready var rayCast = $RayCast3D
 @onready var collider = $boxCollider
 @onready var mesh = $mesh
 @onready var guns = $mesh/Guns
+@onready var predictionReticle = $mesh/predictionReticle
+
+var playerGuns 
 
 var rng = RandomNumberGenerator.new()
 
@@ -23,12 +36,32 @@ var state = "chasing"
 
 var speed = maxSpeed
 
-var lookTarget 
 
 func _ready() -> void:
 	healthData.setHealth(healthData.maxHealth)
+	healthData.setShield(healthData.maxShield)
+
+	rayCast.scale = Vector3.ONE * guns.bulletRange
+
+	healthData.setHealth(healthData.maxHealth)
+
+	# for child in player.get_children():
+	# 	if child.name == "model":
+
+	# 		for kid in child.get_children():
+	# 			if kid.name == "Guns":
+
+	# 				playerGuns = kid
+
+	playerGuns = player.listOfGuns[player.gunIndex]
+
+
 
 func _process(delta: float) -> void:
+	playerGuns = player.listOfGuns[player.gunIndex]
+
+	updateHealth()
+
 	# print("enemy health: ", healthData.health)
 	# if healthData.health <= 0 and state != "dead":
 	# 	die()
@@ -41,76 +74,83 @@ func _process(delta: float) -> void:
 		previousLocation = global_position
 		# await get_tree().create_timer(5.0).timeout
 		destination = random_point_in_sphere_surface(player.global_position, surroundRadius)
+
 		# smoothed_destination = lerp(smoothed_destination, destination, 0.01)
 		# look_at(smoothed_destination.snapped(Vector3.ONE), Vector3.UP, true)
 		state = "attack"
 		print(self,"state: ", state)
 
 	if state == "chasing":
-		# state = "chasing"
+		# state = "chasing OKAY!"
 
-		# var targetTransform = transform.looking_at(destination, transform.basis.y, true)
+		print(destination)
 
-		# rotation = lerp(rotation, targetTransform.)
-
-		# self.transform  = self.transform.interpolate_with(, turningSpeed * delta)
-		# transform = transform.looking_at(destination, Vector3.UP)
 
 		lookAtButSmooth(destination, delta)
 
-		speed = maxSpeed
-
-		var totalDistanceToDestination = previousLocation.distance_to(destination)
-		var accelerateDistance = totalDistanceToDestination/acceleration
 		
-		if global_position.distance_to(destination) <= accelerateDistance:
-			speed = maxSpeed * inverse_lerp(0, accelerateDistance, global_position.distance_to(destination)) + 10
+		# speed = maxSpeed
 
-		elif global_position.distance_to(destination) >= totalDistanceToDestination-accelerateDistance:
-			speed = maxSpeed * (1-inverse_lerp(totalDistanceToDestination-accelerateDistance, totalDistanceToDestination, global_position.distance_to(destination))) + 10
+		# var totalDistanceToDestination = previousLocation.distance_to(destination)
+		# var accelerateDistance = totalDistanceToDestination/acceleration
+		
+		# if global_position.distance_to(destination) <= accelerateDistance:
+		# 	speed = maxSpeed * inverse_lerp(0, accelerateDistance, global_position.distance_to(destination)) + 10
+
+		# elif global_position.distance_to(destination) >= totalDistanceToDestination-accelerateDistance:
+		# 	speed = maxSpeed * (1-inverse_lerp(totalDistanceToDestination-accelerateDistance, totalDistanceToDestination, global_position.distance_to(destination))) + 10
+
 
 		if destination.distance_to(global_position) < stoppingDistance:
-			# print("smoothed_destination.snapped(Vector3.ONE * stoppingDistance):", smoothed_destination.snapped(Vector3.ONE * stoppingDistance))
-			# print("destination.snapped(Vector3.ONE * stoppingDistance):", destination.snapped(Vector3.ONE * stoppingDistance))
 
 			velocity = Vector3.ZERO
+			speed = 0
 			# await get_tree().create_timer(1.0).timeout
 
 			state = "idle"
 			print(self,"state: ", state)
 
 		else:
-			velocity = (destination-global_position).normalized() * speed
-			# state = "chase"
+
+			var moveVector = (destination-global_position).normalized()
+			velocity = velocity.lerp(moveVector * maxSpeed, delta * acceleration)
+			# state = "chasing"
 
 	if state == "attack":
-		
-		if lookAtButSmooth(player.global_position, delta) == true:
-			var random = 5
-			velocity = Vector3.ZERO
-			shoot(random)
 
-			await get_tree().create_timer(guns.reloadInterval * (random+2)).timeout
+		# velocity = (destination-global_position).normalized() * speed
+
+		lookAtButSmooth(player.global_position, delta)
+		
+		var moveVector = (player.global_position - global_position).normalized()
+		velocity = velocity.lerp(moveVector * maxSpeed, delta * acceleration)
+
+		if global_position.distance_to(player.global_position) < 50:
 			state = "chasing"
 			print(self, "state: ", state)
 
-		# await get_tree().create_timer(1.0).timeout
+		if rayCast.is_colliding():
+			var collided_object = rayCast.get_collider()  
+			print("results from enemy: ", collided_object)
 
-func shoot(times):
-		for i in range(times):
-			if guns.canShoot:
-				guns.shoot()
+			if collided_object.is_in_group("player"):
+				shoot(1)
 
 
 
 func _physics_process(_delta: float) -> void:
+	updatePredictionReticle()
+
 	move_and_slide()
 
-var addedDelta = 0.0
+func accelerate():
+
+	speed *= acceleration
+
+	if speed >= maxSpeed:
+		speed = maxSpeed
+
 func lookAtButSmooth(target, delta):
-		addedDelta += turningSpeed * delta
-		if addedDelta > 1.0:
-			addedDelta = 1.0
 
 		var target_vector = global_position.direction_to(target)
 		var target_basis= Basis.looking_at(-target_vector)
@@ -122,19 +162,68 @@ func lookAtButSmooth(target, delta):
 		else:
 			return false
 
+func shoot(times):
+		for i in range(times):
+			# guns.addedVar = 0.0
+
+			if guns.canShoot:
+				guns.shoot()
+
+
+func updatePredictionReticle():
+	if predictionReticle:
+		# var player_position = player.global_position
+		# var player_velocity = player.linear_velocity
+
+		# Calculate the time it takes for the projectile to reach the target
+		var distance_to_player = global_position.distance_to(player.global_position)
+
+		if velocity.length() > playerGuns.bulletSpeed/100 and player.updatePredictionReticle:
+			var time_to_impact = distance_to_player / playerGuns.bulletSpeed
+
+			# Calculate the predicted position of the target
+			var predicted_position = global_position + velocity * time_to_impact
+
+			# Set the position of the leading indicator
+			predictionReticle.global_position = predicted_position
+
+			predictionReticle.visible = true
+		else:
+			predictionReticle.visible = false
+
+
 
 func hit(damage):
-	healthData.setHealth(healthData.health - damage)
-	print(self, "health: ", healthData.health)
+	if healthData.shield > 0:
+		healthData.setShield(healthData.shield - damage)
+	else:
+		healthData.setHealth(healthData.health - damage)
 
+	
 	if healthData.health <= 0:
 		collider.disabled = true
 		mesh.visible = false
 		die()
 
+	
+
+func updateHealth():
+	healthbar.max_value = healthData.maxHealth
+	healthbar.value = healthData.health
+
+	shieldbar.max_value = healthData.maxShield
+	shieldbar.value = healthData.shield
+
+
 func die():
 	state = "dead"
 	velocity = Vector3.ZERO
+	collider.disabled = true
+	collider.get_shape().size = Vector3.ZERO
+
+	if player.lockedTarget.collider == self:
+		player.targetLocked = false
+		player.lockedTarget = null
 	# print(state)
 
 	# collider.visible = false	
