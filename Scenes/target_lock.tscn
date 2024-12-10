@@ -1,12 +1,25 @@
-[gd_scene load_steps=3 format=3 uid="uid://cx7vdmwhs2ds6"]
+[gd_scene load_steps=8 format=3 uid="uid://cx7vdmwhs2ds6"]
 
 [ext_resource type="Texture2D" uid="uid://d1s4v5nmj4yux" path="res://Assets/UI/targetLock.png" id="1_13ao2"]
+[ext_resource type="Script" path="res://Scripts/targetLock.gd" id="1_qcmp5"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_7g4p4"]
 viewport_path = NodePath("SubViewport")
 
+[sub_resource type="Theme" id="Theme_ci4yp"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_16irj"]
+bg_color = Color(1, 1, 1, 0.12549)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fc3ec"]
+bg_color = Color(0.397982, 0.579115, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1arms"]
+bg_color = Color(1, 1, 1, 1)
+
 [node name="targetLocked" type="Sprite3D"]
 transform = Transform3D(0.01, 0, 0, 0, 0.01, 0, 0, 0, 0.01, 0, 0, 0)
+offset = Vector2(0, -134)
 billboard = 1
 no_depth_test = true
 fixed_size = true
@@ -15,20 +28,63 @@ alpha_hash_scale = 0.0
 texture_filter = 0
 texture = SubResource("ViewportTexture_7g4p4")
 region_rect = Rect2(8, 8, 448, 448)
+script = ExtResource("1_qcmp5")
+targetLockSpriteColor = Color(1, 0, 0, 1)
+distance = -4.64
+shieldBarColor = Color(0.396078, 0.580392, 1, 1)
 
 [node name="SubViewport" type="SubViewport" parent="."]
 transparent_bg = true
 scaling_3d_scale = 0.5
-size = Vector2i(638, 638)
+size = Vector2i(638, 906)
 size_2d_override = Vector2i(1, 1)
 
-[node name="NinePatchRect" type="NinePatchRect" parent="SubViewport"]
+[node name="targetLockSprite" type="Sprite2D" parent="SubViewport"]
+
+[node name="NinePatchRect" type="NinePatchRect" parent="SubViewport/targetLockSprite"]
 offset_right = 638.0
 offset_bottom = 638.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme = SubResource("Theme_ci4yp")
 texture = ExtResource("1_13ao2")
 patch_margin_left = 319
 patch_margin_top = 319
 patch_margin_right = 319
 patch_margin_bottom = 319
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SubViewport"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -0.5
+offset_top = 701.0
+offset_right = 638.5
+offset_bottom = 905.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 8
+
+[node name="distanceLabel" type="RichTextLabel" parent="SubViewport/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 64
+text = "250m"
+fit_content = true
+
+[node name="shieldbar" type="ProgressBar" parent="SubViewport/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/background = SubResource("StyleBoxFlat_16irj")
+theme_override_styles/fill = SubResource("StyleBoxFlat_fc3ec")
+value = 50.0
+show_percentage = false
+
+[node name="healthbar" type="ProgressBar" parent="SubViewport/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/background = SubResource("StyleBoxFlat_16irj")
+theme_override_styles/fill = SubResource("StyleBoxFlat_1arms")
+value = 50.0
+show_percentage = false

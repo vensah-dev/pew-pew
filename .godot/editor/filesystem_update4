@@ -1,13 +1,13 @@
 res://default_bus_layout.tres
-res://Scripts/enemy.gd
+res://Scripts/player.gd
 res://Scenes/Game.tscn
 res://Assets/materials/bulletMaterial.tres
 res://explode.res
 res://Scenes/player.tscn
 res://Scenes/explosion.tscn
 res://Scenes/enemy.tscn
-res://Scenes/environment/planets/bluePlanet.tscn
-res://Scenes/environment/stars/starPurple.tscn
+res://Scenes/Guns and Bullets/bullet.tscn
+res://Scenes/cameraView.tscn
 res://Scenes/target_lock.tscn
-res://Scripts/player.gd
-res://Scripts/gun.gd
+res://Scenes/Guns and Bullets/bulletRed.tscn
+res://Scripts/components/health.gd

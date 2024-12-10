@@ -1,16 +1,20 @@
-[gd_scene load_steps=17 format=3 uid="uid://bae0rrler2lwr"]
+[gd_scene load_steps=21 format=3 uid="uid://bae0rrler2lwr"]
 
 [ext_resource type="Script" path="res://Scripts/gameManager.gd" id="1_jmc7e"]
 [ext_resource type="PackedScene" uid="uid://cgng6km46j0vt" path="res://Scenes/player.tscn" id="2_de30o"]
 [ext_resource type="Script" path="res://Scripts/world/world.gd" id="3_aiun5"]
 [ext_resource type="Script" path="res://Scripts/spawners/SolarSystemSpawner.gd" id="4_s4hp0"]
+[ext_resource type="Texture2D" uid="uid://da6mtyhcrgjyd" path="res://Assets/UI/shield icon.png" id="5_o6m3p"]
 [ext_resource type="PackedScene" uid="uid://bxtudok6crrjx" path="res://Scenes/environment/starSystems/solarSystem.tscn" id="5_synb3"]
+[ext_resource type="Texture2D" uid="uid://da8qpfk8sann1" path="res://Assets/UI/health icon.png" id="6_2yts4"]
+[ext_resource type="PackedScene" uid="uid://6nobhr26vtvf" path="res://Scenes/spawners/enemySpawner.tscn" id="6_t04ed"]
 [ext_resource type="Script" path="res://Scripts/crosshair.gd" id="7_mhgb4"]
+[ext_resource type="Texture2D" uid="uid://copsrd5jrk7o6" path="res://Assets/UI/statusRing.png" id="7_n3nd6"]
+[ext_resource type="Texture2D" uid="uid://blgnd7jkkywn6" path="res://Assets/UI/status ring.png" id="8_y2awc"]
 [ext_resource type="PackedScene" uid="uid://34hbmj2ovvb2" path="res://Scenes/minimap.tscn" id="9_7ngw5"]
-[ext_resource type="PackedScene" uid="uid://dmlb8utavpi4c" path="res://Scenes/enemy.tscn" id="9_c21h0"]
 [ext_resource type="PackedScene" uid="uid://cydpyr360sp2s" path="res://Scenes/cameraView.tscn" id="9_i6eme"]
 
-[sub_resource type="Environment" id="Environment_mqi2g"]
+[sub_resource type="Environment" id="Environment_oyles"]
 background_mode = 1
 ambient_light_source = 2
 ambient_light_color = Color(1, 1, 1, 1)
@@ -23,8 +27,8 @@ glow_levels/6 = 1.0
 glow_levels/7 = 1.0
 glow_normalized = true
 glow_mix = 0.4
+glow_bloom = 0.35
 glow_blend_mode = 1
-glow_hdr_threshold = 1.1
 glow_hdr_luminance_cap = 2.0
 fog_mode = 1
 fog_light_color = Color(0, 0, 0, 1)
@@ -61,25 +65,14 @@ script = ExtResource("1_jmc7e")
 spawnSeed = "2891365617"
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_mqi2g")
+environment = SubResource("Environment_oyles")
 
 [node name="player" parent="." node_paths=PackedStringArray("healthbar", "shieldbar") instance=ExtResource("2_de30o")]
-mouseIdleThreshold = 0.01
-raycastRange = 250000
+mouseIdleThreshold = 0.005
+targetMarkerNormalColour = Color(0.82, 0.955, 1, 1)
+targetMarkerLockedColour = Color(1, 0.266667, 0, 1)
 healthbar = NodePath("../UI/healthbar")
 shieldbar = NodePath("../UI/shieldbar")
-
-[node name="enemy" parent="." instance=ExtResource("9_c21h0")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 500)
-
-[node name="world" type="Node3D" parent="."]
-script = ExtResource("3_aiun5")
-
-[node name="Solar System Spawner" type="Node3D" parent="world"]
-script = ExtResource("4_s4hp0")
-maxSpawnRadius = 3e+07
-bodySpacingBuffer = 25.0
-solarSystems = Array[PackedScene]([ExtResource("5_synb3")])
 
 [node name="UI" type="CanvasLayer" parent="."]
 
@@ -97,10 +90,9 @@ grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(16, 16)
 script = ExtResource("7_mhgb4")
-innerRadius = 4.0
-outerRadius = 100.0
-outerColor = Color(1, 1, 1, 1)
-outerThickness = 4.0
+innerRadius = 2.0
+innerThickness = 4.0
+outerRadius = 3.0
 
 [node name="distance" type="Label" parent="UI"]
 anchors_preset = 14
@@ -183,6 +175,19 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_yj6ht")
 value = 50.0
 show_percentage = false
 
+[node name="icon" type="TextureRect" parent="UI/shieldbar"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -10.0
+offset_right = 68.0
+offset_bottom = 90.0
+grow_vertical = 2
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("5_o6m3p")
+
 [node name="healthbar" type="ProgressBar" parent="UI"]
 anchors_preset = 2
 anchor_top = 1.0
@@ -196,5 +201,51 @@ theme_override_colors/font_color = Color(0.5, 0.5, 0.5, 1)
 theme_override_font_sizes/font_size = 16
 theme_override_styles/background = SubResource("StyleBoxFlat_7axhe")
 theme_override_styles/fill = SubResource("StyleBoxFlat_8eld4")
+step = 0.001
 value = 50.0
 show_percentage = false
+
+[node name="icon" type="TextureRect" parent="UI/healthbar"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -10.0
+offset_right = 68.0
+offset_bottom = 90.0
+grow_vertical = 2
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("6_2yts4")
+
+[node name="progressGuage" type="TextureProgressBar" parent="UI"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -37.5
+offset_top = -37.5
+offset_right = 37.5
+offset_bottom = 37.5
+grow_horizontal = 2
+grow_vertical = 2
+value = 34.0
+fill_mode = 4
+nine_patch_stretch = true
+texture_under = ExtResource("7_n3nd6")
+texture_progress = ExtResource("8_y2awc")
+tint_under = Color(1, 1, 1, 0.25098)
+tint_over = Color(1, 1, 1, 0)
+
+[node name="EnemySpawner" parent="." node_paths=PackedStringArray("player") instance=ExtResource("6_t04ed")]
+player = NodePath("../player")
+
+[node name="world" type="Node3D" parent="."]
+script = ExtResource("3_aiun5")
+
+[node name="Solar System Spawner" type="Node3D" parent="world"]
+script = ExtResource("4_s4hp0")
+maxSpawnRadius = 3e+07
+bodySpacingBuffer = 25.0
+solarSystems = Array[PackedScene]([ExtResource("5_synb3")])

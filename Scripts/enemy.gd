@@ -7,6 +7,7 @@ extends CharacterBody3D
 @export var acceleration = 10.0   
 @export var turningSpeed = 2.5
 @export var explode:PackedScene
+@export var despawnDistance: float = 75000
 
 @export_group("UI")
 @export var healthbar:Node
@@ -16,7 +17,7 @@ extends CharacterBody3D
 @export var healthbarsVisibilityDistance = 100
 
 
-@onready var player = get_tree().get_nodes_in_group("player")[0]
+@onready var player
 
 @onready var previousLocation = global_position
 @onready var destination = random_point_in_sphere_surface(player.global_position, surroundRadius)
@@ -57,7 +58,7 @@ func _ready() -> void:
 
 
 
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	playerGuns = player.listOfGuns[player.gunIndex]
 
 	updateHealth()
@@ -66,10 +67,10 @@ func _process(delta: float) -> void:
 	# if healthData.health <= 0 and state != "dead":
 	# 	die()
 
-	if global_position.distance_to(player.global_position) >= 10000:
+	if global_position.distance_to(player.global_position) >= 75000:
 		queue_free()
 
-	if state == "idle":
+	elif state == "idle":
 		state = "choosing next destination"
 		previousLocation = global_position
 		# await get_tree().create_timer(5.0).timeout
@@ -80,7 +81,7 @@ func _process(delta: float) -> void:
 		state = "attack"
 		print(self,"state: ", state)
 
-	if state == "chasing":
+	elif state == "chasing":
 		# state = "chasing OKAY!"
 
 		print(destination)
@@ -116,7 +117,7 @@ func _process(delta: float) -> void:
 			velocity = velocity.lerp(moveVector * maxSpeed, delta * acceleration)
 			# state = "chasing"
 
-	if state == "attack":
+	elif state == "attack":
 
 		# velocity = (destination-global_position).normalized() * speed
 
@@ -136,9 +137,6 @@ func _process(delta: float) -> void:
 			if collided_object.is_in_group("player"):
 				shoot(1)
 
-
-
-func _physics_process(_delta: float) -> void:
 	updatePredictionReticle()
 
 	move_and_slide()
@@ -221,9 +219,11 @@ func die():
 	collider.disabled = true
 	collider.get_shape().size = Vector3.ZERO
 
-	if player.lockedTarget.collider == self:
-		player.targetLocked = false
-		player.lockedTarget = null
+	if player.lockedTarget:
+		if player.lockedTarget.collider == self:
+			player.targetLocked = false
+			player.lockedTarget = null
+
 	# print(state)
 
 	# collider.visible = false	

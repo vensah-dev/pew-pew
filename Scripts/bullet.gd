@@ -18,13 +18,13 @@ var lockOnTarget = false
 func _ready():
 	scale = Vector3(0.1, 0.1, 0.5)
 	sound.play()
-	
+
 	if is_instance_valid(target):
 		await get_tree().create_timer(5.0).timeout
 		queue_free()
 
 
-func _process(delta):
+func _physics_process(delta: float) -> void:	
 	if is_instance_valid(target):
 		look_at(target.global_position, transform.basis.y, true)
 		global_position += transform.basis * Vector3(0, 0, speed) * delta
@@ -35,7 +35,6 @@ func _process(delta):
 	# if global_position.distance_to(player.global_position) > despawnRange:	
 	# 	queue_free()
 
-func _physics_process(_delta: float) -> void:
 	if rayCast.is_colliding():
 		var collided_object = rayCast.get_collider()  
 

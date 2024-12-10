@@ -2,9 +2,12 @@
 
 [ext_resource type="Script" path="res://Scripts/cameraView.gd" id="1_gg5kv"]
 
-[sub_resource type="Environment" id="Environment_4xabh"]
+[sub_resource type="Environment" id="Environment_10tov"]
+background_mode = 3
 ambient_light_source = 2
 ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_energy = 1.5
+tonemap_mode = 3
 
 [node name="MiniMap" type="ColorRect"]
 anchors_preset = 1
@@ -33,10 +36,10 @@ handle_input_locally = false
 size = Vector2i(700, 700)
 render_target_update_mode = 4
 
+[node name="WorldEnvironment" type="WorldEnvironment" parent="SubViewportContainer/SubViewport"]
+environment = SubResource("Environment_10tov")
+
 [node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport"]
-transform = Transform3D(-1, 8.74228e-08, 0, 3.82137e-15, 4.37114e-08, 1, 8.74228e-08, 1, -4.37114e-08, 0, 250, 0)
-environment = SubResource("Environment_4xabh")
-projection = 1
+transform = Transform3D(-4.37114e-08, -1, 0, -4.37114e-08, 1.91069e-15, 1, -1, 4.37114e-08, -4.37114e-08, 0, 700, 0)
+cull_mask = 512
 current = true
-size = 3e+06
-far = 9e+06

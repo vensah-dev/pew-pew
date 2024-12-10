@@ -7,10 +7,6 @@
 [ext_resource type="Texture2D" uid="uid://3heoeqy1bffv" path="res://Assets/Reticle.png" id="5_xqs6i"]
 [ext_resource type="PackedScene" uid="uid://cl3jfdc3m0j2x" path="res://Scenes/Guns and Bullets/bulletRed.tscn" id="10_xkdk2"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_m3v3r"]
-resource_local_to_scene = true
-size = Vector3(10, 7, 10)
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_reb5r"]
 resource_name = "lambert2SG"
 albedo_color = Color(0.665185, 0.665185, 0.665185, 1)
@@ -114,9 +110,13 @@ bg_color = Color(0.91, 0.961, 1, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3qxla"]
 bg_color = Color(0.909804, 1, 0.921569, 1)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_m3v3r"]
+resource_local_to_scene = true
+size = Vector3(10, 7, 10)
+
 [node name="enemy" type="CharacterBody3D" node_paths=PackedStringArray("healthbar", "shieldbar") groups=["enemy"]]
-collision_layer = 2
-collision_mask = 2
+collision_layer = 3
+collision_mask = 3
 motion_mode = 1
 script = ExtResource("1_ytayr")
 maxSpeed = 25.0
@@ -129,21 +129,9 @@ shieldbar = NodePath("mesh/healthbars/predictionReticleSubViewport/shieldbar")
 predictionReticleDisapearDistance = 75
 healthbarsVisibilityDistance = 150
 
-[node name="healthData" type="Node" parent="."]
-script = ExtResource("2_jum0b")
-
-[node name="boxCollider" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0201297, -0.0420356, 0.626787)
-shape = SubResource("BoxShape3D_m3v3r")
-
-[node name="RayCast3D" type="RayCast3D" parent="."]
-transform = Transform3D(1000, 0, 0, 0, -4.37114e-05, 1000, 0, -1000, -4.37114e-05, 0, 0, 0)
-collision_mask = 255
-debug_shape_thickness = 1
-
 [node name="mesh" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.01, 0, 0, 0, 0.01, 0, 0, 0, 0.01, 0, 0, 0)
-layers = 1023
+layers = 511
 mesh = SubResource("ArrayMesh_1n7fv")
 skeleton = NodePath("")
 
@@ -218,6 +206,7 @@ texture = ExtResource("5_xqs6i")
 
 [node name="healthbars" type="Sprite3D" parent="mesh"]
 transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 0, 250, 0)
+visible = false
 layers = 3
 visibility_range_end = 100.0
 visibility_range_end_margin = 10.0
@@ -250,3 +239,16 @@ theme_override_styles/background = SubResource("StyleBoxFlat_dj2q0")
 theme_override_styles/fill = SubResource("StyleBoxFlat_3qxla")
 value = 50.0
 show_percentage = false
+
+[node name="boxCollider" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0201297, -0.0420356, 0.626787)
+shape = SubResource("BoxShape3D_m3v3r")
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+transform = Transform3D(1000, 0, 0, 0, -4.37114e-05, 1000, 0, -1000, -4.37114e-05, 0, 0, 0)
+collision_mask = 255
+debug_shape_thickness = 1
+
+[node name="healthData" type="Node" parent="."]
+script = ExtResource("2_jum0b")
+regenPerUnit = 0.0

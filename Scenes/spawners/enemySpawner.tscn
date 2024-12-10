@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://6nobhr26vtvf"]
+
+[ext_resource type="Script" path="res://Scripts/spawners/enemySpawner.gd" id="1_lro6x"]
+[ext_resource type="PackedScene" uid="uid://dmlb8utavpi4c" path="res://Scenes/enemy.tscn" id="2_org66"]
+
+[node name="EnemySpawner" type="Node3D"]
+script = ExtResource("1_lro6x")
+enemies = Array[PackedScene]([ExtResource("2_org66")])

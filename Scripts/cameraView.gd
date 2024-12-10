@@ -2,7 +2,8 @@ extends ColorRect
 
 @export var target : NodePath
 @export var followTarget : bool = false
-@export var cameraDistance := 250.0
+@export var cameraCullMask = 10
+@export var cameraDistance = 250.0
 @export var keyBind : StringName
 
 @onready var player := get_node(target)
@@ -12,6 +13,7 @@ extends ColorRect
 
 
 func _ready() -> void:
+	camera.set_cull_mask_value(cameraCullMask, true)
 	await get_tree().process_frame
 
 	print("self:", self)

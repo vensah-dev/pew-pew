@@ -43,7 +43,6 @@ skeleton = NodePath("")
 [node name="RayCast3D" type="RayCast3D" parent="."]
 transform = Transform3D(5, 0, 0, 0, -2.18557e-07, 5, 0, -5, -2.18557e-07, 0, 0, 5)
 collision_mask = 2
-collide_with_areas = true
 debug_shape_thickness = 5
 
 [node name="impact" type="GPUParticles3D" parent="."]

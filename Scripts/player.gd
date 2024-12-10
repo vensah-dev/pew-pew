@@ -10,22 +10,34 @@ var forwardSpeed = forwardSpeedRange.min;
 
 @export var boostSpeed = 10.0;
 
+
 @export_group("Acceleration")
 @export var forwardAcceleration = 1.5;
 @export var strifeAcceleration = 1.5;
 @export var hoverAcceleration = 1.5;
 @export var rollAcceleration = 2.5;
 
+
 @export_group("Mouse")
 @export var mouseSpeed = 2.0
 @export var mouseDamping = 1.5
 @export var mouseIdleThreshold = 0.15
+
 
 @export_group("Camera")
 @export var normalFOV = 75.0
 var boostFOV = normalFOV + 50.0
 @export var fovDamping = 2.5 
 var currentFOV = 75.0
+@export var cameraDamping = 2.5
+
+@export_subgroup("camera shake")
+@export var traumaIntensity = 0.25
+@export var decay = 1.0 # How quickly the shaking stops [0, 1].
+@export var max_offset = Vector2(5, 5)  # Maximum hor/ver shake in pixels.
+@export var max_roll = 0.2  # Maximum rotation in radians (use sparingly).
+@export var canvasShakeMultiplier = 2.0
+
 
 @export_group("Raycast")
 @export var raycastRange = 1000
@@ -33,22 +45,39 @@ var currentFOV = 75.0
 @export var targetMarkerNormalColour: Color
 @export var targetMarkerLockedColour: Color
 
+
 @export_group("Health")
 @export var healthbar: Node
 @export var shieldbar: Node
 
+@export var regenPerUnit = 0.02
+@export var timeToRegenAfterHit = 5.0
+
+
 @export_group("Guns")
 @export var listOfGuns: Array[Node]
 
+
 @onready var vw = DisplayServer.window_get_size()
 
-@onready var cam = $Camera
+@onready var canvasNode:CanvasLayer = $"../UI"
+var trauma = 0.0  # Current shake strength.
+var trauma_power = 2  # Trauma exponent. Use [2, 3].
+
+@onready var noise = FastNoiseLite.new()
+var noise_y = 0
+
+
+@onready var camGimbal = $cameraGimbal
+@onready var cam = $cameraGimbal/Camera
 
 @onready var world = $"../world"
 
 
 @onready var distanceLabel = $"../UI/distance"
 @onready var speedLabel = $"../UI/speed"
+@onready var progressGuage = $"../UI/progressGuage"
+
 
 @onready var healthData = $healthData
 
@@ -87,16 +116,17 @@ var gunIndex = 0
 var lockedTarget
 var targetLocked
 
-var updateTargetLockSprite = false
+var canLockOnTarget = false
 var updatePredictionReticle = true
 
 func _ready() -> void:
 	await get_tree().process_frame
 	Input.mouse_mode = Input.MOUSE_MODE_CONFINED
-	# updateHealth()
+
 	healthData.setHealth(healthData.maxHealth)
 	healthData.setShield(healthData.maxShield)
 
+	# shieldRegenTimer.timeout.connect(regenShield)
 	# updateHealth()
 
 	# var trail = GPUTrail3D.new()
@@ -114,6 +144,9 @@ func _input(event):
 		
 		mouseDistance = mouseDistance.clamp(Vector2(-1, -1), Vector2(1, 1))
 
+########################
+#Process functions
+########################
 
 func _physics_process(delta: float) -> void:
 	var space_state = get_world_3d().direct_space_state
@@ -137,33 +170,29 @@ func _physics_process(delta: float) -> void:
 	# lockedTarget = result
 
 	if result:
+		#stuff done for all colliders
 		var collider = result.collider
 		var hit_origin = collider.global_transform.origin
 
 		# targetLockSprite.scale = Vector3.ONE * max(collider.scale.x, collider.scale.y, collider.scale.z)
 
-		var distanceM = global_position.distance_to(hit_origin)
-		var distanceKM:float = snappedf(distanceM/1000, 0.001)
-		distanceLabel.text = str(distanceKM) + "KM"
+		# var distanceM = global_position.distance_to(hit_origin)
+		# var distanceKM:float = snappedf(distanceM/1000, 0.001)
+		# distanceLabel.text = str(distanceKM) + "KM"
 
-		if collider.is_in_group("enemy") and updateTargetLockSprite:
+		#stuff done for select colliders, e.g. target lock on enemies, celestial body info
+		if collider.is_in_group("enemy"):
 
-			var scaleMultiplier = max(
-				collider.get_child(1).get_shape().size.x/mesh.scale.x, 
-				collider.get_child(1).get_shape().size.y/mesh.scale.y,
-				collider.get_child(1).get_shape().size.z/mesh.scale.z
-			)
+			updateTargetMarker(collider)
+			targetLockSprite.targetLockSpriteColor = targetMarkerNormalColour
 
-			targetLockSprite.scale = Vector3.ONE * scaleMultiplier/800
-			targetLockSprite.visible = true
-			targetLockSprite.modulate = targetMarkerNormalColour
-
-			if Input.is_action_just_pressed("lock"):
+			if Input.is_action_just_pressed("lock") and canLockOnTarget:
 				targetLocked = !targetLocked
+				if targetLocked:
+					lockedTarget = result
 
-			if targetLocked:
-				lockedTarget = result
-				targetLockSprite.modulate = targetMarkerLockedColour
+			if targetLocked and canLockOnTarget:
+				targetLockSprite.targetLockSpriteColor = targetMarkerLockedColour
 				targetLockSprite.global_position = lockedTarget.collider.global_transform.origin
 
 			else:
@@ -173,39 +202,39 @@ func _physics_process(delta: float) -> void:
 		else:
 			lockedTarget = null
 			targetLocked = false
+			targetLockSprite.visible = false
 
 	else:
-		if targetLocked and updateTargetLockSprite:
-			var scaleMultiplier = max(
-				lockedTarget.collider.get_child(1).get_shape().size.x/mesh.scale.x, 
-				lockedTarget.collider.get_child(1).get_shape().size.y/mesh.scale.y,
-				lockedTarget.collider.get_child(1).get_shape().size.z/mesh.scale.z
-			)
-
-			targetLockSprite.scale = Vector3.ONE * scaleMultiplier/800
+		#update markers if needed, like for example locked targets
+		if targetLocked and canLockOnTarget:
+			updateTargetMarker(lockedTarget.collider)
+			targetLockSprite.targetLockSpriteColor = targetMarkerLockedColour
 
 			var targetOrigin = lockedTarget.collider.global_transform.origin
 			targetLockSprite.global_position = targetOrigin
 
-			targetLockSprite.modulate = targetMarkerLockedColour
-			targetLockSprite.visible = true
+
 
 		else:
 			lockedTarget = null
 			targetLocked = false
 			targetLockSprite.visible = false
 
-	#put under physics process asap
-	move(delta)
-	move_and_slide()
-	
-func _process(delta: float) -> void:
-	#what do u think nerd
-	switchGuns()
-	
+
 	#to allow mouse pointer to be able to exit the window
 	mouse(delta)
 	
+	#put under physics process asap
+	move(delta)
+	move_and_slide()
+
+	#Camera Follow but.. SMOOTH HEHEHABUTCTUYC EOUBds
+	camGimbal.global_transform = camGimbal.global_transform.interpolate_with(global_transform, cameraDamping * delta)
+
+func _process(delta: float) -> void:
+	#what do u think nerd
+	switchGuns()
+
 	#idiot u spent way too long trynna figure this out, obviously u need to update your ur current forward, right and up vectors and not only once at the start!!!!
 	directions()
 	
@@ -218,41 +247,42 @@ func _process(delta: float) -> void:
 
 	inputVector = inputVector.normalized()
 	roll = lerpf(roll, rollInput, rollAcceleration * delta)
-	
 
-func move(delta):
-	#State Handling
+	if trauma:
+		trauma = max(trauma - decay * delta, 0)
+		shake()
+
+################################################################################################
+################################################################################################
+
+
+
+########################
+#Camera Shake
+########################
+
+func add_trauma(amount):
+	trauma = min(trauma + amount, 1.0)
 		
-	if boostInput and inputVector.z > 0:
-		currentFOV = boostFOV
-		activeForwardSpeed = lerp(activeForwardSpeed, inputVector.z * forwardSpeed * boostSpeed, forwardAcceleration * delta)
-		# inputVector *= Vector3(boostSpeed, boostSpeed, boostSpeed)
+func shake():
+	noise_y += 1
+	var amount = pow(trauma, trauma_power)
 
-	else:
-		currentFOV = normalFOV
-		activeForwardSpeed = lerp(activeForwardSpeed, inputVector.z * forwardSpeed, forwardAcceleration * delta)
+	var shakeRotation = max_roll * amount * noise.get_noise_2d(noise.seed, noise_y) * randi_range(-1, 1)
+	var shakeH_offset = max_offset.x * amount * noise.get_noise_2d(noise.seed*2, noise_y) * randi_range(-1, 1)
+	var shakeV_offset = max_offset.y * amount * noise.get_noise_2d(noise.seed*3, noise_y) * randi_range(-1, 1)
 
-	activeStrifeSpeed = lerp(activeStrifeSpeed, inputVector.x * strifeSpeed, strifeAcceleration * delta)
-	activeHoverSpeed = lerp(activeHoverSpeed, inputVector.y * hoverSpeed, hoverAcceleration * delta)
+	cam.rotation.z = shakeRotation
+	cam.h_offset = shakeH_offset
+	cam.v_offset = shakeV_offset
 
-	speedLabel.text = str(int(activeForwardSpeed+activeHoverSpeed+activeStrifeSpeed)) + "U/s"
+	canvasNode.rotation = shakeRotation * canvasShakeMultiplier
+	canvasNode.offset.x = shakeH_offset * canvasShakeMultiplier
+	canvasNode.offset.y = shakeV_offset * canvasShakeMultiplier
 
-
-	global_position += transform.basis.z * activeForwardSpeed * delta
-	global_position += (transform.basis.x * activeStrifeSpeed * delta) + (transform.basis.y * activeHoverSpeed * delta) 
-
-
-
-		# guns.set_process(true)
-		
-	# velocity = 
-	
-	#ChatGPT sucks, good thing I deleted my account
-	var quaternionRot = Quaternion.from_euler(Vector3(y * mouseSpeed * delta, -x * mouseSpeed * delta, roll * rollSpeed * delta))
-	transform.basis *= Basis(quaternionRot)
-	
-	#camera movement
-	cam.fov = lerpf(cam.fov, currentFOV, fovDamping * delta)
+########################
+#Guns and Target stuff
+########################
 
 func switchGuns():
 	for n in range(1, listOfGuns.size()+1):
@@ -265,11 +295,11 @@ func switchGuns():
 			updatePredictionReticle = false
 
 		if gunIndex == 1:
-			updateTargetLockSprite = true
+			canLockOnTarget = true
 		else:
-			updateTargetLockSprite = false
+			canLockOnTarget = false
 
-	if activeForwardSpeed+activeHoverSpeed+activeStrifeSpeed > forwardSpeed:
+	if activeForwardSpeed+activeHoverSpeed+activeStrifeSpeed >= listOfGuns[gunIndex].bulletSpeed:
 		for gun in listOfGuns:
 			gun.set_process(false)
 	else:
@@ -278,6 +308,31 @@ func switchGuns():
 				listOfGuns[i].set_process(true)
 			else:
 				listOfGuns[i].set_process(false)
+
+func updateTargetMarker(collider):
+	var hit_origin = collider.global_transform.origin
+
+	var distanceM = global_position.distance_to(hit_origin)
+
+	var scaleMultiplier = max(
+		collider.get_child(1).get_shape().size.x/mesh.scale.x, 
+		collider.get_child(1).get_shape().size.y/mesh.scale.y,
+		collider.get_child(1).get_shape().size.z/mesh.scale.z
+	)
+
+	targetLockSprite.scale = Vector3.ONE * scaleMultiplier/800
+
+	targetLockSprite.distance = distanceM
+	
+	targetLockSprite.shieldValue = collider.healthData.shield
+	targetLockSprite.healthValue = collider.healthData.health
+
+
+	targetLockSprite.visible = true
+
+########################
+#Movement and mouse
+########################
 
 func mouse(delta):
 	if Input.get_action_strength("ui_cancel"):
@@ -299,17 +354,65 @@ func mouse(delta):
 	mouseButtonLeft = Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)
 	mouseButtonRight = Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT)
 	mouseButtonMiddle = Input.is_mouse_button_pressed(MOUSE_BUTTON_MIDDLE)
-	
+
 func directions():
 	forward = transform.basis.z
 	left = transform.basis.x
 	up = transform.basis.y
 
+func move(delta):
+	#State Handling
+		
+	if boostInput and inputVector.z > 0:
+		currentFOV = boostFOV
+		activeForwardSpeed = lerp(activeForwardSpeed, inputVector.z * forwardSpeed * boostSpeed, forwardAcceleration * delta)
+		# inputVector *= Vector3(boostSpeed, boostSpeed, boostSpeed)
+
+	else:
+		currentFOV = normalFOV
+		activeForwardSpeed = lerp(activeForwardSpeed, inputVector.z * forwardSpeed, forwardAcceleration * delta)
+
+	activeStrifeSpeed = lerp(activeStrifeSpeed, inputVector.x * strifeSpeed, strifeAcceleration * delta)
+	activeHoverSpeed = lerp(activeHoverSpeed, inputVector.y * hoverSpeed, hoverAcceleration * delta)
+
+
+
+	speedLabel.text = str(snapped(activeForwardSpeed+activeHoverSpeed+activeStrifeSpeed, 0.1)) + "U/s"
+
+	var quaternionRot = Quaternion.from_euler(Vector3(y * mouseSpeed * delta, -x * mouseSpeed * delta, roll * rollSpeed * delta))
+	transform.basis *= Basis(quaternionRot)
+
+	global_position += transform.basis.z * activeForwardSpeed * delta
+	global_position += (transform.basis.x * activeStrifeSpeed * delta) + (transform.basis.y * activeHoverSpeed * delta) 
+
+
+
+		# guns.set_process(true)
+		
+	# velocity = 
+	
+	#ChatGPT sucks, good thing I deleted my account
+
+	
+	#camera movement
+	cam.fov = lerpf(cam.fov, currentFOV, fovDamping * delta)
+
+########################
+#Health related stuff
+########################
+
+
 func hit(damage):
+	if trauma < 0.1:
+		add_trauma(traumaIntensity)
+
 	if healthData.shield > 0:
 		healthData.setShield(healthData.shield - damage)
 	else:
 		healthData.setHealth(healthData.health - damage)
+
+
+	healthData.startRegenShield()
 
 
 func _on_health_node_health_changed(_value:Variant) -> void:
