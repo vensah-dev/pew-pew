@@ -1,8 +1,9 @@
-[gd_scene load_steps=17 format=4 uid="uid://dmlb8utavpi4c"]
+[gd_scene load_steps=18 format=4 uid="uid://dmlb8utavpi4c"]
 
 [ext_resource type="Script" path="res://Scripts/enemy.gd" id="1_ytayr"]
 [ext_resource type="PackedScene" uid="uid://brhvvyyekkbfn" path="res://Scenes/explosion.tscn" id="2_4rav5"]
 [ext_resource type="Script" path="res://Scripts/components/health.gd" id="2_jum0b"]
+[ext_resource type="PackedScene" uid="uid://bq68p4cwpovt2" path="res://Scenes/currency.tscn" id="3_5lm1p"]
 [ext_resource type="Script" path="res://Scripts/gun.gd" id="4_jovxb"]
 [ext_resource type="Texture2D" uid="uid://3heoeqy1bffv" path="res://Assets/Reticle.png" id="5_xqs6i"]
 [ext_resource type="PackedScene" uid="uid://cl3jfdc3m0j2x" path="res://Scenes/Guns and Bullets/bulletRed.tscn" id="10_xkdk2"]
@@ -112,18 +113,18 @@ bg_color = Color(0.909804, 1, 0.921569, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_m3v3r"]
 resource_local_to_scene = true
-size = Vector3(10, 7, 10)
+size = Vector3(8, 3.5, 8)
 
-[node name="enemy" type="CharacterBody3D" node_paths=PackedStringArray("healthbar", "shieldbar") groups=["enemy"]]
+[node name="enemy" type="CharacterBody3D" node_paths=PackedStringArray("healthbar", "shieldbar") groups=["StaticMinimapItems", "enemy"]]
 collision_layer = 3
 collision_mask = 3
 motion_mode = 1
 script = ExtResource("1_ytayr")
-maxSpeed = 25.0
-surroundRadius = 150.0
+surroundRadius = 250.0
 acceleration = 1.5
 turningSpeed = 2.0
 explode = ExtResource("2_4rav5")
+drops = Array[PackedScene]([ExtResource("3_5lm1p")])
 healthbar = NodePath("mesh/healthbars/predictionReticleSubViewport/healthbar")
 shieldbar = NodePath("mesh/healthbars/predictionReticleSubViewport/shieldbar")
 predictionReticleDisapearDistance = 75
@@ -183,9 +184,11 @@ spot_angle = 25.8688
 [node name="Guns" type="Node3D" parent="mesh" node_paths=PackedStringArray("gunPoints")]
 transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 0, 0, 0)
 script = ExtResource("4_jovxb")
-bulletSpeed = 500
+bulletSpeed = 500.0
 bulletNode = ExtResource("10_xkdk2")
 isPlayer = false
+bulletInterval = 0.1
+magSize = 100
 gunPoints = [NodePath("Gun0"), NodePath("Gun1")]
 
 [node name="Gun0" type="Node3D" parent="mesh/Guns"]
@@ -195,7 +198,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3, -0.025, 4.4)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.306363, -0.025, 4.4)
 
 [node name="predictionReticle" type="Sprite3D" parent="mesh"]
-transform = Transform3D(25, 0, 0, 0, 25, 0, 0, 0, 25, 0, 0, 500)
+transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 0, 0, 500)
 layers = 1023
 modulate = Color(100, 100, 100, 1)
 pixel_size = 0.0001

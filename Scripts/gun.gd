@@ -3,9 +3,9 @@ extends Node3D
 @export var ship: Node3D
 
 @export_group("Bullets")
-@export var bulletSpeed = 100
-@export var bulletRange = 1000
-@export var bulletDamage = 5
+@export var bulletSpeed = 100.0
+@export var bulletRange = 1000.0
+@export var bulletDamage = 5.0
 @export var lockOnTarget = false
 
 @export var bulletNode:PackedScene
@@ -27,16 +27,20 @@ extends Node3D
 @export var cam:Node3D
 
 
-@export_group("Progress Guage")
+@export_group("Status Ring")
 @export var idleColor: Color
 @export var reloadColor: Color
 @export var shootingColor: Color
-
+@export var hitScaleMultiplier = 0.8
+@export var hitScaleSpeed = 2.5
 
 @onready var main = get_tree().current_scene
 
 @onready var space = get_world_3d().direct_space_state
 @onready var centre = get_viewport().get_visible_rect().size / 2
+
+var statusRing
+var statusRingOGScale
 
 var player
 
@@ -66,28 +70,31 @@ func _ready():
 	numberOfBullets = magSize
 	await get_tree().process_frame
 	player = get_tree().get_nodes_in_group("player")[0]
-	player.progressGuage.max_value = magSize
 
+	#init statusRing
+	statusRing = player.statusRing
+	statusRingOGScale = statusRing.scale
+	statusRing.max_value = magSize
 
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
 	if isPlayer:
 		if reloading:
-			player.progressGuage.fill_mode = 5
-			player.progressGuage.tint_progress = reloadColor
-			player.progressGuage.max_value = cooldownInterval * 100
-			player.progressGuage.value = (cooldownInterval - snapped(timer.time_left, 0.001)) * 100
+			statusRing.fill_mode = 5
+			statusRing.tint_progress = reloadColor
+			statusRing.max_value = cooldownInterval * 100
+			statusRing.value = (cooldownInterval - snapped(timer.time_left, 0.001)) * 100
 			print("timeLeft: ", cooldownInterval - snapped(timer.time_left, 0.001))
 
 		else:
-			player.progressGuage.fill_mode = 4
+			statusRing.fill_mode = 4
 			if justShot:
-				player.progressGuage.tint_progress = shootingColor
+				statusRing.tint_progress = shootingColor
 				justShot = false
 			else:
-				player.progressGuage.tint_progress = idleColor
+				statusRing.tint_progress = idleColor
 				
-			player.progressGuage.max_value = magSize
-			player.progressGuage.value = numberOfBullets
+			statusRing.max_value = magSize
+			statusRing.value = numberOfBullets
 
 		if automatic:
 			if Input.is_action_pressed("fire") and canShoot:
@@ -106,6 +113,12 @@ func _process(_delta: float) -> void:
 		if Input.is_action_just_pressed("reload") and numberOfBullets < magSize and !reloading:
 			await reload()
 
+
+		if statusRing.scale < statusRingOGScale:
+			statusRing.scale += Vector2.ONE * delta * hitScaleSpeed
+			if statusRing.scale > statusRingOGScale:
+				statusRing.scale = statusRingOGScale
+
 func shoot():
 	for gun in gunPoints:
 		# var from = gun.global_position
@@ -122,7 +135,10 @@ func shoot():
 
 		bullet.speed = bulletSpeed
 		bullet.damage = bulletDamage
+		bullet.bulletRange = bulletRange
 		bullet.lockOnTarget = true
+
+		bullet.hitTarget.connect(func(): statusRing.scale *= hitScaleMultiplier)
 
 		
 		if lockOnTarget:
@@ -142,6 +158,7 @@ func shoot():
 
 			if results:
 				bullet.look_at_from_position(gun.global_position, results.position, bullet.basis.y, true)
+				bullet.bulletRange = gun.global_position.distance_to(results.position)
 			else:
 				bullet.look_at_from_position(gun.global_position, cam.project_position(centre, bulletRange), bullet.basis.y, true)
 			# else:
@@ -187,6 +204,6 @@ func on_timer_timeout():
 	canShoot = true
 
 	if isPlayer:
-		player.progressGuage.max_value = magSize
-		player.progressGuage.value = magSize
+		statusRing.max_value = magSize
+		statusRing.value = magSize
 		reloading = false

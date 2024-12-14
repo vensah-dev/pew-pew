@@ -7,7 +7,9 @@ extends Node
 @onready var world = $world
 
 @onready var fpsLabel = $"UI/FPS"
+@onready var currencyLabel = $"UI/currencyLabel"
 
+var currency = 0
 
 signal seed_ready
 
@@ -29,6 +31,8 @@ func _ready():
 	
 func _process(_delta):
 	fpsLabel.text = "FPS " + str(Engine.get_frames_per_second())
+	currencyLabel.text = "Currency: " + str(currency)
+
 	
 ##seed random functions
 func randomf(x):

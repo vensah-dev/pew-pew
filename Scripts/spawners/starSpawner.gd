@@ -11,13 +11,15 @@ extends Node3D
 @onready var rng = RandomNumberGenerator.new()
 
 @onready var root = get_tree().root.get_child(0)
+@onready var gameManager = get_tree().get_first_node_in_group("gameManager")
+
 @onready var player = $"../../../player"
 
 func _ready():
-	root.connect("seed_ready", spawnStars)
+	gameManager.connect("seed_ready", spawnStars)
 
 func spawnStars():
-	rng.seed = hash(root.spawnSeed)
+	rng.seed = hash(gameManager.spawnSeed)
 	
 	for x in numberOfComets:
 		var randomIndex = rand_from_seed(rng.seed + x)[0]%stars.size()

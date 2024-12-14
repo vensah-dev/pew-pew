@@ -1,5 +1,7 @@
 extends Node3D
 
+signal hitTarget
+
 @export var speed = 40
 @export var despawnTime = 5.0
 
@@ -15,13 +17,18 @@ var damage
 var target
 var lockOnTarget = false
 
+var startingPos
+
+var bulletRange
+
 func _ready():
 	scale = Vector3(0.1, 0.1, 0.5)
 	sound.play()
+	startingPos = global_position
 
-	if is_instance_valid(target):
-		await get_tree().create_timer(5.0).timeout
-		queue_free()
+
+	# await get_tree().create_timer(despawnTime).timeout
+	# queue_free()
 
 
 func _physics_process(delta: float) -> void:	
@@ -32,7 +39,7 @@ func _physics_process(delta: float) -> void:
 	else:
 		position += transform.basis * Vector3(0, 0, speed) * delta
 
-	# if global_position.distance_to(player.global_position) > despawnRange:	
+	# if global_position.distance_to(player.global_position) > range:	
 	# 	queue_free()
 
 	if rayCast.is_colliding():
@@ -48,10 +55,15 @@ func _physics_process(delta: float) -> void:
 		# 		collided_object.die()
 		hit()
 
-func hit():
+	if global_position.distance_to(startingPos) > bulletRange:
+		hit(true)
+
+func hit(explode = false):
 		rayCast.enabled = false
 		mesh.visible = false
 		impact.emitting = true
+		if !explode:
+			hitTarget.emit()
 
 		await get_tree().create_timer(1.0).timeout
 		self.queue_free()

@@ -32,10 +32,9 @@ func spawnWave():
 		enemy.player = player
 
 		enemy.position = random_point_in_sphere_surface(global_position, spawnRadius)
-		root.add_child(enemy)
+		add_child(enemy)
 
 
 func random_point_in_sphere_surface(target, radius) -> Vector3:
 	var random_direction = Vector3(randf_range(-1.0, 1.0), randf_range(-1.0, 1.0), randf_range(-1.0, 1.0)).normalized()
 	return target + random_direction * radius
-

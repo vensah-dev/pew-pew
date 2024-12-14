@@ -6,6 +6,8 @@ extends Node3D
 @export var spawnSeed: int
 
 @onready var root = get_tree().root.get_child(0)
+@onready var gameManager = get_tree().get_first_node_in_group("gameManager")
+
 @onready var rng = RandomNumberGenerator.new()
 
 @onready var planetNode = $Planets
@@ -56,13 +58,13 @@ func set_planets():
 		child.rigidbody.global_position.z += distToStar
 		distToStar += child.scale.z*bodySpacingBuffer
 		
-		var randomRotationSpeed = Vector3(0, root.randomf(i)/distToStar, 0)
+		var randomRotationSpeed = Vector3(0, gameManager.randomf(i)/distToStar, 0)
 		child.pivotRotationalSpeed = randomRotationSpeed
 
 		# children[i].rotation_degrees.x = root.randomi_range(-360, 360, i+3)
-		child.rotation_degrees.y = root.randomi_range(-360, 360, i)
-		child.rigidbody.rotation_degrees.x = root.randomi_range(-360, 360, i+1)
-		child.axisRotationalSpeed = Vector3(0, root.randomf(i)/inverse_lerp(child.size.min, child.size.max, child.scale.z)/1000, 0)
+		child.rotation_degrees.y = gameManager.randomi_range(-360, 360, i)
+		child.rigidbody.rotation_degrees.x = gameManager.randomi_range(-360, 360, i+1)
+		child.axisRotationalSpeed = Vector3(0, gameManager.randomf(i)/inverse_lerp(child.size.min, child.size.max, child.scale.z)/1000, 0)
 
 
 

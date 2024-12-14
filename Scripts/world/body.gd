@@ -15,7 +15,7 @@ extends Node3D
 #@onready var light = get_node("/RigidBody3D/MeshInstance3D/Light")
 
 @onready var root = get_tree().root.get_child(0)
-@onready var player
+# @onready var player
 
 var actualPosition = Vector3(0, 0, 0)
 
@@ -25,7 +25,7 @@ func _ready():
 
 	add_to_group("CelestialBody")
 
-	player = root.get_child(0)
+	# player = root.get_child(0)
 
 	await get_tree().process_frame
 

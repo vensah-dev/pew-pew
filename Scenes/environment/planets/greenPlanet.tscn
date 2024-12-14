@@ -14,7 +14,7 @@ material = SubResource("StandardMaterial3D_7umjt")
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_xowde"]
 
-[node name="greenPlanet" type="Node3D"]
+[node name="greenPlanet" type="Node3D" groups=["CelestialBody"]]
 script = ExtResource("1_1t1i3")
 size = {
 "max": 7500,

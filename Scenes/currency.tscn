@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://bq68p4cwpovt2"]
+
+[ext_resource type="Script" path="res://Scripts/collectible.gd" id="1_8fu2g"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5cf1w"]
+albedo_color = Color(1, 0.733333, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_4dump"]
+material = SubResource("StandardMaterial3D_5cf1w")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_3swwt"]
+radius = 1.25
+
+[node name="currency" type="Node3D"]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0)
+script = ExtResource("1_8fu2g")
+speedOfAttraction = 50.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_4dump")
+
+[node name="Area3D" type="Area3D" parent="."]
+gravity_space_override = 3
+gravity_point_center = Vector3(0, 0, 0)
+gravity_direction = Vector3(0, 0, 0)
+gravity = 0.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("SphereShape3D_3swwt")
+
+[connection signal="area_entered" from="Area3D" to="." method="_on_entered"]
+[connection signal="body_entered" from="Area3D" to="." method="_on_body_entered"]

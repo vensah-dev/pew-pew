@@ -14,13 +14,14 @@ extends Node3D
 @onready var rng = RandomNumberGenerator.new()
 
 @onready var root = get_tree().root.get_child(0)
+@onready var gameManager = get_tree().get_first_node_in_group("gameManager")
 
 var takenPositions = [{}]
 
 var spawnedBodies: Array
 
 func _ready():
-	root.connect("seed_ready", set_seed)
+	gameManager.connect("seed_ready", set_seed)
 	
 func in_another_body(bodyInstance):
 	for b in spawnedBodies:
@@ -30,7 +31,7 @@ func in_another_body(bodyInstance):
 	return false
 	
 func set_seed():
-	spawnSeed = root.spawnSeedHashed
+	spawnSeed = gameManager.spawnSeedHashed
 	spawn_body()
 
 func spawn_body():
@@ -38,13 +39,13 @@ func spawn_body():
 	
 	# print("Celestial Spawner: " + str(spawnSeed))
 	
-	var numberOfBodies = root.randomi_range(minNumberOfBodies, maxNumberOfBodies, rng.seed)
+	var numberOfBodies = gameManager.randomi_range(minNumberOfBodies, maxNumberOfBodies, rng.seed)
 
 	for x in numberOfBodies:
 		var randomIndex = rand_from_seed(rng.seed + x)[0]%bodies.size()
 		var bodyInstance = bodies[randomIndex].instantiate()
 
-		var randomSize = root.randomi_range(bodyInstance.size.min, bodyInstance.size.max, x)
+		var randomSize = gameManager.randomi_range(bodyInstance.size.min, bodyInstance.size.max, x)
 		bodyInstance.scale = Vector3(randomSize, randomSize, randomSize)
 
 		if randomizePositions:

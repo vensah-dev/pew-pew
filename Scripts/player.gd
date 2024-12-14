@@ -26,7 +26,8 @@ var forwardSpeed = forwardSpeedRange.min;
 
 @export_group("Camera")
 @export var normalFOV = 75.0
-var boostFOV = normalFOV + 50.0
+@export var boostFOVMultiplier = 1.33333333
+var boostFOV = normalFOV * boostFOVMultiplier
 @export var fovDamping = 2.5 
 var currentFOV = 75.0
 @export var cameraDamping = 2.5
@@ -38,6 +39,11 @@ var currentFOV = 75.0
 @export var max_roll = 0.2  # Maximum rotation in radians (use sparingly).
 @export var canvasShakeMultiplier = 2.0
 
+var trauma = 0.0  # Current shake strength.
+var trauma_power = 2  # Trauma exponent. Use [2, 3].
+
+@onready var noise = FastNoiseLite.new()
+var noise_y = 0
 
 @export_group("Raycast")
 @export var raycastRange = 1000
@@ -57,38 +63,42 @@ var currentFOV = 75.0
 @export_group("Guns")
 @export var listOfGuns: Array[Node]
 
-
 @onready var vw = DisplayServer.window_get_size()
 
 @onready var canvasNode:CanvasLayer = $"../UI"
-var trauma = 0.0  # Current shake strength.
-var trauma_power = 2  # Trauma exponent. Use [2, 3].
 
-@onready var noise = FastNoiseLite.new()
-var noise_y = 0
 
+@export_group("UI")
+@export_subgroup("vignette")
+
+@export var normalVignetteColor:Color = Color(0, 0, 0)
+@export var damageVignetteColor:Color = Color(1, 0, 0)
+var currentVignetteColor = normalVignetteColor
+# @export var interactionKey: StringName
 
 @onready var camGimbal = $cameraGimbal
 @onready var cam = $cameraGimbal/Camera
 
 @onready var world = $"../world"
 
-
+@onready var ui = $"../UI"
 @onready var distanceLabel = $"../UI/distance"
 @onready var speedLabel = $"../UI/speed"
-@onready var progressGuage = $"../UI/progressGuage"
+@onready var statusRing = $"../UI/statusRing"
+@onready var interactionLabel = $"../UI/interactionLabel"
+@onready var vignette = $"../UI/vignette"
 
 
 @onready var healthData = $healthData
 
 @onready var mesh = $mesh
 @onready var targetLockSprite = $mesh/targetLock
-@onready var guns = $mesh/machineGuns
+@onready var guns = $mesh/weapons
 # @onready var trails = $mesh/trails
 
 @onready var camNode = get_viewport().get_camera_3d()
 @onready var centre = get_viewport().get_visible_rect().size / 2
-
+ 
 var inputVector = Vector3()
 var mouseDistance = Vector2()
 var mouseButtonLeft
@@ -119,12 +129,15 @@ var targetLocked
 var canLockOnTarget = false
 var updatePredictionReticle = true
 
+
 func _ready() -> void:
 	await get_tree().process_frame
 	Input.mouse_mode = Input.MOUSE_MODE_CONFINED
 
 	healthData.setHealth(healthData.maxHealth)
 	healthData.setShield(healthData.maxShield)
+
+	vignette.get_material().set_shader_parameter("vignette_color", normalVignetteColor) 
 
 	# shieldRegenTimer.timeout.connect(regenShield)
 	# updateHealth()
@@ -136,6 +149,7 @@ func _ready() -> void:
 	# trail.billboard = true
 
 	# # trail.visible = false
+
 
 func _input(event):
 	if event is InputEventMouse:
@@ -156,13 +170,6 @@ func _physics_process(delta: float) -> void:
 	
 	var params = PhysicsRayQueryParameters3D.create(from, to)
 	params.exclude = [self]
-	
-	#var targetPos = global_transform.origin * Vector3.FORWARD * raycastRange
-	#
-	#var params = PhysicsRayQueryParameters3D.new()
-	#params.from = global_transform.origin
-	#params.to = targetPos
-	#params.exclude = []
 	
 	var result = space_state.intersect_ray(params)
 	distanceLabel.text = ""
@@ -251,6 +258,11 @@ func _process(delta: float) -> void:
 	if trauma:
 		trauma = max(trauma - decay * delta, 0)
 		shake()
+		vignette.get_material().set_shader_parameter("vignette_color", damageVignetteColor) 
+	else:
+		vignette.get_material().set_shader_parameter("vignette_color", normalVignetteColor) 
+
+
 
 ################################################################################################
 ################################################################################################
@@ -288,16 +300,23 @@ func switchGuns():
 	for n in range(1, listOfGuns.size()+1):
 		if Input.is_action_just_pressed(str(n)):
 			gunIndex = n-1
-
-		if gunIndex == 0:
-			updatePredictionReticle = true
-		else:
-			updatePredictionReticle = false
-
-		if gunIndex == 1:
+		
+		if listOfGuns[gunIndex].lockOnTarget:
 			canLockOnTarget = true
+			updatePredictionReticle = false
 		else:
 			canLockOnTarget = false
+			updatePredictionReticle = true
+
+		# if gunIndex == 0:
+		# 	updatePredictionReticle = true
+		# else:
+		# 	updatePredictionReticle = false
+
+		# if gunIndex == 1:
+		# 	canLockOnTarget = true
+		# else:
+		# 	canLockOnTarget = false
 
 	if activeForwardSpeed+activeHoverSpeed+activeStrifeSpeed >= listOfGuns[gunIndex].bulletSpeed:
 		for gun in listOfGuns:
@@ -314,13 +333,13 @@ func updateTargetMarker(collider):
 
 	var distanceM = global_position.distance_to(hit_origin)
 
-	var scaleMultiplier = max(
-		collider.get_child(1).get_shape().size.x/mesh.scale.x, 
-		collider.get_child(1).get_shape().size.y/mesh.scale.y,
-		collider.get_child(1).get_shape().size.z/mesh.scale.z
-	)
+	# var scaleMultiplier = max(
+	# 	collider.get_child(1).get_shape().size.x/mesh.scale.x, 
+	# 	collider.get_child(1).get_shape().size.y/mesh.scale.y,
+	# 	collider.get_child(1).get_shape().size.z/mesh.scale.z
+	# )
 
-	targetLockSprite.scale = Vector3.ONE * scaleMultiplier/800
+	# targetLockSprite.scale = Vector3.ONE * scaleMultiplier/800
 
 	targetLockSprite.distance = distanceM
 	
@@ -401,8 +420,8 @@ func move(delta):
 #Health related stuff
 ########################
 
-
 func hit(damage):
+
 	if trauma < 0.1:
 		add_trauma(traumaIntensity)
 
@@ -413,7 +432,6 @@ func hit(damage):
 
 
 	healthData.startRegenShield()
-
 
 func _on_health_node_health_changed(_value:Variant) -> void:
 	updateHealth()
@@ -427,3 +445,17 @@ func updateHealth():
 
 	shieldbar.max_value = healthData.maxShield
 	shieldbar.value = healthData.shield
+
+########################
+#Interaction AKA F to ...
+########################
+
+func showInteractionLabel(text):
+	interactionLabel.visible = true
+	interactionLabel.text = text
+
+func hideInteractionLabel():
+	interactionLabel.visible = false
+
+func isInteractionKeyPressed():
+	return Input.is_action_just_pressed("interact")

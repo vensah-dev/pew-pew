@@ -6,6 +6,7 @@
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_taomh"]
 transparency = 1
 vertex_color_use_as_albedo = true
+albedo_color = Color(1.5, 0, 0, 1)
 emission = Color(1.05, 1.05, 0, 1)
 
 [sub_resource type="SphereMesh" id="SphereMesh_aojo1"]
@@ -69,7 +70,7 @@ volumetric_fog_albedo = Color(0, 0, 0, 1)
 
 [node name="Bullet" type="Node3D"]
 script = ExtResource("1_man68")
-despawnTime = 10.0
+despawnTime = 25.0
 
 [node name="mesh" type="MeshInstance3D" parent="."]
 mesh = SubResource("SphereMesh_aojo1")

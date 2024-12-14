@@ -11,13 +11,12 @@ material = SubResource("StandardMaterial3D_kwmhk")
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_xowde"]
 
-[node name="planet" type="Node3D"]
+[node name="planet" type="Node3D" groups=["CelestialBody"]]
 script = ExtResource("1_fys5o")
 size = {
 "max": 7500,
 "min": 7500
 }
-visibilityRange = 100000
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 

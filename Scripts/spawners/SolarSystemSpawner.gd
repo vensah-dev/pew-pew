@@ -12,6 +12,7 @@ extends Node3D
 @onready var rng = RandomNumberGenerator.new()
 
 @onready var root = get_tree().root.get_child(0)
+@onready var gameManager = get_tree().get_first_node_in_group("gameManager")
 
 var spawnedSystems: Array
 
@@ -19,7 +20,7 @@ var maxSpawnDiameter = maxSpawnRadius*2
  
  
 func _ready():
-	root.connect("seed_ready", spawn_systems)
+	gameManager.connect("seed_ready", spawn_systems)
 	
 func in_another_body(bodyInstance):
 	for b in spawnedSystems:
@@ -31,10 +32,10 @@ func in_another_body(bodyInstance):
 	return false
 
 func spawn_systems():
-	rng.seed = root.spawnSeedHashed
+	rng.seed = gameManager.spawnSeedHashed
 	print("spawner: " + str(rng.seed))
 	
-	var numberOfSystems = root.randomi_range(minNumber, maxNumber, rng.seed)
+	var numberOfSystems = gameManager.randomi_range(minNumber, maxNumber, rng.seed)
 	for x in numberOfSystems:
 		var randomIndex = rand_from_seed(rng.seed + x)[0]%solarSystems.size()
 		var bodyInstance = solarSystems[randomIndex].instantiate()
