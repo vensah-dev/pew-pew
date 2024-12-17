@@ -5,7 +5,7 @@
 [ext_resource type="Script" path="res://Scripts/components/health.gd" id="2_jum0b"]
 [ext_resource type="PackedScene" uid="uid://bq68p4cwpovt2" path="res://Scenes/currency.tscn" id="3_5lm1p"]
 [ext_resource type="Script" path="res://Scripts/gun.gd" id="4_jovxb"]
-[ext_resource type="Texture2D" uid="uid://3heoeqy1bffv" path="res://Assets/Reticle.png" id="5_xqs6i"]
+[ext_resource type="Texture2D" uid="uid://3heoeqy1bffv" path="res://Assets/UI/Reticle.png" id="5_xqs6i"]
 [ext_resource type="PackedScene" uid="uid://cl3jfdc3m0j2x" path="res://Scenes/Guns and Bullets/bulletRed.tscn" id="10_xkdk2"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_reb5r"]
@@ -116,8 +116,8 @@ resource_local_to_scene = true
 size = Vector3(8, 3.5, 8)
 
 [node name="enemy" type="CharacterBody3D" node_paths=PackedStringArray("healthbar", "shieldbar") groups=["StaticMinimapItems", "enemy"]]
-collision_layer = 3
-collision_mask = 3
+collision_layer = 4
+collision_mask = 4
 motion_mode = 1
 script = ExtResource("1_ytayr")
 surroundRadius = 250.0
@@ -135,51 +135,6 @@ transform = Transform3D(0.01, 0, 0, 0, 0.01, 0, 0, 0, 0.01, 0, 0, 0)
 layers = 511
 mesh = SubResource("ArrayMesh_1n7fv")
 skeleton = NodePath("")
-
-[node name="Lighting" type="Node3D" parent="mesh"]
-transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 0, 0, 0)
-
-[node name="Top" type="SpotLight3D" parent="mesh/Lighting"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 16.851, 0)
-layers = 2
-light_cull_mask = 4294966274
-spot_range = 38.0
-spot_angle = 78.0
-
-[node name="Bottom" type="SpotLight3D" parent="mesh/Lighting"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -9.65373, 0)
-layers = 2
-light_cull_mask = 4294966274
-spot_range = 38.0
-spot_angle = 78.0
-
-[node name="Left" type="SpotLight3D" parent="mesh/Lighting"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 25, 4, -12)
-layers = 2
-light_cull_mask = 4294966274
-spot_range = 51.8009
-spot_angle = 43.0694
-
-[node name="Right" type="SpotLight3D" parent="mesh/Lighting"]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -23, 2, -12)
-layers = 2
-light_cull_mask = 4294966274
-spot_range = 51.8009
-spot_angle = 43.0694
-
-[node name="Back" type="SpotLight3D" parent="mesh/Lighting"]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -26.5303)
-layers = 2
-light_cull_mask = 4294966274
-spot_range = 29.4883
-spot_angle = 59.6476
-
-[node name="Front" type="SpotLight3D" parent="mesh/Lighting"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 24.9292)
-layers = 2
-light_cull_mask = 4294966274
-spot_range = 21.4166
-spot_angle = 25.8688
 
 [node name="Guns" type="Node3D" parent="mesh" node_paths=PackedStringArray("gunPoints")]
 transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 0, 0, 0)

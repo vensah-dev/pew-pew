@@ -158,7 +158,7 @@ func shoot():
 
 			if results:
 				bullet.look_at_from_position(gun.global_position, results.position, bullet.basis.y, true)
-				bullet.bulletRange = gun.global_position.distance_to(results.position)
+				bullet.bulletRange = gun.global_position.distance_to(results.position) * 1.5
 			else:
 				bullet.look_at_from_position(gun.global_position, cam.project_position(centre, bulletRange), bullet.basis.y, true)
 			# else:

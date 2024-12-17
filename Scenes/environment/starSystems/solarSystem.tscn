@@ -1,10 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://bxtudok6crrjx"]
+[gd_scene load_steps=12 format=3 uid="uid://bxtudok6crrjx"]
 
 [ext_resource type="Script" path="res://Scripts/world/solarSystem.gd" id="1_nynkk"]
 [ext_resource type="PackedScene" uid="uid://bxhfbhpiubqlf" path="res://Scenes/environment/stars/starOrange.tscn" id="2_iv6tc"]
 [ext_resource type="Script" path="res://Scripts/spawners/celestialBodySpawner.gd" id="2_jlk52"]
 [ext_resource type="PackedScene" uid="uid://cktgvl8e52khw" path="res://Scenes/environment/stars/starBlue.tscn" id="2_kl56n"]
-[ext_resource type="PackedScene" uid="uid://34tgoolebh5g" path="res://Scenes/environment/stars/starPurple.tscn" id="4_50mtu"]
 [ext_resource type="PackedScene" uid="uid://cf5feuw5a0xw7" path="res://Scenes/environment/planets/redPlanet.tscn" id="4_av28a"]
 [ext_resource type="PackedScene" uid="uid://cceo0v6crva0c" path="res://Scenes/environment/planets/greenPlanet.tscn" id="5_jfsbo"]
 [ext_resource type="PackedScene" uid="uid://b0f2ttqx3argo" path="res://Scenes/environment/stars/starRed.tscn" id="5_ux607"]
@@ -16,7 +15,7 @@
 
 [node name="SolarSystem" type="Node3D"]
 script = ExtResource("1_nynkk")
-stars = Array[PackedScene]([ExtResource("2_kl56n"), ExtResource("2_iv6tc"), ExtResource("4_50mtu"), ExtResource("5_ux607"), ExtResource("6_1axr6"), ExtResource("7_vppdu")])
+stars = Array[PackedScene]([ExtResource("5_ux607"), ExtResource("7_vppdu"), ExtResource("6_1axr6"), ExtResource("2_iv6tc"), ExtResource("2_kl56n")])
 areaBuffer = 1.1
 
 [node name="Star" type="Node3D" parent="."]

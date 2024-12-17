@@ -29,7 +29,7 @@ lock_rotation = true
 freeze = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D"]
-layers = 1023
+layers = 2
 visibility_range_fade_mode = 1
 mesh = SubResource("SphereMesh_cpmb8")
 skeleton = NodePath("../..")

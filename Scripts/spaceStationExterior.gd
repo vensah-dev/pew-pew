@@ -9,14 +9,12 @@ var insideEntry = false
 
 @onready var player = get_tree().get_first_node_in_group("player")
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	SceneSwicther.worldSwitched.connect(movePlayer)
 
 func movePlayer():
 	player.transform = spawnPoint
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	rotate_y(rotationSpeed * delta)
 
@@ -25,15 +23,22 @@ func _process(delta: float) -> void:
 		insideEntry = false
 		SceneSwicther.switchScene(spaceStationScene)
 
-#extry point 1
+#if entered
 func _on_entry_1_entered(body:Node3D) -> void:
 	spawnPoint = entries[0].transform
 	enterSpaceStation(body)
 
-#extry point 2
 func _on_entry_2_entered(body:Node3D) -> void:
 	spawnPoint = entries[1].transform
 	enterSpaceStation(body)
+
+
+#if exited
+func _on_entry_1_exited(_body:Node3D) -> void:
+	player.hideInteractionLabel()
+func _on_entry_2_exited(_body:Node3D) -> void:
+	player.hideInteractionLabel()
+
 
 #what to do if areaNodes are entered
 func enterSpaceStation(body):

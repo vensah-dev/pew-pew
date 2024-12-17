@@ -1,51 +1,99 @@
-[gd_scene load_steps=26 format=3 uid="uid://bae0rrler2lwr"]
+[gd_scene load_steps=46 format=3 uid="uid://bae0rrler2lwr"]
 
 [ext_resource type="Script" path="res://Scripts/gameManager.gd" id="1_jmc7e"]
 [ext_resource type="PackedScene" uid="uid://cgng6km46j0vt" path="res://Scenes/player.tscn" id="2_de30o"]
+[ext_resource type="Environment" uid="uid://ytdp4206auxd" path="res://Assets/Texture/environment.tres" id="2_kpeq3"]
+[ext_resource type="Resource" uid="uid://cslvcweyejh3c" path="res://addons/SphynxMotionBlurToolkit/PreBlurProcessing/default_camera_movement_component.tres" id="2_ybq70"]
 [ext_resource type="Script" path="res://Scripts/world/world.gd" id="3_aiun5"]
+[ext_resource type="Resource" uid="uid://iru8ynu04i00" path="res://addons/SphynxMotionBlurToolkit/PreBlurProcessing/default_camera_rotation_component.tres" id="3_djdsl"]
+[ext_resource type="Shader" path="res://Scripts/shaders/vingette.gdshader" id="3_xantu"]
+[ext_resource type="Resource" uid="uid://rp3mpjmisoyh" path="res://addons/SphynxMotionBlurToolkit/PreBlurProcessing/default_object_movement_component.tres" id="4_j8wks"]
 [ext_resource type="Script" path="res://Scripts/spawners/SolarSystemSpawner.gd" id="4_s4hp0"]
 [ext_resource type="Texture2D" uid="uid://da6mtyhcrgjyd" path="res://Assets/UI/shield icon.png" id="5_o6m3p"]
+[ext_resource type="Resource" uid="uid://c8ulad7utgrg7" path="res://addons/SphynxMotionBlurToolkit/PreBlurProcessing/pre_blur_processing_stage.tres" id="5_ojqdg"]
 [ext_resource type="PackedScene" uid="uid://bxtudok6crrjx" path="res://Scenes/environment/starSystems/solarSystem.tscn" id="5_synb3"]
 [ext_resource type="Texture2D" uid="uid://da8qpfk8sann1" path="res://Assets/UI/health icon.png" id="6_2yts4"]
+[ext_resource type="Script" path="res://addons/SphynxMotionBlurToolkit/PreBlurProcessing/pre_blur_processor.gd" id="6_opyl4"]
 [ext_resource type="PackedScene" uid="uid://6nobhr26vtvf" path="res://Scenes/spawners/enemySpawner.tscn" id="6_t04ed"]
+[ext_resource type="Resource" uid="uid://ca45noqewsyvp" path="res://addons/SphynxMotionBlurToolkit/Guertin/guertin_experimental_blur_stage.tres" id="7_atebm"]
 [ext_resource type="Script" path="res://Scripts/crosshair.gd" id="7_mhgb4"]
 [ext_resource type="Texture2D" uid="uid://copsrd5jrk7o6" path="res://Assets/UI/statusRing.png" id="7_n3nd6"]
+[ext_resource type="Resource" uid="uid://cvb65hfs2lrxo" path="res://addons/SphynxMotionBlurToolkit/Guertin/guertin_neighbor_max_stage.tres" id="8_3rte8"]
 [ext_resource type="PackedScene" uid="uid://34hbmj2ovvb2" path="res://Scenes/minimap.tscn" id="9_7ngw5"]
-[ext_resource type="Shader" path="res://Scenes/vingette.gdshader" id="9_erqks"]
 [ext_resource type="PackedScene" uid="uid://cydpyr360sp2s" path="res://Scenes/cameraView.tscn" id="9_i6eme"]
+[ext_resource type="Resource" uid="uid://bidsfymvdyhek" path="res://addons/SphynxMotionBlurToolkit/Guertin/guertin_overlay_stage.tres" id="9_ykj30"]
+[ext_resource type="Script" path="res://addons/SphynxMotionBlurToolkit/Guertin/new_guertin_motion_blur.gd" id="10_jj805"]
 [ext_resource type="PackedScene" uid="uid://cs0ateo6cimnx" path="res://Scenes/enemyWithMissles.tscn" id="10_qmy3e"]
+[ext_resource type="Resource" uid="uid://dipvwksvqb3dm" path="res://addons/SphynxMotionBlurToolkit/Guertin/guertin_tile_max_x_stage.tres" id="11_t2g0a"]
+[ext_resource type="Resource" uid="uid://bxfg45ubc2pv7" path="res://addons/SphynxMotionBlurToolkit/Guertin/guertin_tile_max_y_stage.tres" id="12_co80g"]
+[ext_resource type="Resource" uid="uid://bqehecsdgt70s" path="res://addons/SphynxMotionBlurToolkit/Guertin/guertin_tile_variance_stage.tres" id="13_pn7nl"]
 [ext_resource type="PackedScene" uid="uid://ccks54v5ml2k3" path="res://Scenes/spaceStationExterior.tscn" id="14_h7gm1"]
 [ext_resource type="PackedScene" uid="uid://dmlb8utavpi4c" path="res://Scenes/enemy.tscn" id="15_4rndq"]
+[ext_resource type="FontFile" uid="uid://pw18l2pw732g" path="res://Assets/Poppins/Poppins-Light.ttf" id="20_0lqjg"]
+[ext_resource type="Shader" path="res://Scripts/shaders/outlineShader.gdshader" id="30_ddqmw"]
 
-[sub_resource type="Environment" id="Environment_oyles"]
-background_mode = 1
-ambient_light_source = 2
-ambient_light_color = Color(1, 1, 1, 1)
-tonemap_mode = 3
-glow_enabled = true
-glow_levels/1 = 1.0
-glow_levels/2 = 1.0
-glow_levels/4 = 1.0
-glow_levels/6 = 1.0
-glow_levels/7 = 1.0
-glow_normalized = true
-glow_mix = 0.684
-glow_bloom = 0.35
-glow_blend_mode = 1
-glow_hdr_luminance_cap = 2.0
-fog_mode = 1
-fog_light_color = Color(0, 0, 0, 1)
-fog_density = 1.0
-fog_depth_begin = 500000.0
-fog_depth_end = 1e+06
-volumetric_fog_density = 0.0001
-volumetric_fog_albedo = Color(0, 0, 0, 1)
-adjustment_enabled = true
-adjustment_brightness = 0.8
-adjustment_saturation = 1.31
+[sub_resource type="CompositorEffect" id="CompositorEffect_oh7tx"]
+resource_local_to_scene = false
+resource_name = ""
+enabled = false
+effect_callback_type = 4
+needs_motion_vectors = false
+needs_normal_roughness = false
+script = ExtResource("6_opyl4")
+pre_blur_processor_stage = ExtResource("5_ojqdg")
+camera_rotation_component = ExtResource("3_djdsl")
+camera_movement_component = ExtResource("2_ybq70")
+object_movement_component = ExtResource("4_j8wks")
+debug = false
+
+[sub_resource type="CompositorEffect" id="CompositorEffect_1156h"]
+resource_local_to_scene = false
+resource_name = ""
+enabled = true
+effect_callback_type = 4
+needs_motion_vectors = false
+needs_normal_roughness = false
+script = ExtResource("10_jj805")
+blur_stage = ExtResource("7_atebm")
+overlay_stage = ExtResource("9_ykj30")
+tile_max_x_stage = ExtResource("11_t2g0a")
+tile_max_y_stage = ExtResource("12_co80g")
+neighbor_max_stage = ExtResource("8_3rte8")
+tile_variance_stage = ExtResource("13_pn7nl")
+tile_size = 40
+linear_falloff_slope = 1.0
+importance_bias = 40.0
+maximum_jitter_value = 0.95
+minimum_user_threshold = 1.5
+debug = false
+
+[sub_resource type="Compositor" id="Compositor_0qyyx"]
+compositor_effects = Array[CompositorEffect]([SubResource("CompositorEffect_oh7tx"), SubResource("CompositorEffect_1156h")])
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kqtgv"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_gmtlk"]
+material = SubResource("ShaderMaterial_kqtgv")
+flip_faces = true
+size = Vector2(2, 2)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qm2r1"]
+render_priority = 1
+shader = ExtResource("30_ddqmw")
+shader_parameter/outlineColor = Color(1, 1, 1, 0.454902)
+shader_parameter/depth_threshold = 0.025
+shader_parameter/normal_threshold = 1.5
+shader_parameter/normal_smoothing = 0.25
+shader_parameter/max_thickness = 0.5
+shader_parameter/min_thickness = 0.1
+shader_parameter/max_distance = 10000.0
+shader_parameter/min_distance = 1.0
+shader_parameter/grazing_fresnel_power = 5.0
+shader_parameter/grazing_angle_mask_power = 1.0
+shader_parameter/grazing_angle_modulation_factor = 50.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_kgtun"]
-shader = ExtResource("9_erqks")
+shader = ExtResource("3_xantu")
 shader_parameter/inner_radius = 0.5
 shader_parameter/outer_radius = 1.0
 shader_parameter/vignette_strength = 0.1
@@ -54,14 +102,17 @@ shader_parameter/vignette_color = Color(1, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_8opnt"]
 line_spacing = 60.0
+font = ExtResource("20_0lqjg")
 font_size = 26
 font_color = Color(0, 0, 0, 1)
 outline_size = 5
 
 [sub_resource type="LabelSettings" id="LabelSettings_7r6wg"]
+font = ExtResource("20_0lqjg")
 font_size = 32
 
 [sub_resource type="LabelSettings" id="LabelSettings_3un3w"]
+font = ExtResource("20_0lqjg")
 font_size = 24
 font_color = Color(1, 0.883333, 0, 1)
 
@@ -82,22 +133,34 @@ script = ExtResource("1_jmc7e")
 spawnSeed = "2891365617"
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_oyles")
+environment = ExtResource("2_kpeq3")
+compositor = SubResource("Compositor_0qyyx")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment"]
-transform = Transform3D(-4.37114e-08, -0.707107, 0.707107, 0, 0.707107, 0.707107, -1, 3.09086e-08, -3.09086e-08, 0, 4, 0)
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 4, 0)
 layers = 3
+light_cull_mask = 4294967291
 
 [node name="player" parent="." node_paths=PackedStringArray("healthbar", "shieldbar") instance=ExtResource("2_de30o")]
+mouseDamping = 100.0
 mouseIdleThreshold = 0.005
 targetMarkerNormalColour = Color(0.82, 0.955, 1, 1)
 targetMarkerLockedColour = Color(1, 0.266667, 0, 1)
 healthbar = NodePath("../UI/healthbar")
 shieldbar = NodePath("../UI/shieldbar")
 
+[node name="outlines" type="MeshInstance3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -0.2)
+layers = 3
+extra_cull_margin = 16384.0
+mesh = SubResource("QuadMesh_gmtlk")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("ShaderMaterial_qm2r1")
+
 [node name="UI" type="CanvasLayer" parent="."]
 
 [node name="vignette" type="ColorRect" parent="UI"]
+visible = false
 material = SubResource("ShaderMaterial_kgtun")
 anchors_preset = 15
 anchor_right = 1.0
@@ -119,9 +182,8 @@ grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(16, 16)
 script = ExtResource("7_mhgb4")
-innerRadius = 2.0
-innerThickness = 4.0
-outerRadius = 3.0
+innerRadius = 1.0
+outerRadius = 0.0
 
 [node name="statusRing" type="TextureProgressBar" parent="UI"]
 anchors_preset = 8
@@ -145,6 +207,7 @@ tint_under = Color(1, 1, 1, 0.25098)
 tint_over = Color(1, 1, 1, 0)
 
 [node name="distance" type="Label" parent="UI"]
+visible = false
 anchors_preset = 14
 anchor_top = 0.5
 anchor_right = 1.0
@@ -214,7 +277,7 @@ anchor_bottom = 1.0
 offset_left = 128.0
 offset_top = -268.0
 offset_right = 768.0
-offset_bottom = -244.0
+offset_bottom = -256.0
 grow_vertical = 0
 theme_override_colors/font_color = Color(0.5, 0.5, 0.5, 1)
 theme_override_font_sizes/font_size = 16
@@ -243,7 +306,7 @@ anchor_bottom = 1.0
 offset_left = 128.0
 offset_top = -236.0
 offset_right = 768.0
-offset_bottom = -212.0
+offset_bottom = -224.0
 grow_vertical = 0
 theme_override_colors/font_color = Color(0.5, 0.5, 0.5, 1)
 theme_override_font_sizes/font_size = 16
@@ -302,7 +365,6 @@ solarSystems = Array[PackedScene]([ExtResource("5_synb3")])
 
 [node name="space station" parent="world" instance=ExtResource("14_h7gm1")]
 transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 0, 0, -498.94)
-rotationSpeed = 0.01
 
 [node name="EnemySpawner" parent="world" node_paths=PackedStringArray("player") instance=ExtResource("6_t04ed")]
 enemies = Array[PackedScene]([ExtResource("15_4rndq"), ExtResource("10_qmy3e")])

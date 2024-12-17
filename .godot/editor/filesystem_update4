@@ -1,19 +1,21 @@
 res://default_bus_layout.tres
-res://Scenes/Guns and Bullets/bullet.tscn
+res://Assets/Texture/environment.tres
+res://Scenes/spaceStation.tscn
 res://Assets/materials/bulletMaterial.tres
+res://Scripts/shaders/vingette.gdshader
 res://explode.res
 res://standardLabel.tres
-res://Scenes/Guns and Bullets/bulletRed.tscn
-res://Scripts/player.gd
-res://Scripts/gun.gd
+res://Scripts/shaders/outlineShader.gdshader
+res://Scripts/shaders/toonShader.gdshader
+res://Scripts/shaders/toon.gdshader
+res://Scenes/shop.tscn
+res://Scripts/shop.gd
 res://Scenes/Game.tscn
 res://Scenes/player.tscn
 res://Scenes/enemy.tscn
-res://Scenes/currency.tscn
+res://Scenes/Guns and Bullets/bullet.tscn
 res://Scenes/spaceStationExterior.tscn
-res://Scenes/spaceStation.tscn
-res://Scenes/vingette.gdshader
-res://Scripts/components/health.gd
-res://Scripts/enemy.gd
-res://Scenes/enemyWithMissles.tscn
-res://Scripts/spawners/enemySpawner.gd
+res://Scripts/spaceStation.gd
+res://Scripts/player.gd
+res://Scripts/spaceStationExterior.gd
+res://Scripts/globals/sceneSwitcher.gd

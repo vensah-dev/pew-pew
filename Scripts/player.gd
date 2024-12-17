@@ -211,6 +211,14 @@ func _physics_process(delta: float) -> void:
 			targetLocked = false
 			targetLockSprite.visible = false
 
+		if collider.is_in_group("shop"):
+			showInteractionLabel("F to open shop")
+			if Input.is_action_just_pressed("interact"):
+				collider.openShop()
+		elif !collider.is_in_group("shop"):
+			hideInteractionLabel()
+
+
 	else:
 		#update markers if needed, like for example locked targets
 		if targetLocked and canLockOnTarget:

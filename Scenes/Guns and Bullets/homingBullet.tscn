@@ -1,7 +1,7 @@
 [gd_scene load_steps=12 format=3 uid="uid://dvon531nr1ynt"]
 
 [ext_resource type="Script" path="res://Scripts/bullet.gd" id="1_man68"]
-[ext_resource type="AudioStream" uid="uid://dmbusqiv375ii" path="res://Assets/pew-pew-sound-effect.wav" id="3_ktu0f"]
+[ext_resource type="AudioStream" uid="uid://dovh6el52uc0b" path="res://Assets/sounds/launchMissle.wav" id="2_c36w2"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_taomh"]
 transparency = 1
@@ -78,7 +78,7 @@ skeleton = NodePath("")
 
 [node name="RayCast3D" type="RayCast3D" parent="."]
 transform = Transform3D(5, 0, 0, 0, -2.18557e-07, 5, 0, -5, -2.18557e-07, 0, 0, 0)
-collision_mask = 2
+collision_mask = 6
 collide_with_areas = true
 debug_shape_thickness = 5
 
@@ -92,10 +92,12 @@ process_material = SubResource("ParticleProcessMaterial_u3sro")
 draw_pass_1 = SubResource("SphereMesh_mj6p2")
 
 [node name="sound" type="AudioStreamPlayer3D" parent="."]
-stream = ExtResource("3_ktu0f")
-volume_db = -20.0
-max_db = -20.0
-max_distance = 50.0
+stream = ExtResource("2_c36w2")
+volume_db = 6.0
+max_db = 6.0
+pitch_scale = 1.75
+max_distance = 100.0
+attenuation_filter_db = 0.0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_7r7gt")

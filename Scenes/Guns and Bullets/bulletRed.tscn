@@ -1,10 +1,10 @@
 [gd_scene load_steps=9 format=3 uid="uid://cl3jfdc3m0j2x"]
 
 [ext_resource type="Script" path="res://Scripts/bullet.gd" id="1_niwft"]
-[ext_resource type="AudioStream" uid="uid://dmbusqiv375ii" path="res://Assets/pew-pew-sound-effect.wav" id="2_rjiwv"]
+[ext_resource type="AudioStream" uid="uid://dmbusqiv375ii" path="res://Assets/sounds/pew-pew-sound-effect.wav" id="2_rjiwv"]
 [ext_resource type="Material" uid="uid://cdihkyul8d7w1" path="res://Assets/materials/bulletRedMaterial.tres" id="2_x2781"]
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_aypa8"]
+[sub_resource type="SphereMesh" id="SphereMesh_44bll"]
 material = ExtResource("2_x2781")
 height = 5.0
 
@@ -34,16 +34,16 @@ script = ExtResource("1_niwft")
 
 [node name="mesh" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
-mesh = SubResource("CapsuleMesh_aypa8")
+mesh = SubResource("SphereMesh_44bll")
 skeleton = NodePath("")
 
 [node name="RayCast3D" type="RayCast3D" parent="."]
-transform = Transform3D(10, 0, 0, 0, -4.37114e-07, 10, 0, -10, -4.37114e-07, 0, 0, 2.5)
-collision_mask = 2
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, 10, 0, -10, -4.37114e-07, 0, 0, 1.5)
+collision_mask = 6
 debug_shape_thickness = 5
 
 [node name="impact" type="GPUParticles3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.5)
 emitting = false
 amount = 4
 lifetime = 0.5
@@ -54,6 +54,5 @@ draw_pass_1 = SubResource("SphereMesh_p128s")
 
 [node name="sound" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("2_rjiwv")
-volume_db = -20.0
-max_db = -20.0
+volume_db = -15.0
 max_distance = 50.0

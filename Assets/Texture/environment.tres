@@ -1,0 +1,42 @@
+[gd_resource type="Environment" load_steps=4 format=3 uid="uid://ytdp4206auxd"]
+
+[ext_resource type="Texture2D" uid="uid://ct4jsuu8xjo5n" path="res://Assets/Texture/skybox_finallu.png" id="1_d02lw"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_ugwib"]
+panorama = ExtResource("1_d02lw")
+energy_multiplier = 0.05
+
+[sub_resource type="Sky" id="Sky_pgets"]
+sky_material = SubResource("PanoramaSkyMaterial_ugwib")
+
+[resource]
+background_mode = 2
+background_color = Color(1, 1, 1, 1)
+background_energy_multiplier = 4.0
+sky = SubResource("Sky_pgets")
+ambient_light_source = 2
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_sky_contribution = 0.0
+ambient_light_energy = 0.5
+glow_enabled = true
+glow_levels/1 = 1.0
+glow_levels/2 = 1.0
+glow_levels/4 = 1.0
+glow_levels/6 = 1.0
+glow_levels/7 = 1.0
+glow_normalized = true
+glow_intensity = 0.9
+glow_mix = 0.684
+glow_bloom = 0.15
+glow_blend_mode = 1
+glow_hdr_threshold = 4.0
+glow_hdr_scale = 4.0
+fog_mode = 1
+fog_light_color = Color(0, 0, 0, 1)
+fog_density = 1.0
+fog_depth_begin = 500000.0
+fog_depth_end = 1e+06
+volumetric_fog_density = 0.0001
+volumetric_fog_albedo = Color(0, 0, 0, 1)
+adjustment_enabled = true
+adjustment_contrast = 1.01

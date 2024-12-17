@@ -1,7 +1,7 @@
-[gd_scene load_steps=28 format=4 uid="uid://ot5y5kip2g5p"]
+[gd_scene load_steps=26 format=4 uid="uid://ot5y5kip2g5p"]
 
-[ext_resource type="LabelSettings" uid="uid://ryv112ku4qpr" path="res://standardLabel.tres" id="1_k2y0x"]
-[ext_resource type="Script" path="res://Scenes/spaceStation.gd" id="1_yc6ne"]
+[ext_resource type="Script" path="res://Scripts/spaceStation.gd" id="1_yc6ne"]
+[ext_resource type="PackedScene" uid="uid://co1f6l8523pa4" path="res://Scenes/shop.tscn" id="2_a6ou8"]
 [ext_resource type="FontFile" uid="uid://c3bbjpcqk64q8" path="res://Assets/Poppins/Poppins-Black.ttf" id="3_4xam6"]
 
 [sub_resource type="Environment" id="Environment_voyl3"]
@@ -196,12 +196,6 @@ shadow_mesh = SubResource("ArrayMesh_yljo2")
 [sub_resource type="BoxMesh" id="BoxMesh_o3kww"]
 size = Vector3(50, 50, 50)
 
-[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_y8kt0"]
-data = PackedVector3Array(-25, 25, 25, 25, 25, 25, -25, -25, 25, 25, 25, 25, 25, -25, 25, -25, -25, 25, 25, 25, -25, -25, 25, -25, 25, -25, -25, -25, 25, -25, -25, -25, -25, 25, -25, -25, 25, 25, 25, 25, 25, -25, 25, -25, 25, 25, 25, -25, 25, -25, -25, 25, -25, 25, -25, 25, -25, -25, 25, 25, -25, -25, -25, -25, 25, 25, -25, -25, 25, -25, -25, -25, 25, 25, 25, -25, 25, 25, 25, 25, -25, -25, 25, 25, -25, 25, -25, 25, 25, -25, -25, -25, 25, 25, -25, 25, -25, -25, -25, 25, -25, 25, 25, -25, -25, -25, -25, -25)
-
-[sub_resource type="ViewportTexture" id="ViewportTexture_rsc73"]
-viewport_path = NodePath("healthShop/Sprite3D/SubViewport")
-
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_wjb6i"]
 data = PackedVector3Array(-25, 25, 25, 25, 25, 25, -25, -25, 25, 25, 25, 25, 25, -25, 25, -25, -25, 25, 25, 25, -25, -25, 25, -25, 25, -25, -25, -25, 25, -25, -25, -25, -25, 25, -25, -25, 25, 25, 25, 25, 25, -25, 25, -25, 25, 25, 25, -25, 25, -25, -25, 25, -25, 25, -25, 25, -25, -25, 25, 25, -25, -25, -25, -25, 25, 25, -25, -25, 25, -25, -25, -25, 25, 25, 25, -25, 25, 25, 25, 25, -25, -25, 25, 25, -25, 25, -25, 25, 25, -25, -25, -25, 25, 25, -25, 25, -25, -25, -25, 25, -25, 25, 25, -25, -25, -25, -25, -25)
 
@@ -265,29 +259,8 @@ shape = SubResource("ConcavePolygonShape3D_v3ks3")
 mesh = SubResource("ArrayMesh_cs6cq")
 skeleton = NodePath("")
 
-[node name="healthShop" type="StaticBody3D" parent="."]
-transform = Transform3D(-0.526956, 0, 0.849893, 0, 1, 0, -0.849893, 0, -0.526956, 173, 0, -109.736)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="healthShop"]
-mesh = SubResource("BoxMesh_o3kww")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="healthShop"]
-transform = Transform3D(1, 0, -4.96705e-08, 0, 1, 0, 4.96705e-08, 0, 1, 0, 0, 0)
-shape = SubResource("ConcavePolygonShape3D_y8kt0")
-
-[node name="Sprite3D" type="Sprite3D" parent="healthShop"]
-transform = Transform3D(-10, 0, -1.50996e-06, 0, 10, 0, 1.50996e-06, 0, -10, 3.8147e-06, 4, -25.5)
-texture = SubResource("ViewportTexture_rsc73")
-
-[node name="SubViewport" type="SubViewport" parent="healthShop/Sprite3D"]
-transparent_bg = true
-size = Vector2i(224, 91)
-
-[node name="Label" type="Label" parent="healthShop/Sprite3D/SubViewport"]
-offset_right = 193.0
-offset_bottom = 91.0
-text = "Health"
-label_settings = ExtResource("1_k2y0x")
+[node name="healthShop" parent="." instance=ExtResource("2_a6ou8")]
+transform = Transform3D(1, 1.74846e-07, 0, -1.74846e-07, 1, 0, 0, 0, 1, 0, 0, -192)
 
 [node name="armsShop" type="StaticBody3D" parent="."]
 transform = Transform3D(0.939693, 0, -0.34202, 0, 1, 0, 0.34202, 0, 0.939693, -70, 0, 179)
