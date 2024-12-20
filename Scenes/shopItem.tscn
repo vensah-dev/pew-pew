@@ -1,0 +1,142 @@
+[gd_scene load_steps=16 format=3 uid="uid://cv77pm8badd5p"]
+
+[ext_resource type="Script" path="res://Scripts/components/itemUI.gd" id="1_cm7gi"]
+[ext_resource type="Texture2D" uid="uid://da6mtyhcrgjyd" path="res://Assets/UI/shield icon.png" id="2_03ypi"]
+[ext_resource type="FontFile" uid="uid://bkrdskw5vg6dl" path="res://Assets/Poppins/Poppins-Bold.ttf" id="3_s7nhm"]
+[ext_resource type="FontFile" uid="uid://pw18l2pw732g" path="res://Assets/Poppins/Poppins-Light.ttf" id="4_h41dt"]
+[ext_resource type="FontFile" uid="uid://bpp4ya4c2q4m3" path="res://Assets/Poppins/Poppins-Medium.ttf" id="5_gktox"]
+[ext_resource type="Texture2D" uid="uid://drph0c56jxfcg" path="res://Assets/UI/Graduation Hat.png" id="6_x66to"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8348h"]
+bg_color = Color(0, 0, 0, 0.501961)
+
+[sub_resource type="LabelSettings" id="LabelSettings_huaft"]
+line_spacing = -10.0
+font = ExtResource("3_s7nhm")
+font_size = 32
+font_color = Color(1, 1, 1, 0.74902)
+
+[sub_resource type="LabelSettings" id="LabelSettings_nuahv"]
+font = ExtResource("4_h41dt")
+font_size = 24
+font_color = Color(1, 1, 1, 0.74902)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xwcci"]
+content_margin_left = 16.0
+content_margin_top = 16.0
+content_margin_right = 16.0
+content_margin_bottom = 16.0
+bg_color = Color(0.74, 0.592, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aeurs"]
+content_margin_left = 16.0
+content_margin_top = 16.0
+content_margin_right = 16.0
+content_margin_bottom = 16.0
+bg_color = Color(0.74, 0.592, 0, 0.25098)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vnseg"]
+content_margin_left = 16.0
+content_margin_top = 16.0
+content_margin_right = 16.0
+content_margin_bottom = 16.0
+bg_color = Color(0.74, 0.592, 0, 0.501961)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dpq0g"]
+content_margin_left = 16.0
+content_margin_top = 16.0
+content_margin_right = 16.0
+content_margin_bottom = 16.0
+bg_color = Color(0.74, 0.592, 0, 0.74902)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5atx2"]
+content_margin_left = 16.0
+content_margin_top = 16.0
+content_margin_right = 16.0
+content_margin_bottom = 16.0
+bg_color = Color(0.74, 0.592, 0, 0.501961)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7sulo"]
+content_margin_left = 16.0
+content_margin_top = 16.0
+content_margin_right = 16.0
+content_margin_bottom = 16.0
+bg_color = Color(0.8, 0.64, 0, 1)
+
+[node name="shopItem" type="PanelContainer"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 78.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_8348h")
+script = ExtResource("1_cm7gi")
+
+[node name="margin" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="flow" type="HFlowContainer" parent="margin"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/h_separation = 64
+
+[node name="icon" type="TextureRect" parent="margin/flow"]
+layout_mode = 2
+texture = ExtResource("2_03ypi")
+expand_mode = 2
+stretch_mode = 4
+
+[node name="details" type="VBoxContainer" parent="margin/flow"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="title" type="Label" parent="margin/flow/details"]
+layout_mode = 2
+text = "Title
+"
+label_settings = SubResource("LabelSettings_huaft")
+
+[node name="description" type="Label" parent="margin/flow/details"]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "description"
+label_settings = SubResource("LabelSettings_nuahv")
+autowrap_mode = 1
+
+[node name="buy" type="Button" parent="margin/flow"]
+custom_minimum_size = Vector2(185, 0)
+layout_mode = 2
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 0.25098)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 0.901961)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 0.501961)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 0.901961)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_normal_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_focus_color = Color(1, 1, 1, 0.74902)
+theme_override_colors/icon_pressed_color = Color(1, 1, 1, 0.501961)
+theme_override_colors/icon_hover_color = Color(1, 1, 1, 0.901961)
+theme_override_colors/icon_hover_pressed_color = Color(1, 1, 1, 0.74902)
+theme_override_colors/icon_disabled_color = Color(1, 1, 1, 0.25098)
+theme_override_constants/h_separation = 24
+theme_override_constants/icon_max_width = 42
+theme_override_fonts/font = ExtResource("5_gktox")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/focus = SubResource("StyleBoxFlat_xwcci")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_aeurs")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_vnseg")
+theme_override_styles/hover = SubResource("StyleBoxFlat_dpq0g")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_5atx2")
+theme_override_styles/normal = SubResource("StyleBoxFlat_7sulo")
+text = "price
+"
+icon = ExtResource("6_x66to")
+
+[connection signal="pressed" from="margin/flow/buy" to="." method="_on_buy_pressed"]

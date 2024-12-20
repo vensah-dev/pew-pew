@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="HealthManipulationFunction" load_steps=2 format=3 uid="uid://clllsgmyd8yjc"]
+
+[ext_resource type="Script" path="res://Scripts/resources/items/functions/healthManipulation.gd" id="1_7oye2"]
+
+[resource]
+script = ExtResource("1_7oye2")
+addHealth = 25.0
+addMaxHealth = 0.0

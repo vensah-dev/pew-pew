@@ -33,11 +33,11 @@ var currentFOV = 75.0
 @export var cameraDamping = 2.5
 
 @export_subgroup("camera shake")
-@export var traumaIntensity = 0.25
 @export var decay = 1.0 # How quickly the shaking stops [0, 1].
-@export var max_offset = Vector2(5, 5)  # Maximum hor/ver shake in pixels.
-@export var max_roll = 0.2  # Maximum rotation in radians (use sparingly).
+@export var maxRotation = Vector3(15, 15, 15)  # Maximum rotation in radians (use sparingly).
 @export var canvasShakeMultiplier = 2.0
+
+@onready var initial_cam_rotation := $cameraGimbal/Camera.rotation_degrees as Vector3
 
 var trauma = 0.0  # Current shake strength.
 var trauma_power = 2  # Trauma exponent. Use [2, 3].
@@ -47,7 +47,6 @@ var noise_y = 0
 
 @export_group("Raycast")
 @export var raycastRange = 1000
-@export var targetMarkerCurve:Curve
 @export var targetMarkerNormalColour: Color
 @export var targetMarkerLockedColour: Color
 
@@ -87,7 +86,7 @@ var currentVignetteColor = normalVignetteColor
 @onready var statusRing = $"../UI/statusRing"
 @onready var interactionLabel = $"../UI/interactionLabel"
 @onready var vignette = $"../UI/vignette"
-
+@onready var inventory = $"../UI/inventory"
 
 @onready var healthData = $healthData
 
@@ -121,7 +120,7 @@ var activeForwardSpeed: float
 var activeStrifeSpeed: float
 var activeHoverSpeed: float
 
-var gunIndex = 0
+var selectedIndex = 0
 
 var lockedTarget
 var targetLocked
@@ -129,8 +128,12 @@ var targetLocked
 var canLockOnTarget = false
 var updatePredictionReticle = true
 
+var lookingAtInteractable = false
+
+var inventoryItems = []
 
 func _ready() -> void:
+
 	await get_tree().process_frame
 	Input.mouse_mode = Input.MOUSE_MODE_CONFINED
 
@@ -138,6 +141,14 @@ func _ready() -> void:
 	healthData.setShield(healthData.maxShield)
 
 	vignette.get_material().set_shader_parameter("vignette_color", normalVignetteColor) 
+
+	inventoryItems.append_array(listOfGuns)
+	
+	inventory.items = inventoryItems
+	inventory.selectedIndex = selectedIndex
+	inventory.updateInventory()
+
+	print(inventoryItems)
 
 	# shieldRegenTimer.timeout.connect(regenShield)
 	# updateHealth()
@@ -212,12 +223,14 @@ func _physics_process(delta: float) -> void:
 			targetLockSprite.visible = false
 
 		if collider.is_in_group("shop"):
+			lookingAtInteractable = true
 			showInteractionLabel("F to open shop")
 			if Input.is_action_just_pressed("interact"):
 				collider.openShop()
-		elif !collider.is_in_group("shop"):
-			hideInteractionLabel()
 
+		elif !collider.is_in_group("shop"):
+			lookingAtInteractable = false
+			hideInteractionLabel()
 
 	else:
 		#update markers if needed, like for example locked targets
@@ -248,7 +261,7 @@ func _physics_process(delta: float) -> void:
 
 func _process(delta: float) -> void:
 	#what do u think nerd
-	switchGuns()
+	handleInventory()
 
 	#idiot u spent way too long trynna figure this out, obviously u need to update your ur current forward, right and up vectors and not only once at the start!!!!
 	directions()
@@ -263,12 +276,12 @@ func _process(delta: float) -> void:
 	inputVector = inputVector.normalized()
 	roll = lerpf(roll, rollInput, rollAcceleration * delta)
 
-	if trauma:
-		trauma = max(trauma - decay * delta, 0)
-		shake()
-		vignette.get_material().set_shader_parameter("vignette_color", damageVignetteColor) 
-	else:
-		vignette.get_material().set_shader_parameter("vignette_color", normalVignetteColor) 
+	# if trauma:
+	# 	trauma = max(trauma - decay * delta, 0)
+	# 	shake()
+	# 	vignette.get_material().set_shader_parameter("vignette_color", damageVignetteColor) 
+	# else:
+	# 	vignette.get_material().set_shader_parameter("vignette_color", normalVignetteColor) 
 
 
 
@@ -281,60 +294,86 @@ func _process(delta: float) -> void:
 #Camera Shake
 ########################
 
-func add_trauma(amount):
-	trauma = min(trauma + amount, 1.0)
+# func add_trauma(amount):
+# 	trauma = min(trauma + amount, 1.0)
 		
-func shake():
-	noise_y += 1
-	var amount = pow(trauma, trauma_power)
+# func shake():
+# 	noise_y += 1
+# 	var amount = pow(trauma, trauma_power)
 
-	var shakeRotation = max_roll * amount * noise.get_noise_2d(noise.seed, noise_y) * randi_range(-1, 1)
-	var shakeH_offset = max_offset.x * amount * noise.get_noise_2d(noise.seed*2, noise_y) * randi_range(-1, 1)
-	var shakeV_offset = max_offset.y * amount * noise.get_noise_2d(noise.seed*3, noise_y) * randi_range(-1, 1)
+# 	var shakeRotation = maxRotation * amount * noise.get_noise_2d(noise.seed, noise_y) * randi_range(-1, 1)
+# 	var shakeH_offset = maxRotation * amount * noise.get_noise_2d(noise.seed + 1, noise_y) * randi_range(-1, 1)
+# 	var shakeV_offset = maxRotation * amount * noise.get_noise_2d(noise.seed + 2, noise_y) * randi_range(-1, 1)
 
-	cam.rotation.z = shakeRotation
-	cam.h_offset = shakeH_offset
-	cam.v_offset = shakeV_offset
+# 	cam.rotation_degrees.z = initial_cam_rotation.z + shakeRotation
+# 	cam.rotation_degrees.y = initial_cam_rotation.y + shakeH_offset
+# 	cam.rotation_degrees.x = initial_cam_rotation.x + shakeV_offset
 
-	canvasNode.rotation = shakeRotation * canvasShakeMultiplier
-	canvasNode.offset.x = shakeH_offset * canvasShakeMultiplier
-	canvasNode.offset.y = shakeV_offset * canvasShakeMultiplier
+# 	# canvasNode.rotation = shakeRotation * canvasShakeMultiplier
+# 	# canvasNode.offset.x = shakeH_offset * canvasShakeMultiplier
+# 	# canvasNode.offset.y = shakeV_offset * canvasShakeMultiplier
 
 ########################
-#Guns and Target stuff
+#Inventory stuff
 ########################
 
-func switchGuns():
-	for n in range(1, listOfGuns.size()+1):
+func handleInventory():
+	for n in range(1, inventoryItems.size()+1):
 		if Input.is_action_just_pressed(str(n)):
-			gunIndex = n-1
-		
-		if listOfGuns[gunIndex].lockOnTarget:
-			canLockOnTarget = true
-			updatePredictionReticle = false
-		else:
-			canLockOnTarget = false
-			updatePredictionReticle = true
+			selectedIndex = n-1
+			
 
-		# if gunIndex == 0:
+		# if selectedIndex == 0:
 		# 	updatePredictionReticle = true
 		# else:
 		# 	updatePredictionReticle = false
 
-		# if gunIndex == 1:
+		# if selectedIndex == 1:
 		# 	canLockOnTarget = true
 		# else:
 		# 	canLockOnTarget = false
 
-	if activeForwardSpeed+activeHoverSpeed+activeStrifeSpeed >= listOfGuns[gunIndex].bulletSpeed:
-		for gun in listOfGuns:
-			gun.set_process(false)
-	else:
-		for i in range(listOfGuns.size()):
-			if i == gunIndex:
-				listOfGuns[i].set_process(true)
-			else:
-				listOfGuns[i].set_process(false)
+	inventory.items = inventoryItems
+	inventory.selectedIndex = selectedIndex
+	
+	for gun in listOfGuns:
+		gun.set_process(false)
+	#handle gun states
+	statusRing.visible = true
+	if inventoryItems[selectedIndex].get_class() == "Node3D": #check if its a gun node
+		if activeForwardSpeed+activeHoverSpeed+activeStrifeSpeed < listOfGuns[selectedIndex].bulletSpeed:
+			for i in range(listOfGuns.size()):
+
+				if i == selectedIndex:
+					listOfGuns[i].set_process(true)
+
+					if listOfGuns[i].lockOnTarget == true:
+						canLockOnTarget = true
+						updatePredictionReticle = false
+					else:
+						canLockOnTarget = false
+						# updatePredictionReticle = true
+				else:
+					listOfGuns[i].set_process(false)
+	elif inventoryItems[selectedIndex].get_class() == "Resource":
+		statusRing.visible = false
+		if Input.is_action_just_pressed("interact"):
+			inventoryItems[selectedIndex].use()
+			inventoryItems.remove_at(selectedIndex)
+			selectedIndex -= 1
+	print(inventoryItems)
+	inventory.updateInventory()
+
+func inventoryFull():
+	return inventoryItems.size() == 6
+
+func addItem(item):
+	inventoryItems.append(item)
+	inventory.updateInventory()
+
+########################
+#Target stuff
+########################
 
 func updateTargetMarker(collider):
 	var hit_origin = collider.global_transform.origin
@@ -428,10 +467,10 @@ func move(delta):
 #Health related stuff
 ########################
 
-func hit(damage):
+func hit(damage, bulletTrauma):
 
 	if trauma < 0.1:
-		add_trauma(traumaIntensity)
+		cam.add_trauma(bulletTrauma)
 
 	if healthData.shield > 0:
 		healthData.setShield(healthData.shield - damage)

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scripts/bullet.gd" id="1_aq0i8"]
 [ext_resource type="Material" uid="uid://c0ly3fmh1oikw" path="res://Assets/materials/bulletMaterial.tres" id="2_ydrg3"]
-[ext_resource type="AudioStream" uid="uid://dmbusqiv375ii" path="res://Assets/sounds/pew-pew-sound-effect.wav" id="3_3sra2"]
+[ext_resource type="AudioStream" uid="uid://dmbusqiv375ii" path="res://Assets/audio/pew-pew-sound-effect.wav" id="3_3sra2"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_mlgiw"]
 material = ExtResource("2_ydrg3")

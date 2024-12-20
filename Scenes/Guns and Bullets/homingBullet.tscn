@@ -1,7 +1,7 @@
 [gd_scene load_steps=12 format=3 uid="uid://dvon531nr1ynt"]
 
 [ext_resource type="Script" path="res://Scripts/bullet.gd" id="1_man68"]
-[ext_resource type="AudioStream" uid="uid://dovh6el52uc0b" path="res://Assets/sounds/launchMissle.wav" id="2_c36w2"]
+[ext_resource type="AudioStream" uid="uid://dovh6el52uc0b" path="res://Assets/audio/launchMissle.wav" id="2_c36w2"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_taomh"]
 transparency = 1

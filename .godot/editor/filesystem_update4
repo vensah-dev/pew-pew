@@ -1,21 +1,11 @@
-res://default_bus_layout.tres
+res://Assets/audio/default_bus_layout.tres
+res://Scripts/resources/scripts/items.gd
 res://Assets/Texture/environment.tres
 res://Scenes/spaceStation.tscn
 res://Assets/materials/bulletMaterial.tres
 res://Scripts/shaders/vingette.gdshader
-res://explode.res
-res://standardLabel.tres
 res://Scripts/shaders/outlineShader.gdshader
 res://Scripts/shaders/toonShader.gdshader
 res://Scripts/shaders/toon.gdshader
-res://Scenes/shop.tscn
-res://Scripts/shop.gd
-res://Scenes/Game.tscn
-res://Scenes/player.tscn
-res://Scenes/enemy.tscn
-res://Scenes/Guns and Bullets/bullet.tscn
-res://Scenes/spaceStationExterior.tscn
-res://Scripts/spaceStation.gd
-res://Scripts/player.gd
-res://Scripts/spaceStationExterior.gd
-res://Scripts/globals/sceneSwitcher.gd
+res://Scripts/resources/items/repairKit.tres
+res://Scripts/resources/items/maxHealthBoost.tres

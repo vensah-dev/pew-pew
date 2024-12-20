@@ -29,6 +29,8 @@ func setHealth(value):
 	health = value
 	if health < 0:
 		health = 0
+	elif health > maxHealth:
+		health = maxHealth
 	else:
 		health_changed.emit(health)
 

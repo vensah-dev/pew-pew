@@ -1,32 +1,11 @@
-[gd_scene load_steps=26 format=4 uid="uid://ot5y5kip2g5p"]
+[gd_scene load_steps=28 format=4 uid="uid://ot5y5kip2g5p"]
 
 [ext_resource type="Script" path="res://Scripts/spaceStation.gd" id="1_yc6ne"]
 [ext_resource type="PackedScene" uid="uid://co1f6l8523pa4" path="res://Scenes/shop.tscn" id="2_a6ou8"]
+[ext_resource type="Script" path="res://Scripts/resources/scripts/items.gd" id="3_4fihq"]
 [ext_resource type="FontFile" uid="uid://c3bbjpcqk64q8" path="res://Assets/Poppins/Poppins-Black.ttf" id="3_4xam6"]
-
-[sub_resource type="Environment" id="Environment_voyl3"]
-background_mode = 1
-ambient_light_source = 2
-ambient_light_color = Color(1, 1, 1, 1)
-ambient_light_energy = 0.5
-tonemap_mode = 3
-glow_enabled = true
-glow_levels/1 = 1.0
-glow_levels/2 = 1.0
-glow_levels/4 = 1.0
-glow_levels/6 = 1.0
-glow_levels/7 = 1.0
-glow_normalized = true
-glow_mix = 0.684
-glow_blend_mode = 1
-glow_hdr_scale = 4.0
-fog_mode = 1
-fog_light_color = Color(0, 0, 0, 1)
-fog_density = 1.0
-fog_depth_begin = 500000.0
-fog_depth_end = 1e+06
-volumetric_fog_density = 0.0001
-volumetric_fog_albedo = Color(0, 0, 0, 1)
+[ext_resource type="Resource" uid="uid://cia2idcvqbo47" path="res://Scripts/resources/items/repairKit.tres" id="4_3xhko"]
+[ext_resource type="Resource" uid="uid://ct04b13e8cuqb" path="res://Scripts/resources/items/maxHealthBoost.tres" id="5_8bo4o"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bhn7b"]
 resource_name = "Station_Base"
@@ -217,50 +196,43 @@ data = PackedVector3Array(-80, 5, 80, 80, 5, 80, -80, -5, 80, 80, 5, 80, 80, -5,
 script = ExtResource("1_yc6ne")
 spawnPoint = NodePath("spawnPoint")
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_voyl3")
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment"]
-transform = Transform3D(-4.37114e-08, -0.707107, 0.707107, 0, 0.707107, 0.707107, -1, 3.09086e-08, -3.09086e-08, 0, 4, 0)
-layers = 3
-light_energy = 0.25
-
 [node name="spawnPoint" type="Node3D" parent="."]
 
-[node name="YEEE" type="StaticBody3D" parent="."]
+[node name="mesh" type="StaticBody3D" parent="."]
 transform = Transform3D(100, 0, 0, 0, -4.37114e-06, 100, 0, -100, -4.37114e-06, 0, 1.51633, 3.36692e-16)
 disable_mode = 2
 collision_layer = 3
 collision_mask = 3
 
-[node name="Sphere_Station_Base_0" type="MeshInstance3D" parent="YEEE"]
+[node name="Sphere_Station_Base_0" type="MeshInstance3D" parent="mesh"]
 mesh = SubResource("ArrayMesh_w35tk")
 skeleton = NodePath("")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="YEEE"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="mesh"]
 shape = SubResource("ConcavePolygonShape3D_birfl")
 
-[node name="Sphere_White_0" type="MeshInstance3D" parent="YEEE"]
+[node name="Sphere_White_0" type="MeshInstance3D" parent="mesh"]
 visible = false
 mesh = SubResource("ArrayMesh_p2a2h")
 skeleton = NodePath("")
 
-[node name="CollisionShape3D3" type="CollisionShape3D" parent="YEEE"]
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="mesh"]
 shape = SubResource("ConcavePolygonShape3D_2r4rv")
 
-[node name="Sphere_Station_Secondary_0" type="MeshInstance3D" parent="YEEE"]
+[node name="Sphere_Station_Secondary_0" type="MeshInstance3D" parent="mesh"]
 mesh = SubResource("ArrayMesh_csn04")
 skeleton = NodePath("")
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="YEEE"]
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="mesh"]
 shape = SubResource("ConcavePolygonShape3D_v3ks3")
 
-[node name="Sphere_BlueLight_0" type="MeshInstance3D" parent="YEEE"]
+[node name="Sphere_BlueLight_0" type="MeshInstance3D" parent="mesh"]
 mesh = SubResource("ArrayMesh_cs6cq")
 skeleton = NodePath("")
 
 [node name="healthShop" parent="." instance=ExtResource("2_a6ou8")]
 transform = Transform3D(1, 1.74846e-07, 0, -1.74846e-07, 1, 0, 0, 0, 1, 0, 0, -192)
+possibleItems = Array[ExtResource("3_4fihq")]([ExtResource("4_3xhko"), ExtResource("5_8bo4o")])
 
 [node name="armsShop" type="StaticBody3D" parent="."]
 transform = Transform3D(0.939693, 0, -0.34202, 0, 1, 0, 0.34202, 0, 0.939693, -70, 0, 179)

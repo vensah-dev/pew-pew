@@ -1,0 +1,156 @@
+[gd_scene load_steps=15 format=3 uid="uid://cqanug7lr8ug1"]
+
+[ext_resource type="Script" path="res://Scripts/inventory.gd" id="1_0jl78"]
+[ext_resource type="Texture2D" uid="uid://bpy00qxruf1g4" path="res://Assets/UI/icon 128x128.png" id="1_thu0s"]
+[ext_resource type="Texture2D" uid="uid://da6mtyhcrgjyd" path="res://Assets/UI/shield icon.png" id="2_3csid"]
+[ext_resource type="Texture2D" uid="uid://dn6gmbx86b4gl" path="res://Assets/UI/CrossHair.png" id="3_3yaph"]
+[ext_resource type="Texture2D" uid="uid://drph0c56jxfcg" path="res://Assets/UI/Graduation Hat.png" id="4_5b6cf"]
+[ext_resource type="Texture2D" uid="uid://da8qpfk8sann1" path="res://Assets/UI/health icon.png" id="5_nbq3p"]
+[ext_resource type="Texture2D" uid="uid://3b1d5pso3p" path="res://Assets/UI/star.png" id="7_joj4k"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wi50o"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(0.28, 0.28, 0.28, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sglcg"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(1, 1, 1, 0.501961)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_br6sb"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(1, 1, 1, 0.12549)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1kj1p"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(1, 1, 1, 0.12549)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m8ak4"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(1, 1, 1, 0.12549)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_321gt"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(1, 1, 1, 0.12549)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hh4jn"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(1, 1, 1, 0.12549)
+
+[node name="inventory" type="PanelContainer" node_paths=PackedStringArray("itemSlots")]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -664.0
+offset_top = -350.0
+offset_right = -128.0
+offset_bottom = -254.0
+grow_horizontal = 0
+grow_vertical = 0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_wi50o")
+script = ExtResource("1_0jl78")
+itemSlots = [NodePath("HBoxContainer/item1"), NodePath("HBoxContainer/item2"), NodePath("HBoxContainer/item3"), NodePath("HBoxContainer/item4"), NodePath("HBoxContainer/item5"), NodePath("HBoxContainer/item6")]
+activeItemSlotColor = Color(1, 1, 1, 0.501961)
+idleItemSlotColor = Color(1, 1, 1, 0.12549)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 8
+
+[node name="item1" type="PanelContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_sglcg")
+
+[node name="icon" type="TextureRect" parent="HBoxContainer/item1"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture = ExtResource("2_3csid")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="item2" type="PanelContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_br6sb")
+
+[node name="icon" type="TextureRect" parent="HBoxContainer/item2"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture = ExtResource("1_thu0s")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="item3" type="PanelContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_1kj1p")
+
+[node name="icon" type="TextureRect" parent="HBoxContainer/item3"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture = ExtResource("3_3yaph")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="item4" type="PanelContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_m8ak4")
+
+[node name="icon" type="TextureRect" parent="HBoxContainer/item4"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture = ExtResource("4_5b6cf")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="item5" type="PanelContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_321gt")
+
+[node name="icon" type="TextureRect" parent="HBoxContainer/item5"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture = ExtResource("5_nbq3p")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="item6" type="PanelContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_hh4jn")
+
+[node name="icon" type="TextureRect" parent="HBoxContainer/item6"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture = ExtResource("7_joj4k")
+expand_mode = 1
+stretch_mode = 4

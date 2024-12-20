@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://cl3jfdc3m0j2x"]
 
 [ext_resource type="Script" path="res://Scripts/bullet.gd" id="1_niwft"]
-[ext_resource type="AudioStream" uid="uid://dmbusqiv375ii" path="res://Assets/sounds/pew-pew-sound-effect.wav" id="2_rjiwv"]
+[ext_resource type="AudioStream" uid="uid://dmbusqiv375ii" path="res://Assets/audio/pew-pew-sound-effect.wav" id="2_rjiwv"]
 [ext_resource type="Material" uid="uid://cdihkyul8d7w1" path="res://Assets/materials/bulletRedMaterial.tres" id="2_x2781"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_44bll"]

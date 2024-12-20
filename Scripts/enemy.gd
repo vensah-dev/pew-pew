@@ -70,7 +70,10 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
-	playerGuns = player.listOfGuns[player.gunIndex]
+	if player.selectedIndex < player.listOfGuns.size():
+		playerGuns = player.listOfGuns[player.selectedIndex]
+	else:
+		playerGuns = null
 
 	updateHealth()
 
@@ -147,7 +150,7 @@ func _physics_process(delta: float) -> void:
 
 			if collided_object.is_in_group("player"):
 				shoot(1)
-
+				
 	updatePredictionReticle()
 
 	move_and_slide()
@@ -186,7 +189,7 @@ func shoot(times):
 
 
 func updatePredictionReticle():
-	if predictionReticle:
+	if predictionReticle and playerGuns:
 		# var player_position = player.global_position
 		# var player_velocity = player.linear_velocity
 
@@ -201,6 +204,8 @@ func updatePredictionReticle():
 		# Set the position of the leading indicator
 		predictionReticle.global_position = predicted_position
 
+		predictionReticle.visible = true
+
 		# if velocity.length() > playerGuns.bulletSpeed/100 and player.updatePredictionReticle:
 		# 	var time_to_impact = distance_to_player / playerGuns.bulletSpeed
 
@@ -210,13 +215,11 @@ func updatePredictionReticle():
 		# 	# Set the position of the leading indicator
 		# 	predictionReticle.global_position = predicted_position
 
-		# 	predictionReticle.visible = true
 		# else:
-		# 	predictionReticle.visible = false
+	else:
+		predictionReticle.visible = false
 
-
-
-func hit(damage):
+func hit(damage, _t):
 	if state != "dead":
 		if healthData.shield > 0:
 			healthData.setShield(healthData.shield - damage)

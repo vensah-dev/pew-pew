@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Scripts/world/body.gd" id="1_td2aq"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n4bu6"]
-albedo_color = Color(2, 2, 2, 1)
+albedo_color = Color(3.5, 3.5, 3.5, 1)
 emission = Color(1, 0.433333, 0, 1)
 emission_energy_multiplier = 1.25
 

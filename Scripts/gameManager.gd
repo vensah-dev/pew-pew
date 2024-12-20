@@ -9,7 +9,7 @@ extends Node
 @onready var fpsLabel = $"UI/FPS"
 @onready var currencyLabel = $"UI/currencyLabel"
 
-var currency = 0
+var currency = 1000
 
 signal seed_ready
 

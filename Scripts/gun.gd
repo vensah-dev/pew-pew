@@ -1,6 +1,8 @@
 extends Node3D
 
 @export var ship: Node3D
+@export var icon: Texture2D
+@export var gunName: StringName
 
 @export_group("Bullets")
 @export var bulletSpeed = 100.0
@@ -55,6 +57,8 @@ var reloading = false
 
 var timer: Timer
 
+var currentGunPoint = 0
+
 # func fire(action:StringName):   
 
 	
@@ -103,7 +107,7 @@ func _process(delta: float) -> void:
 				await shoot()
 				# guns.addedVar = 0.0
 
-		else:
+		elif !automatic:
 			if Input.is_action_just_pressed("fire") and canShoot:
 				# guns.addedVar = 0.0
 
@@ -120,59 +124,62 @@ func _process(delta: float) -> void:
 				statusRing.scale = statusRingOGScale
 
 func shoot():
-	for gun in gunPoints:
-		# var from = gun.global_position
-		# var to = Vector3(gun.global_position.x, gun.global_position.y, gun.global_position.z*bulletRange)
-		# var query = PhysicsRayQueryParameters3D.create(from, to)
-		# query.exclude = [self]
-		
-		# results = space.intersect_ray(query)
-
-		var bullet = bulletNode.instantiate()
-		
-		bullet.global_transform = gun.global_transform
-		bullet.scale = Vector3(1, 1, 1)
-
-		bullet.speed = bulletSpeed
-		bullet.damage = bulletDamage
-		bullet.bulletRange = bulletRange
-		bullet.lockOnTarget = true
-
-		bullet.hitTarget.connect(func(): statusRing.scale *= hitScaleMultiplier)
-
-		
-		if lockOnTarget:
-			print("what the ship is locked on: ", ship.lockedTarget)
-			if ship.lockedTarget:
-				bullet.target = ship.lockedTarget.collider
-
-		# check if the gun need to aim the bullets toward the crosshair or not
-		if cam:
-			var from = cam.project_ray_origin(centre)
-			var to = from + cam.project_ray_normal(centre) * bulletRange
-			
-			var query = PhysicsRayQueryParameters3D.create(from, to)
-			query.exclude = [self]
-			
-			var results = space.intersect_ray(query)
-
-			if results:
-				bullet.look_at_from_position(gun.global_position, results.position, bullet.basis.y, true)
-				bullet.bulletRange = gun.global_position.distance_to(results.position) * 1.5
-			else:
-				bullet.look_at_from_position(gun.global_position, cam.project_position(centre, bulletRange), bullet.basis.y, true)
-			# else:
-			# 	bullet.look_at_from_position(gun.global_position, gun.global_position * gun.global_transform.basis.z * bulletRange, bullet.basis.y, true)
-		
-
-		main.add_child(bullet)
-
-		if !fireAllGunsAtOnce:
+	if fireAllGunsAtOnce:
+		for gun in gunPoints:
+			spawnBullet(gun)
 			await handleShoot()
 
-	if fireAllGunsAtOnce:
+	else:
+		currentGunPoint += 1
+		if currentGunPoint > gunPoints.size()-1:
+			currentGunPoint = 0
+
+		var gun = gunPoints[currentGunPoint]
+
+		spawnBullet(gun)
+		
 		await handleShoot()
 
+
+func spawnBullet(gun):
+	var bullet = bulletNode.instantiate()
+	
+	bullet.global_transform = gun.global_transform
+	bullet.scale = Vector3(1, 1, 1)
+
+	bullet.speed = bulletSpeed
+	bullet.damage = bulletDamage
+	bullet.bulletRange = bulletRange
+	bullet.lockOnTarget = true
+
+	bullet.hitTarget.connect(func(): statusRing.scale *= hitScaleMultiplier)
+
+	
+	if lockOnTarget:
+		print("what the ship is locked on: ", ship.lockedTarget)
+		if ship.lockedTarget:
+			bullet.target = ship.lockedTarget.collider
+
+	# check if the gun need to aim the bullets toward the crosshair or not
+	if cam:
+		var from = cam.project_ray_origin(centre)
+		var to = from + cam.project_ray_normal(centre) * bulletRange
+		
+		var query = PhysicsRayQueryParameters3D.create(from, to)
+		query.exclude = [self]
+		
+		var results = space.intersect_ray(query)
+
+		if results:
+			bullet.look_at_from_position(gun.global_position, results.position, bullet.basis.y, true)
+			bullet.bulletRange = gun.global_position.distance_to(results.position) * 1.5
+		else:
+			bullet.look_at_from_position(gun.global_position, cam.project_position(centre, bulletRange), bullet.basis.y, true)
+		# else:
+		# 	bullet.look_at_from_position(gun.global_position, gun.global_position * gun.global_transform.basis.z * bulletRange, bullet.basis.y, true)
+	
+
+	main.add_child(bullet)
 
 func handleShoot():
 	canShoot = false
@@ -180,7 +187,9 @@ func handleShoot():
 
 	numberOfBullets -= 1
 	if numberOfBullets > 0:
-		await get_tree().create_timer(bulletInterval).timeout
+		if automatic:
+			await get_tree().create_timer(bulletInterval).timeout
+
 		canShoot = true
 	else:
 		await reload()

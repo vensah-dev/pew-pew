@@ -22,11 +22,11 @@ func _process(_delta: float) -> void:
 		SceneSwicther.switchSceneBack()
 
 func _on_exit_entered(body: Node3D) -> void:
-	enterSpaceStation(body)
+	enterExitNode(body)
 
 #what to do if areaNodes are entered
-func enterSpaceStation(body):
-	if body.is_in_group("player"):
+func enterExitNode(body):
+	if body.is_in_group("player") && !player.lookingAtInteractable:
 		# print("entered entry")
 
 		body.showInteractionLabel("F to enter")

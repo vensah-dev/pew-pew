@@ -18,33 +18,44 @@ func movePlayer():
 func _process(delta: float) -> void:
 	rotate_y(rotationSpeed * delta)
 
-	if insideEntry && Input.is_action_just_pressed("interact"):
+	if insideEntry:
+		player.showInteractionLabel("F to enter")
+		if Input.is_action_just_pressed("interact"):
+			player.hideInteractionLabel()
+			insideEntry = false
+			SceneSwicther.switchScene(spaceStationScene)
+
+	else:
 		player.hideInteractionLabel()
-		insideEntry = false
-		SceneSwicther.switchScene(spaceStationScene)
 
 #if entered
 func _on_entry_1_entered(body:Node3D) -> void:
 	spawnPoint = entries[0].transform
-	enterSpaceStation(body)
+	enterEntry(body)
 
 func _on_entry_2_entered(body:Node3D) -> void:
 	spawnPoint = entries[1].transform
-	enterSpaceStation(body)
+	enterEntry(body)
 
 
 #if exited
-func _on_entry_1_exited(_body:Node3D) -> void:
-	player.hideInteractionLabel()
-func _on_entry_2_exited(_body:Node3D) -> void:
-	player.hideInteractionLabel()
+func _on_entry_1_exited(body:Node3D) -> void:
+	exitEntry(body)
+func _on_entry_2_exited(body:Node3D) -> void:
+	exitEntry(body)
 
 
 #what to do if areaNodes are entered
-func enterSpaceStation(body):
+func enterEntry(body):
+	# spawnPoint = body.global_transform.translated(Vector3.UP * 50)
+	if body.is_in_group("player") && !body.lookingAtInteractable:
+		# print("entered entry")
+
+		insideEntry = true
+
+func exitEntry(body):
 	# spawnPoint = body.global_transform.translated(Vector3.UP * 50)
 	if body.is_in_group("player"):
 		# print("entered entry")
 
-		body.showInteractionLabel("F to enter")
-		insideEntry = true
+		insideEntry = false

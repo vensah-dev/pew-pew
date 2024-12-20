@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="Item" load_steps=5 format=3 uid="uid://cia2idcvqbo47"]
+
+[ext_resource type="Script" path="res://Scripts/resources/scripts/items.gd" id="1_c66bf"]
+[ext_resource type="Script" path="res://Scripts/resources/items/functions/healthManipulation.gd" id="1_tc61e"]
+[ext_resource type="Texture2D" uid="uid://da8qpfk8sann1" path="res://Assets/UI/health icon.png" id="2_hi83g"]
+
+[sub_resource type="Resource" id="Resource_0c6ju"]
+script = ExtResource("1_tc61e")
+addHealth = 25.0
+addMaxHealth = 0.0
+
+[resource]
+script = ExtResource("1_c66bf")
+name = &"Repair Kit"
+description = &"Repairs health by 25"
+icon = ExtResource("2_hi83g")
+priceRange = {
+"max": 150,
+"min": 100
+}
+function = SubResource("Resource_0c6ju")
+immediate = false
+type = 0

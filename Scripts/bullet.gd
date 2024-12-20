@@ -5,7 +5,7 @@ signal hitTarget
 @export var speed = 40
 @export var despawnTime = 5.0
 
-@onready var player = get_tree().get_nodes_in_group("player")[0]
+@onready var player = get_tree().get_first_node_in_group("player")
 
 @onready var mesh = $mesh
 @onready var rayCast = $RayCast3D
@@ -33,7 +33,9 @@ func _ready():
 
 func _physics_process(delta: float) -> void:	
 	if is_instance_valid(target):
-		look_at(target.global_position, transform.basis.y, true)
+		if global_position.distance_to(target.global_position) > 1:
+			look_at(target.global_position, transform.basis.y, true)
+
 		global_position += transform.basis * Vector3(0, 0, speed) * delta
 
 	else:
@@ -46,7 +48,7 @@ func _physics_process(delta: float) -> void:
 		var collided_object = rayCast.get_collider()  
 
 		if collided_object.is_in_group("enemy") or collided_object.is_in_group("player"):
-			collided_object.hit(damage)
+			collided_object.hit(damage, 0.25)
 
 		# if collided_object.is_in_group("enemy"):
 		# 	collided_object.get_child(0).health -= 5
