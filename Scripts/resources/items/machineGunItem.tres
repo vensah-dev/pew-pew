@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="Item" load_steps=6 format=3 uid="uid://dx43vf0tf7t5x"]
+
+[ext_resource type="Script" path="res://Scripts/resources/items/functions/addWeapon.gd" id="1_4aa52"]
+[ext_resource type="PackedScene" uid="uid://cxhbnxsocgt5p" path="res://Scenes/Guns and Bullets/MachineGuns.tscn" id="2_mlmcx"]
+[ext_resource type="Script" path="res://Scripts/resources/scripts/items.gd" id="5_hx2s8"]
+
+[sub_resource type="Resource" id="Resource_4tmtf"]
+script = ExtResource("1_4aa52")
+weapon = ExtResource("2_mlmcx")
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_wbtyv"]
+load_path = "res://.godot/imported/Reticle.png-5ad1539446a4beb7ad2459bb86cf87e8.s3tc.ctex"
+
+[resource]
+script = ExtResource("5_hx2s8")
+name = &"Machine Guns"
+description = &"A gun system with 100 rounds, 0.1 second fire rate, 2.5 second reload with 5 damage per shot"
+icon = SubResource("CompressedTexture2D_wbtyv")
+priceRange = {
+"max": 1000,
+"min": 750
+}
+function = SubResource("Resource_4tmtf")
+immediate = false
+type = 2

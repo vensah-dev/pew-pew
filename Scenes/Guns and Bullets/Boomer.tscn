@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://06p05h1hg8ha"]
+
+[ext_resource type="Script" path="res://Scripts/gun.gd" id="1_vbh2g"]
+[ext_resource type="Texture2D" uid="uid://d1s4v5nmj4yux" path="res://Assets/UI/targetLock.png" id="2_vimae"]
+[ext_resource type="PackedScene" uid="uid://dvon531nr1ynt" path="res://Scenes/Guns and Bullets/homingBullet.tscn" id="3_xyac7"]
+
+[node name="Boomer" type="Node3D"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+script = ExtResource("1_vbh2g")
+icon = ExtResource("2_vimae")
+bulletSpeed = 250.0
+lockOnTarget = true
+bulletNode = ExtResource("3_xyac7")
+automatic = false
+magSize = 2
+cooldownInterval = 15.0
+idleColor = Color(1, 1, 1, 1)
+reloadColor = Color(1, 0.662109, 0.662109, 1)
+shootingColor = Color(1, 0.46875, 0.46875, 1)
+
+[node name="Gun0" type="Node3D" parent="."]
+transform = Transform3D(1, 0, -1.42109e-14, 0, 1, 0, 1.42109e-14, 0, 1, 0.163492, -0.0909091, 0.218182)
+
+[node name="Gun1" type="Node3D" parent="."]
+transform = Transform3D(1, 0, -1.42109e-14, 0, 1, 0, 1.42109e-14, 0, 1, 0.163492, -0.0909091, -0.218182)

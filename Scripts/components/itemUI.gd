@@ -11,32 +11,34 @@ extends PanelContainer
 @onready var player = get_tree().get_first_node_in_group("player")
 
 func _ready():
-    item.player = player
-    item.generateRandomPrice()
-    
-    resetUI()
+	item.player = player
+	item.generateRandomPrice()
+	icon.texture = item.icon
+
+	resetUI()
 	
 func _process(_delta: float) -> void:
-    resetUI()
+	resetUI()
 
-    if gameManager.currency < item.price:
-        buyButton.disabled = true
+	if gameManager.currency < item.price:
+		buyButton.disabled = true
 
-    elif player.inventoryFull():
-        buyButton.text = "inventory full"
-        buyButton.disabled = true
+	elif player.inventoryFull():
+		buyButton.text = "inventory full"
+		buyButton.disabled = true
 
 
 func _on_buy_pressed() -> void:
-    if gameManager.currency > item.price:
-        gameManager.currency -= item.price
-        player.addItem(item)
+	if gameManager.currency > item.price:
+		gameManager.currency -= item.price
+		item.purchased()
+		# player.addItem(item)
 
-    if gameManager.currency < item.price:
-        buyButton.disabled = true
+	if gameManager.currency < item.price:
+		buyButton.disabled = true
 
 func resetUI():
-    buyButton.disabled = false
-    title.text = item.name
-    description.text = item.description
-    buyButton.text =  "$" + str(item.price)
+	buyButton.disabled = false
+	title.text = item.name
+	description.text = item.description
+	buyButton.text =  "$" + str(item.price)

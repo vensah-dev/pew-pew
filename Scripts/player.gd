@@ -55,8 +55,8 @@ var noise_y = 0
 @export var healthbar: Node
 @export var shieldbar: Node
 
-@export var regenPerUnit = 0.02
-@export var timeToRegenAfterHit = 5.0
+# @export var shieldRegenPerUnit = 0.02
+# @export var timeToRegenShieldAfterHit = 5.0
 
 
 @export_group("Guns")
@@ -92,7 +92,8 @@ var currentVignetteColor = normalVignetteColor
 
 @onready var mesh = $mesh
 @onready var targetLockSprite = $mesh/targetLock
-@onready var guns = $mesh/weapons
+@onready var weapons = $mesh/weapons
+@onready var collider = $boxCollider
 # @onready var trails = $mesh/trails
 
 @onready var camNode = get_viewport().get_camera_3d()
@@ -282,7 +283,7 @@ func _process(delta: float) -> void:
 	# 	vignette.get_material().set_shader_parameter("vignette_color", damageVignetteColor) 
 	# else:
 	# 	vignette.get_material().set_shader_parameter("vignette_color", normalVignetteColor) 
-
+	print(healthData.health)
 
 
 ################################################################################################
@@ -339,24 +340,20 @@ func handleInventory():
 	for gun in listOfGuns:
 		gun.set_process(false)
 	#handle gun states
-	statusRing.visible = true
+	statusRing.visible = false
 	if inventoryItems[selectedIndex].get_class() == "Node3D": #check if its a gun node
-		if activeForwardSpeed+activeHoverSpeed+activeStrifeSpeed < listOfGuns[selectedIndex].bulletSpeed:
-			for i in range(listOfGuns.size()):
+		statusRing.visible = true
+		if activeForwardSpeed+activeHoverSpeed+activeStrifeSpeed < inventoryItems[selectedIndex].bulletSpeed:
 
-				if i == selectedIndex:
-					listOfGuns[i].set_process(true)
+			inventoryItems[selectedIndex].set_process(true)
 
-					if listOfGuns[i].lockOnTarget == true:
-						canLockOnTarget = true
-						updatePredictionReticle = false
-					else:
-						canLockOnTarget = false
-						# updatePredictionReticle = true
-				else:
-					listOfGuns[i].set_process(false)
+			if inventoryItems[selectedIndex].lockOnTarget == true:
+				canLockOnTarget = true
+				updatePredictionReticle = false
+			else:
+				canLockOnTarget = false
+
 	elif inventoryItems[selectedIndex].get_class() == "Resource":
-		statusRing.visible = false
 		if Input.is_action_just_pressed("interact"):
 			inventoryItems[selectedIndex].use()
 			inventoryItems.remove_at(selectedIndex)
@@ -368,8 +365,8 @@ func inventoryFull():
 	return inventoryItems.size() == 6
 
 func addItem(item):
-	inventoryItems.append(item)
-	inventory.updateInventory()
+		inventoryItems.append(item)
+		inventory.updateInventory()
 
 ########################
 #Target stuff
@@ -453,7 +450,7 @@ func move(delta):
 
 
 
-		# guns.set_process(true)
+		# weapons.set_process(true)
 		
 	# velocity = 
 	
@@ -480,10 +477,13 @@ func hit(damage, bulletTrauma):
 
 	healthData.startRegenShield()
 
-func _on_health_node_health_changed(_value:Variant) -> void:
+func _on_health_data_health_changed(_value:Variant) -> void:
 	updateHealth()
-
 func _on_health_data_shield_changed(_value:Variant) -> void:
+	updateHealth()
+func _on_health_data_max_health_changed(_value:Variant) -> void:
+	updateHealth()
+func _on_health_data_max_shield_changed(_value:Variant) -> void:
 	updateHealth()
 
 func updateHealth():
@@ -506,3 +506,18 @@ func hideInteractionLabel():
 
 func isInteractionKeyPressed():
 	return Input.is_action_just_pressed("interact")
+
+########################
+#Freeze
+########################
+
+func freeze():
+	for gun in listOfGuns:
+		gun.set_process(false)
+
+	set_process(false)
+	set_physics_process(false)
+
+func unfreeze():
+	set_process(true)
+	set_physics_process(true)

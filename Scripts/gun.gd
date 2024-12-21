@@ -158,7 +158,8 @@ func spawnBullet(gun):
 	if lockOnTarget:
 		print("what the ship is locked on: ", ship.lockedTarget)
 		if ship.lockedTarget:
-			bullet.target = ship.lockedTarget.collider
+			if ship.lockedTarget.collider:
+				bullet.target = ship.lockedTarget.collider
 
 	# check if the gun need to aim the bullets toward the crosshair or not
 	if cam:
@@ -216,3 +217,5 @@ func on_timer_timeout():
 		statusRing.max_value = magSize
 		statusRing.value = magSize
 		reloading = false
+
+	

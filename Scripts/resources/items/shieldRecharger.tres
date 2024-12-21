@@ -1,0 +1,28 @@
+[gd_resource type="Resource" script_class="Item" load_steps=5 format=3 uid="uid://bd4s3restnagd"]
+
+[ext_resource type="Script" path="res://Scripts/resources/items/functions/healthManipulation.gd" id="1_10d67"]
+[ext_resource type="Script" path="res://Scripts/resources/scripts/items.gd" id="2_ke13r"]
+
+[sub_resource type="Resource" id="Resource_0jcxt"]
+script = ExtResource("1_10d67")
+addHealth = 0.0
+addMaxHealth = 0.0
+addShieldRegen = 0.1
+addMaxShield = 0.0
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_hykx4"]
+load_path = "res://.godot/imported/shield icon.png-0074577a5a0400733c8ebd96f93bf843.s3tc.ctex"
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("2_ke13r")
+name = &"Shield Recharger"
+description = &"Upgrades shield to recharge faster by 0.1"
+icon = SubResource("CompressedTexture2D_hykx4")
+priceRange = {
+"max": 600,
+"min": 400
+}
+function = SubResource("Resource_0jcxt")
+immediate = false
+type = 0

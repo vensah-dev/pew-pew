@@ -1,3 +1,4 @@
+@tool
 extends StaticBody3D
 
 @onready var canvas = $canvas
@@ -8,7 +9,6 @@ extends StaticBody3D
 
 @export_group("Shop Settings")
 @export var numberOfAvailableItems := 5
-@export var allowDuplicates = false
 
 @export var possibleItems: Array[Item]
 @export var itemPrefab: PackedScene
@@ -27,29 +27,27 @@ func _ready() -> void:
 # 	pass
 
 func generateShop():
-	for i in numberOfAvailableItems:
+	for currentItem in possibleItems:
 		var itemUI = itemPrefab.instantiate()
-		var randomIndex = randi_range(0, possibleItems.size()-1)
 
-		if !usedIndecies.has(randomIndex):
-			usedIndecies.append(randomIndex)
+		itemUI.item = currentItem
+		vbox.add_child(itemUI)
+	
 
-			var randomItem = possibleItems[randomIndex]
-			itemUI.item = randomItem
-			vbox.add_child(itemUI)
-		
+		# var randomIndex = randi_range(0, possibleItems.size()-1)
+
+		# if !usedIndecies.has(randomIndex):
+		# 	usedIndecies.append(randomIndex)
 
 
 func openShop():
-	player.set_process(false)
-	player.set_physics_process(false)
+	player.freeze()
 
 	canvasAnim.play("spawn")
 	canvasAnim.advance(0)
 
 func closeShop():
-	player.set_process(true)
-	player.set_physics_process(true)
+	player.unfreeze()
 
 	canvasAnim.play("byebye")
 	canvasAnim.advance(0)

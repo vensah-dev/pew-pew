@@ -1,12 +1,13 @@
 [gd_scene load_steps=12 format=3 uid="uid://dvon531nr1ynt"]
 
 [ext_resource type="Script" path="res://Scripts/bullet.gd" id="1_man68"]
+[ext_resource type="AudioStream" uid="uid://dl2l8upuc3bj" path="res://Assets/audio/smallExplosion.wav" id="2_05k5h"]
 [ext_resource type="AudioStream" uid="uid://dovh6el52uc0b" path="res://Assets/audio/launchMissle.wav" id="2_c36w2"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_taomh"]
 transparency = 1
 vertex_color_use_as_albedo = true
-albedo_color = Color(1.5, 0, 0, 1)
+albedo_color = Color(3.8, 0.25, 0, 1)
 emission = Color(1.05, 1.05, 0, 1)
 
 [sub_resource type="SphereMesh" id="SphereMesh_aojo1"]
@@ -44,30 +45,6 @@ color_ramp = SubResource("GradientTexture1D_jmilv")
 [sub_resource type="SphereMesh" id="SphereMesh_mj6p2"]
 material = SubResource("StandardMaterial3D_taomh")
 
-[sub_resource type="Environment" id="Environment_7r7gt"]
-background_mode = 1
-ambient_light_source = 2
-ambient_light_color = Color(1, 1, 1, 1)
-tonemap_mode = 3
-glow_enabled = true
-glow_levels/1 = 1.0
-glow_levels/2 = 1.0
-glow_levels/4 = 1.0
-glow_levels/6 = 1.0
-glow_levels/7 = 1.0
-glow_normalized = true
-glow_mix = 0.4
-glow_blend_mode = 1
-glow_hdr_threshold = 1.1
-glow_hdr_luminance_cap = 2.0
-fog_mode = 1
-fog_light_color = Color(0, 0, 0, 1)
-fog_density = 1.0
-fog_depth_begin = 500000.0
-fog_depth_end = 1e+06
-volumetric_fog_density = 0.0001
-volumetric_fog_albedo = Color(0, 0, 0, 1)
-
 [node name="Bullet" type="Node3D"]
 script = ExtResource("1_man68")
 despawnTime = 25.0
@@ -91,13 +68,16 @@ explosiveness = 1.0
 process_material = SubResource("ParticleProcessMaterial_u3sro")
 draw_pass_1 = SubResource("SphereMesh_mj6p2")
 
+[node name="impactSound" type="AudioStreamPlayer3D" parent="impact"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.5)
+stream = ExtResource("2_05k5h")
+attenuation_model = 3
+volume_db = -2.5
+pitch_scale = 1.5
+
 [node name="sound" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("2_c36w2")
-volume_db = 6.0
-max_db = 6.0
+attenuation_model = 3
+volume_db = -10.0
 pitch_scale = 1.75
-max_distance = 100.0
 attenuation_filter_db = 0.0
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_7r7gt")

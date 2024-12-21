@@ -1,11 +1,33 @@
 res://Assets/audio/default_bus_layout.tres
-res://Scripts/resources/scripts/items.gd
 res://Assets/Texture/environment.tres
-res://Scenes/spaceStation.tscn
+res://Scenes/Game.tscn
 res://Assets/materials/bulletMaterial.tres
 res://Scripts/shaders/vingette.gdshader
+res://Assets/presets/standardLabel.tres
+res://Scripts/resources/items/repairKit.tres
+res://Scripts/resources/items/maxHealthBoost.tres
+res://Scripts/resources/items/shieldCapcityUpgrade.tres
+res://Scripts/resources/items/machineGunItem.tres
 res://Scripts/shaders/outlineShader.gdshader
 res://Scripts/shaders/toonShader.gdshader
 res://Scripts/shaders/toon.gdshader
-res://Scripts/resources/items/repairKit.tres
-res://Scripts/resources/items/maxHealthBoost.tres
+res://Scenes/player.tscn
+res://Scenes/spaceStation.tscn
+res://Scenes/Guns and Bullets/homingBullet.tscn
+res://Scenes/explosion.tscn
+res://Scenes/enemy.tscn
+res://Scenes/enemyWithMissles.tscn
+res://Scenes/currency.tscn
+res://Scenes/Guns and Bullets/Boomer.tscn
+res://Scenes/Guns and Bullets/MachineGuns.tscn
+res://Scripts/collectible.gd
+res://Scripts/gun.gd
+res://Scripts/spaceStation.gd
+res://Scripts/targetLock.gd
+res://Scripts/minimap.gd
+res://Scripts/player.gd
+res://Scripts/world/solarSystem.gd
+res://Scripts/bullet.gd
+res://Scripts/crosshair.gd
+res://Scripts/inventory.gd
+res://Scripts/enemy.gd

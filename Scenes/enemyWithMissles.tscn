@@ -1,11 +1,11 @@
-[gd_scene load_steps=17 format=4 uid="uid://cs0ateo6cimnx"]
+[gd_scene load_steps=13 format=4 uid="uid://cs0ateo6cimnx"]
 
 [ext_resource type="Script" path="res://Scripts/enemy.gd" id="1_m4un2"]
 [ext_resource type="PackedScene" uid="uid://brhvvyyekkbfn" path="res://Scenes/explosion.tscn" id="2_68dj7"]
-[ext_resource type="PackedScene" uid="uid://bq68p4cwpovt2" path="res://Scenes/currency.tscn" id="3_l55qd"]
+[ext_resource type="PackedScene" uid="uid://bq68p4cwpovt2" path="res://Scenes/currency.tscn" id="3_66gur"]
 [ext_resource type="Texture2D" uid="uid://cwrhaah37bt4i" path="res://Assets/Models/Spaceship_Atlas.png" id="4_23g0k"]
 [ext_resource type="Script" path="res://Scripts/gun.gd" id="4_vm5lh"]
-[ext_resource type="PackedScene" uid="uid://dvon531nr1ynt" path="res://Scenes/Guns and Bullets/homingBullet.tscn" id="6_mxv2o"]
+[ext_resource type="PackedScene" uid="uid://dvon531nr1ynt" path="res://Scenes/Guns and Bullets/homingBullet.tscn" id="5_l6vgd"]
 [ext_resource type="Texture2D" uid="uid://3heoeqy1bffv" path="res://Assets/UI/Reticle.png" id="6_wdxjh"]
 [ext_resource type="Script" path="res://Scripts/components/health.gd" id="7_yljd3"]
 
@@ -48,23 +48,10 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_ihyny")
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_fts2o"]
-viewport_path = NodePath("mesh/healthbars/predictionReticleSubViewport")
+[sub_resource type="BoxShape3D" id="BoxShape3D_k2fkj"]
+size = Vector3(15, 5.5, 12)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dj2q0"]
-bg_color = Color(0.5, 0.5, 0.5, 0.792157)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hi704"]
-bg_color = Color(0.91, 0.961, 1, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3qxla"]
-bg_color = Color(0.909804, 1, 0.921569, 1)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_m3v3r"]
-resource_local_to_scene = true
-size = Vector3(8, 3.5, 8)
-
-[node name="enemy" type="CharacterBody3D" node_paths=PackedStringArray("healthbar", "shieldbar") groups=["StaticMinimapItems", "enemy"]]
+[node name="enemy" type="CharacterBody3D" groups=["StaticMinimapItems", "enemy"]]
 collision_layer = 3
 collision_mask = 3
 motion_mode = 1
@@ -74,9 +61,7 @@ surroundRadius = 500.0
 acceleration = 1.5
 turningSpeed = 2.0
 explode = ExtResource("2_68dj7")
-drops = Array[PackedScene]([ExtResource("3_l55qd")])
-healthbar = NodePath("mesh/healthbars/predictionReticleSubViewport/healthbar")
-shieldbar = NodePath("mesh/healthbars/predictionReticleSubViewport/shieldbar")
+drops = Array[PackedScene]([ExtResource("3_66gur")])
 predictionReticleDisapearDistance = 75
 healthbarsVisibilityDistance = 150
 
@@ -136,14 +121,13 @@ transform = Transform3D(0.01, 0, 0, 0, 0.01, 4.37114e-10, 0, -4.37114e-10, 0.01,
 script = ExtResource("4_vm5lh")
 ship = NodePath("../..")
 bulletSpeed = 250.0
-bulletRange = 1500.0
-bulletDamage = 50.0
-bulletNode = ExtResource("6_mxv2o")
+lockOnTarget = true
+bulletNode = ExtResource("5_l6vgd")
 isPlayer = false
-bulletInterval = 10.0
-magSize = 6
-cooldownInterval = 20.0
-gunPoints = [NodePath("Gun0"), NodePath("Gun1"), NodePath("Gun2"), NodePath("Gun3"), NodePath("Gun4"), NodePath("Gun5")]
+bulletInterval = 15.0
+magSize = 2
+cooldownInterval = 15.0
+gunPoints = [NodePath("Gun0"), NodePath("Gun1")]
 
 [node name="Gun0" type="Node3D" parent="mesh/Guns"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.18346, 0.338982, 0.338425)
@@ -173,45 +157,9 @@ no_depth_test = true
 fixed_size = true
 texture = ExtResource("6_wdxjh")
 
-[node name="healthbars" type="Sprite3D" parent="mesh"]
-transform = Transform3D(0.01, 0, 0, 0, 0.01, 4.37114e-10, 0, -4.37114e-10, 0.01, 0, 0.025, -1.09278e-09)
-visible = false
-layers = 3
-visibility_range_end = 100.0
-visibility_range_end_margin = 10.0
-visibility_range_fade_mode = 1
-billboard = 1
-no_depth_test = true
-texture = SubResource("ViewportTexture_fts2o")
-
-[node name="predictionReticleSubViewport" type="SubViewport" parent="mesh/healthbars"]
-transparent_bg = true
-size = Vector2i(640, 56)
-
-[node name="shieldbar" type="ProgressBar" parent="mesh/healthbars/predictionReticleSubViewport"]
-offset_right = 640.0
-offset_bottom = 24.0
-theme_override_colors/font_color = Color(0.5, 0.5, 0.5, 1)
-theme_override_font_sizes/font_size = 16
-theme_override_styles/background = SubResource("StyleBoxFlat_dj2q0")
-theme_override_styles/fill = SubResource("StyleBoxFlat_hi704")
-value = 50.0
-show_percentage = false
-
-[node name="healthbar" type="ProgressBar" parent="mesh/healthbars/predictionReticleSubViewport"]
-offset_top = 32.0
-offset_right = 640.0
-offset_bottom = 56.0
-theme_override_colors/font_color = Color(0.5, 0.5, 0.5, 1)
-theme_override_font_sizes/font_size = 16
-theme_override_styles/background = SubResource("StyleBoxFlat_dj2q0")
-theme_override_styles/fill = SubResource("StyleBoxFlat_3qxla")
-value = 50.0
-show_percentage = false
-
 [node name="boxCollider" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0201297, -0.0420356, 0.626787)
-shape = SubResource("BoxShape3D_m3v3r")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0201297, -0.0420356, 1.28361)
+shape = SubResource("BoxShape3D_k2fkj")
 
 [node name="RayCast3D" type="RayCast3D" parent="."]
 transform = Transform3D(1000, 0, 0, 0, -4.37114e-05, 1000, 0, -1000, -4.37114e-05, 0, 0, 0)
@@ -220,4 +168,3 @@ debug_shape_thickness = 1
 
 [node name="healthData" type="Node" parent="."]
 script = ExtResource("7_yljd3")
-regenPerUnit = 0.0

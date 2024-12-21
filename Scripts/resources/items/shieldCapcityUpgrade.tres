@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="Item" load_steps=5 format=3 uid="uid://b8qe4f0q6kwv3"]
+
+[ext_resource type="Script" path="res://Scripts/resources/items/functions/healthManipulation.gd" id="1_nd0b7"]
+[ext_resource type="Texture2D" uid="uid://da6mtyhcrgjyd" path="res://Assets/UI/shield icon.png" id="2_xi4tc"]
+[ext_resource type="Script" path="res://Scripts/resources/scripts/items.gd" id="3_k4e10"]
+
+[sub_resource type="Resource" id="Resource_y5av0"]
+script = ExtResource("1_nd0b7")
+addHealth = 0.0
+addMaxHealth = 0.0
+addShieldRegen = 0.0
+addMaxShield = 10.0
+
+[resource]
+script = ExtResource("3_k4e10")
+name = &"Shield Capcitor"
+description = &"Increases shield capacity by 10"
+icon = ExtResource("2_xi4tc")
+priceRange = {
+"max": 750,
+"min": 400
+}
+function = SubResource("Resource_y5av0")
+immediate = false
+type = 0

@@ -1,8 +1,8 @@
 [gd_scene load_steps=28 format=3 uid="uid://brhvvyyekkbfn"]
 
 [ext_resource type="Animation" uid="uid://dbb73h1u3x74b" path="res://Assets/animations/explode.res" id="1_ivybg"]
-[ext_resource type="AudioStream" uid="uid://dsmj0kr8tox8w" path="res://Assets/audio/Explode.wav" id="2_5exlc"]
 [ext_resource type="Material" uid="uid://bo8ygvnen1iyf" path="res://Assets/materials/particleEffectMaterial.tres" id="2_ot0wi"]
+[ext_resource type="AudioStream" uid="uid://bfvqpc58ydd27" path="res://Assets/audio/bigExplosion.wav" id="3_0q056"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_yyylb"]
 
@@ -205,9 +205,8 @@ process_material = SubResource("ParticleProcessMaterial_gje1o")
 draw_pass_1 = SubResource("BoxMesh_ggov4")
 
 [node name="sound" type="AudioStreamPlayer3D" parent="explode"]
-stream = ExtResource("2_5exlc")
-attenuation_model = 1
-max_distance = 10000.0
+stream = ExtResource("3_0q056")
+attenuation_model = 3
 emission_angle_degrees = 90.0
 emission_angle_filter_attenuation_db = 0.0
 attenuation_filter_db = 0.0

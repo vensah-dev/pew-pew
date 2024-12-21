@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://b7sa02arh0p24"]
+[gd_scene load_steps=10 format=3 uid="uid://b7sa02arh0p24"]
 
 [ext_resource type="Script" path="res://Scripts/bullet.gd" id="1_aq0i8"]
 [ext_resource type="Material" uid="uid://c0ly3fmh1oikw" path="res://Assets/materials/bulletMaterial.tres" id="2_ydrg3"]
-[ext_resource type="AudioStream" uid="uid://dmbusqiv375ii" path="res://Assets/audio/pew-pew-sound-effect.wav" id="3_3sra2"]
+[ext_resource type="AudioStream" uid="uid://f5h284pvyqcx" path="res://Assets/audio/pew-pew.wav" id="3_aw0e8"]
+[ext_resource type="AudioStream" uid="uid://dl2l8upuc3bj" path="res://Assets/audio/smallExplosion.wav" id="3_de66g"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_mlgiw"]
 material = ExtResource("2_ydrg3")
@@ -45,14 +46,20 @@ debug_shape_thickness = 5
 [node name="impact" type="GPUParticles3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.5)
 emitting = false
-amount = 4
-lifetime = 0.5
 one_shot = true
 explosiveness = 1.0
 process_material = SubResource("ParticleProcessMaterial_u3sro")
 draw_pass_1 = SubResource("SphereMesh_qeev7")
 
+[node name="impactSound" type="AudioStreamPlayer3D" parent="impact"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.5)
+stream = ExtResource("3_de66g")
+volume_db = -10.0
+pitch_scale = 2.5
+max_distance = 4096.0
+
 [node name="sound" type="AudioStreamPlayer3D" parent="."]
-stream = ExtResource("3_3sra2")
-volume_db = -15.0
-max_distance = 50.0
+stream = ExtResource("3_aw0e8")
+attenuation_model = 3
+volume_db = -2.5
+autoplay = true

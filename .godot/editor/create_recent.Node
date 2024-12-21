@@ -1,3 +1,5 @@
+StaticBody3D
+Sprite3D
 MeshInstance3D
 VBoxContainer
 HBoxContainer
@@ -11,5 +13,3 @@ ColorRect
 Button
 Container
 Control
-Label
-VScrollBar

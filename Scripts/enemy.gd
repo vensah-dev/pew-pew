@@ -10,9 +10,9 @@ extends CharacterBody3D
 @export var despawnDistance: float = 75000
 @export var drops: Array[PackedScene]
 
-@export_group("UI")
-@export var healthbar:Node
-@export var shieldbar:Node
+# @export_group("UI")
+# @export var healthbar:Node
+# @export var shieldbar:Node
 
 # @export var enemyIndicator:PackedScene
 
@@ -74,8 +74,6 @@ func _physics_process(delta: float) -> void:
 		playerGuns = player.listOfGuns[player.selectedIndex]
 	else:
 		playerGuns = null
-
-	updateHealth()
 
 	# print("enemy health: ", healthData.health)
 	# if healthData.health <= 0 and state != "dead":
@@ -231,14 +229,6 @@ func hit(damage, _t):
 			collider.disabled = true
 			mesh.visible = false
 			die()
-
-func updateHealth():
-	healthbar.max_value = healthData.maxHealth
-	healthbar.value = healthData.health
-
-	shieldbar.max_value = healthData.maxShield
-	shieldbar.value = healthData.shield
-
 
 func die():
 	state = "dead"

@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="Item" load_steps=6 format=3 uid="uid://duelpjb61asd0"]
+
+[ext_resource type="Script" path="res://Scripts/resources/items/functions/addWeapon.gd" id="1_8t8tt"]
+[ext_resource type="PackedScene" uid="uid://06p05h1hg8ha" path="res://Scenes/Guns and Bullets/Boomer.tscn" id="2_j4fpb"]
+[ext_resource type="Script" path="res://Scripts/resources/scripts/items.gd" id="5_eg3t4"]
+
+[sub_resource type="Resource" id="Resource_rmfhx"]
+script = ExtResource("1_8t8tt")
+weapon = ExtResource("2_j4fpb")
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_xbpr3"]
+load_path = "res://.godot/imported/targetLock.png-5d6e799ad7519a4a3cf47a8605901527.s3tc.ctex"
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("5_eg3t4")
+name = &"Boomer"
+description = &"Boomer"
+icon = SubResource("CompressedTexture2D_xbpr3")
+priceRange = {
+"max": 1500,
+"min": 1000
+}
+function = SubResource("Resource_rmfhx")
+immediate = false
+type = 2

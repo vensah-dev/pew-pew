@@ -2,6 +2,7 @@
 
 [sub_resource type="AudioEffectStereoEnhance" id="AudioEffectStereoEnhance_2e8iq"]
 resource_name = "StereoEnhance"
+surround = 1.0
 
 [resource]
 bus/0/volume_db = -0.030508

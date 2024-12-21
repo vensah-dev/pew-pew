@@ -1,11 +1,17 @@
-[gd_scene load_steps=28 format=4 uid="uid://ot5y5kip2g5p"]
+[gd_scene load_steps=39 format=4 uid="uid://ot5y5kip2g5p"]
 
 [ext_resource type="Script" path="res://Scripts/spaceStation.gd" id="1_yc6ne"]
 [ext_resource type="PackedScene" uid="uid://co1f6l8523pa4" path="res://Scenes/shop.tscn" id="2_a6ou8"]
 [ext_resource type="Script" path="res://Scripts/resources/scripts/items.gd" id="3_4fihq"]
-[ext_resource type="FontFile" uid="uid://c3bbjpcqk64q8" path="res://Assets/Poppins/Poppins-Black.ttf" id="3_4xam6"]
 [ext_resource type="Resource" uid="uid://cia2idcvqbo47" path="res://Scripts/resources/items/repairKit.tres" id="4_3xhko"]
 [ext_resource type="Resource" uid="uid://ct04b13e8cuqb" path="res://Scripts/resources/items/maxHealthBoost.tres" id="5_8bo4o"]
+[ext_resource type="Script" path="res://Scripts/resources/items/functions/healthManipulation.gd" id="6_e30j4"]
+[ext_resource type="Resource" uid="uid://b8qe4f0q6kwv3" path="res://Scripts/resources/items/shieldCapcityUpgrade.tres" id="7_xwmyu"]
+[ext_resource type="LabelSettings" uid="uid://ryv112ku4qpr" path="res://Assets/presets/standardLabel.tres" id="8_u4xj6"]
+[ext_resource type="FontFile" uid="uid://c3bbjpcqk64q8" path="res://Assets/Poppins/Poppins-Black.ttf" id="8_y5how"]
+[ext_resource type="Script" path="res://Scripts/resources/items/functions/addWeapon.gd" id="9_xiibh"]
+[ext_resource type="Resource" uid="uid://dx43vf0tf7t5x" path="res://Scripts/resources/items/machineGunItem.tres" id="10_hp6wa"]
+[ext_resource type="PackedScene" uid="uid://06p05h1hg8ha" path="res://Scenes/Guns and Bullets/Boomer.tscn" id="10_qyemn"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bhn7b"]
 resource_name = "Station_Base"
@@ -172,19 +178,61 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_yljo2")
 
-[sub_resource type="BoxMesh" id="BoxMesh_o3kww"]
-size = Vector3(50, 50, 50)
+[sub_resource type="Resource" id="Resource_0jcxt"]
+script = ExtResource("6_e30j4")
+addHealth = 0.0
+addMaxHealth = 0.0
+addShieldRegen = 0.1
+addMaxShield = 0.0
 
-[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_wjb6i"]
-data = PackedVector3Array(-25, 25, 25, 25, 25, 25, -25, -25, 25, 25, 25, 25, 25, -25, 25, -25, -25, 25, 25, 25, -25, -25, 25, -25, 25, -25, -25, -25, 25, -25, -25, -25, -25, 25, -25, -25, 25, 25, 25, 25, 25, -25, 25, -25, 25, 25, 25, -25, 25, -25, -25, 25, -25, 25, -25, 25, -25, -25, 25, 25, -25, -25, -25, -25, 25, 25, -25, -25, 25, -25, -25, -25, 25, 25, 25, -25, 25, 25, 25, 25, -25, -25, 25, 25, -25, 25, -25, 25, 25, -25, -25, -25, 25, 25, -25, 25, -25, -25, -25, 25, -25, 25, 25, -25, -25, -25, -25, -25)
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_hykx4"]
+load_path = "res://.godot/imported/shield icon.png-0074577a5a0400733c8ebd96f93bf843.s3tc.ctex"
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_ehwfo"]
-viewport_path = NodePath("armsShop/Sprite3D/SubViewport")
+[sub_resource type="Resource" id="Resource_dp5qg"]
+resource_local_to_scene = true
+script = ExtResource("3_4fihq")
+name = &"Shield Recharger"
+description = &"Upgrades shield to recharge faster by 0.1"
+icon = SubResource("CompressedTexture2D_hykx4")
+priceRange = {
+"max": 600,
+"min": 400
+}
+function = SubResource("Resource_0jcxt")
+immediate = false
+type = 0
 
-[sub_resource type="LabelSettings" id="LabelSettings_por6h"]
-font = ExtResource("3_4xam6")
+[sub_resource type="ViewportTexture" id="ViewportTexture_2ejsn"]
+viewport_path = NodePath("healthShop/logo/SubViewport")
+
+[sub_resource type="Resource" id="Resource_rmfhx"]
+script = ExtResource("9_xiibh")
+weapon = ExtResource("10_qyemn")
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_xbpr3"]
+load_path = "res://.godot/imported/targetLock.png-5d6e799ad7519a4a3cf47a8605901527.s3tc.ctex"
+
+[sub_resource type="Resource" id="Resource_on7f2"]
+resource_local_to_scene = true
+script = ExtResource("3_4fihq")
+name = &"Boomer"
+description = &"Boomer"
+icon = SubResource("CompressedTexture2D_xbpr3")
+priceRange = {
+"max": 1500,
+"min": 1000
+}
+function = SubResource("Resource_rmfhx")
+immediate = false
+type = 2
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_48h8y"]
+viewport_path = NodePath("armsShop/logo/SubViewport")
+
+[sub_resource type="LabelSettings" id="LabelSettings_r78s8"]
+font = ExtResource("8_y5how")
 font_size = 64
-font_color = Color(0.81, 0.243, 0, 1)
+font_color = Color(0.81, 0, 0, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_5oto2"]
 size = Vector3(160, 10, 160)
@@ -232,30 +280,40 @@ skeleton = NodePath("")
 
 [node name="healthShop" parent="." instance=ExtResource("2_a6ou8")]
 transform = Transform3D(1, 1.74846e-07, 0, -1.74846e-07, 1, 0, 0, 0, 1, 0, 0, -192)
-possibleItems = Array[ExtResource("3_4fihq")]([ExtResource("4_3xhko"), ExtResource("5_8bo4o")])
+possibleItems = Array[ExtResource("3_4fihq")]([ExtResource("4_3xhko"), ExtResource("5_8bo4o"), SubResource("Resource_dp5qg"), ExtResource("7_xwmyu")])
 
-[node name="armsShop" type="StaticBody3D" parent="."]
-transform = Transform3D(0.939693, 0, -0.34202, 0, 1, 0, 0.34202, 0, 0.939693, -70, 0, 179)
+[node name="logo" type="Sprite3D" parent="healthShop"]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 26)
+texture = SubResource("ViewportTexture_2ejsn")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="armsShop"]
-mesh = SubResource("BoxMesh_o3kww")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="armsShop"]
-shape = SubResource("ConcavePolygonShape3D_wjb6i")
-
-[node name="Sprite3D" type="Sprite3D" parent="armsShop"]
-transform = Transform3D(-10, 0, -4.76837e-07, 0, 10, 0, 4.76837e-07, 0, -10, 3.8147e-06, 4, -25.5)
-texture = SubResource("ViewportTexture_ehwfo")
-
-[node name="SubViewport" type="SubViewport" parent="armsShop/Sprite3D"]
+[node name="SubViewport" type="SubViewport" parent="healthShop/logo"]
 transparent_bg = true
-size = Vector2i(193, 91)
+size = Vector2i(224, 91)
 
-[node name="Label" type="Label" parent="armsShop/Sprite3D/SubViewport"]
-offset_right = 193.0
+[node name="Label" type="Label" parent="healthShop/logo/SubViewport"]
+offset_right = 224.0
 offset_bottom = 91.0
-text = "ARMS"
-label_settings = SubResource("LabelSettings_por6h")
+text = "Health"
+label_settings = ExtResource("8_u4xj6")
+
+[node name="armsShop" parent="." instance=ExtResource("2_a6ou8")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 178)
+possibleItems = Array[ExtResource("3_4fihq")]([SubResource("Resource_on7f2"), ExtResource("10_hp6wa")])
+
+[node name="logo" type="Sprite3D" parent="armsShop"]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -2.27299e-06, 0, 26)
+texture = SubResource("ViewportTexture_48h8y")
+
+[node name="SubViewport" type="SubViewport" parent="armsShop/logo"]
+transparent_bg = true
+size = Vector2i(224, 91)
+
+[node name="Label" type="Label" parent="armsShop/logo/SubViewport"]
+offset_right = 224.0
+offset_bottom = 91.0
+text = "ARMS
+"
+label_settings = SubResource("LabelSettings_r78s8")
 
 [node name="exit" type="Area3D" parent="."]
 transform = Transform3D(0.927184, 0, -0.374607, 0, 1, 0, 0.374607, 0, 0.927184, 0, -82.59, 0)

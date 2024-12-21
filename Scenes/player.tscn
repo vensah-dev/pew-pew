@@ -1,14 +1,10 @@
-[gd_scene load_steps=24 format=4 uid="uid://cgng6km46j0vt"]
+[gd_scene load_steps=20 format=4 uid="uid://cgng6km46j0vt"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_ho7d4"]
 [ext_resource type="Material" uid="uid://c0ly3fmh1oikw" path="res://Assets/materials/bulletMaterial.tres" id="2_4ru38"]
 [ext_resource type="Script" path="res://Scripts/components/health.gd" id="2_kcxjs"]
 [ext_resource type="PackedScene" uid="uid://cx7vdmwhs2ds6" path="res://Scenes/target_lock.tscn" id="2_wavay"]
-[ext_resource type="Script" path="res://Scripts/gun.gd" id="3_1rjuy"]
-[ext_resource type="Texture2D" uid="uid://d1s4v5nmj4yux" path="res://Assets/UI/targetLock.png" id="5_dltj0"]
-[ext_resource type="PackedScene" uid="uid://dvon531nr1ynt" path="res://Scenes/Guns and Bullets/homingBullet.tscn" id="5_euicp"]
-[ext_resource type="PackedScene" uid="uid://b7sa02arh0p24" path="res://Scenes/Guns and Bullets/bullet.tscn" id="5_lp3ai"]
-[ext_resource type="Texture2D" uid="uid://3heoeqy1bffv" path="res://Assets/UI/Reticle.png" id="7_4udn6"]
+[ext_resource type="PackedScene" uid="uid://cxhbnxsocgt5p" path="res://Scenes/Guns and Bullets/MachineGuns.tscn" id="5_4yu8b"]
 [ext_resource type="Script" path="res://Scripts/camera.gd" id="9_g6b74"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_angyv"]
@@ -238,7 +234,7 @@ maxRotation = Vector3(5, 5, 5)
 raycastRange = 10000000
 targetMarkerNormalColour = Color(0.91, 0.979, 1, 1)
 targetMarkerLockedColour = Color(1, 0.266667, 0, 1)
-listOfGuns = [NodePath("mesh/weapons/machineGuns"), NodePath("mesh/weapons/Boomer")]
+listOfGuns = [NodePath("mesh/weapons/machineGuns")]
 
 [node name="mesh" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.956, 0, 0, 0, 0.34, 0, 0, 0, 1, 0, 0, 0)
@@ -258,63 +254,11 @@ shieldValue = 76.99
 healthValue = 36.08
 
 [node name="weapons" type="Node3D" parent="mesh"]
-transform = Transform3D(-2.51478e-07, 0, 5.75314, 0, 16.1765, 0, -5.5, 0, -2.40413e-07, 0, 0, -1.25)
+transform = Transform3D(-2.51478e-07, 0, 5.75314, 0, 16.1765, 0, -5.5, 0, -2.40413e-07, 0, 0, 0)
 
-[node name="Boomer" type="Node3D" parent="mesh/weapons" node_paths=PackedStringArray("ship", "gunPoints", "cam")]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
-script = ExtResource("3_1rjuy")
+[node name="machineGuns" parent="mesh/weapons" node_paths=PackedStringArray("ship", "cam") instance=ExtResource("5_4yu8b")]
 ship = NodePath("../../..")
-icon = ExtResource("5_dltj0")
-bulletSpeed = 250.0
-bulletDamage = 50.0
-lockOnTarget = true
-bulletNode = ExtResource("5_euicp")
-automatic = false
-bulletInterval = 5.0
-magSize = 2
-cooldownInterval = 15.0
-gunPoints = [NodePath("Gun0"), NodePath("Gun1")]
 cam = NodePath("../../../cameraGimbal/Camera")
-idleColor = Color(1, 1, 1, 1)
-reloadColor = Color(1, 0.92, 0.7, 1)
-shootingColor = Color(1, 0.84, 0.4, 1)
-hitScaleMultiplier = 0.5
-
-[node name="Gun0" type="Node3D" parent="mesh/weapons/Boomer"]
-transform = Transform3D(1, 0, -1.42109e-14, 0, 1, 0, 0, 0, 1, 0.399856, -0.0909091, 0.218182)
-
-[node name="Gun1" type="Node3D" parent="mesh/weapons/Boomer"]
-transform = Transform3D(1, 0, -1.42109e-14, 0, 1, 0, 0, 0, 1, 0.399856, -0.0909091, -0.218182)
-
-[node name="machineGuns" type="Node3D" parent="mesh/weapons" node_paths=PackedStringArray("ship", "gunPoints", "cam")]
-transform = Transform3D(2.98037e-09, 0.00276629, -0.249985, -1.53906e-10, 0.249985, 0.00276629, 0.25, 1.20919e-10, 2.98189e-09, 0, 0, 0)
-script = ExtResource("3_1rjuy")
-ship = NodePath("../../..")
-icon = ExtResource("7_4udn6")
-bulletSpeed = 500.0
-bulletNode = ExtResource("5_lp3ai")
-bulletInterval = 0.05
-magSize = 100
-gunPoints = [NodePath("Gun0"), NodePath("Gun1")]
-cam = NodePath("../../../cameraGimbal/Camera")
-idleColor = Color(1, 1, 1, 1)
-reloadColor = Color(0.7, 0.92, 1, 1)
-shootingColor = Color(0.4, 0.84, 1, 1)
-
-[node name="Gun0" type="Node3D" parent="mesh/weapons/machineGuns"]
-transform = Transform3D(1, 0, 7.10543e-15, 0, 1, 0, -3.55271e-15, 0, 1, -0.343637, -0.456818, 3.10454)
-
-[node name="Gun1" type="Node3D" parent="mesh/weapons/machineGuns"]
-transform = Transform3D(1, 0, 7.10543e-15, 0, 1, 0, -3.55271e-15, 0, 1, 0.27091, -0.456818, 3.10454)
-
-[node name="Gun2" type="Node3D" parent="mesh/weapons/machineGuns"]
-transform = Transform3D(1, 0, 3.55271e-15, 0, 1, 0, -3.55271e-15, 0, 1, -3.18, -0.16, 3.97727)
-
-[node name="Gun3" type="Node3D" parent="mesh/weapons/machineGuns"]
-transform = Transform3D(1, 0, 3.55271e-15, 0, 1, 0, -3.55271e-15, 0, 1, 3.18, -0.16, 3.97727)
-
-[node name="Gun4" type="Node3D" parent="mesh/weapons/machineGuns"]
-transform = Transform3D(1, 0, 3.55271e-15, 0, 1, 0, -3.55271e-15, 0, 1, -4.04628e-08, 0, 3.97727)
 
 [node name="boxCollider" type="CollisionShape3D" parent="."]
 transform = Transform3D(-4.37114e-07, 0, 10, 0, 10, 0, -10, 0, -4.37114e-07, 0, -0.2, 1.6)
@@ -337,5 +281,7 @@ current = true
 [node name="healthData" type="Node" parent="."]
 script = ExtResource("2_kcxjs")
 
-[connection signal="health_changed" from="healthData" to="." method="_on_health_node_health_changed"]
+[connection signal="health_changed" from="healthData" to="." method="_on_health_data_health_changed"]
+[connection signal="max_health_changed" from="healthData" to="." method="_on_health_data_max_health_changed"]
+[connection signal="max_shield_changed" from="healthData" to="." method="_on_health_data_max_shield_changed"]
 [connection signal="shield_changed" from="healthData" to="." method="_on_health_data_shield_changed"]

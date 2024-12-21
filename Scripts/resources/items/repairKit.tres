@@ -6,13 +6,15 @@
 
 [sub_resource type="Resource" id="Resource_0c6ju"]
 script = ExtResource("1_tc61e")
-addHealth = 25.0
+addHealth = 15.0
 addMaxHealth = 0.0
+addShieldRegen = 0.0
+addMaxShield = 0.0
 
 [resource]
 script = ExtResource("1_c66bf")
 name = &"Repair Kit"
-description = &"Repairs health by 25"
+description = &"Repairs health by 15"
 icon = ExtResource("2_hi83g")
 priceRange = {
 "max": 150,

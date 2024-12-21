@@ -10,6 +10,7 @@ signal hitTarget
 @onready var mesh = $mesh
 @onready var rayCast = $RayCast3D
 @onready var impact = $impact
+@onready var impactSound = $impact/impactSound
 @onready var sound = $sound
 
 var damage
@@ -21,8 +22,12 @@ var startingPos
 
 var bulletRange
 
+var randomPitch 
+
 func _ready():
+	randomPitch = randf_range(0.9, 1.1)
 	scale = Vector3(0.1, 0.1, 0.5)
+	sound.pitch_scale *= randomPitch
 	sound.play()
 	startingPos = global_position
 
@@ -64,6 +69,10 @@ func hit(explode = false):
 		rayCast.enabled = false
 		mesh.visible = false
 		impact.emitting = true
+		
+		# impactSound.pitch_scale *= randomPitch
+		# impactSound.play()
+
 		if !explode:
 			hitTarget.emit()
 

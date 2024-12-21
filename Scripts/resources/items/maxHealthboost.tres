@@ -1,12 +1,14 @@
 [gd_resource type="Resource" script_class="Item" load_steps=6 format=3 uid="uid://ct04b13e8cuqb"]
 
-[ext_resource type="Script" path="res://Scripts/resources/items/functions/healthManipulation.gd" id="1_5cq33"]
-[ext_resource type="Script" path="res://Scripts/resources/scripts/items.gd" id="1_56rfu"]
+[ext_resource type="Script" path="res://Scripts/resources/items/functions/healthManipulation.gd" id="1_3hanj"]
+[ext_resource type="Script" path="res://Scripts/resources/scripts/items.gd" id="2_lfshx"]
 
 [sub_resource type="Resource" id="Resource_u53us"]
-script = ExtResource("1_5cq33")
+script = ExtResource("1_3hanj")
 addHealth = 0.0
-addMaxHealth = 25.0
+addMaxHealth = 10.0
+addShieldRegen = 0.0
+addMaxShield = 0.0
 
 [sub_resource type="Gradient" id="Gradient_m7owc"]
 
@@ -14,13 +16,13 @@ addMaxHealth = 25.0
 gradient = SubResource("Gradient_m7owc")
 
 [resource]
-script = ExtResource("1_56rfu")
-name = &"Max Health Boost"
-description = &"Increases max health by 25"
+script = ExtResource("2_lfshx")
+name = &"Durability Booster"
+description = &"Increases health capacity by 10"
 icon = SubResource("GradientTexture2D_6jfvq")
 priceRange = {
-"max": 300,
-"min": 200
+"max": 400,
+"min": 300
 }
 function = SubResource("Resource_u53us")
 immediate = false

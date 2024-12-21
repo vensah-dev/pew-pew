@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://cxhbnxsocgt5p"]
+
+[ext_resource type="Script" path="res://Scripts/gun.gd" id="1_mrpj1"]
+[ext_resource type="Texture2D" uid="uid://3heoeqy1bffv" path="res://Assets/UI/Reticle.png" id="2_r7yfv"]
+[ext_resource type="PackedScene" uid="uid://b7sa02arh0p24" path="res://Scenes/Guns and Bullets/bullet.tscn" id="3_aai68"]
+
+[node name="machineGuns" type="Node3D" node_paths=PackedStringArray("gunPoints")]
+transform = Transform3D(2.98037e-09, 0.00276629, -0.249985, -1.53906e-10, 0.249985, 0.00276629, 0.25, 1.20919e-10, 2.98189e-09, 0, 0, 0)
+script = ExtResource("1_mrpj1")
+icon = ExtResource("2_r7yfv")
+bulletSpeed = 500.0
+bulletNode = ExtResource("3_aai68")
+bulletInterval = 0.05
+magSize = 100
+gunPoints = [NodePath("Gun0"), NodePath("Gun1")]
+idleColor = Color(1, 1, 1, 1)
+reloadColor = Color(0.72, 0.958, 1, 1)
+shootingColor = Color(0.53, 0.9295, 1, 1)
+
+[node name="Gun0" type="Node3D" parent="."]
+transform = Transform3D(1, 5.55112e-17, 1.77636e-14, 2.77556e-16, 1, -9.31323e-10, 2.4869e-14, 3.72529e-09, 1, -0.32, -0.469, 2.159)
+
+[node name="Gun1" type="Node3D" parent="."]
+transform = Transform3D(1, 5.55112e-17, 1.06581e-14, 1.11022e-16, 1, 0, 1.77636e-14, 1.86265e-09, 1, 0.27091, -0.469195, 2.15914)

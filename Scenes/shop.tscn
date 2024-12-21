@@ -12,7 +12,7 @@ size = Vector3(50, 50, 50)
 data = PackedVector3Array(-25, 25, 25, 25, 25, 25, -25, -25, 25, 25, 25, 25, 25, -25, 25, -25, -25, 25, 25, 25, -25, -25, 25, -25, 25, -25, -25, -25, 25, -25, -25, -25, -25, 25, -25, -25, 25, 25, 25, 25, 25, -25, 25, -25, 25, 25, 25, -25, 25, -25, -25, 25, -25, 25, -25, 25, -25, -25, 25, 25, -25, -25, -25, -25, 25, 25, -25, -25, 25, -25, -25, -25, 25, 25, 25, -25, 25, 25, 25, 25, -25, -25, 25, 25, -25, 25, -25, 25, 25, -25, -25, -25, 25, 25, -25, 25, -25, -25, -25, 25, -25, 25, 25, -25, -25, -25, -25, -25)
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_rsc73"]
-viewport_path = NodePath("Sprite3D/SubViewport")
+viewport_path = NodePath("dfghjk/SubViewport")
 
 [sub_resource type="Animation" id="Animation_nd8mr"]
 length = 0.001
@@ -132,15 +132,16 @@ mesh = SubResource("BoxMesh_o3kww")
 transform = Transform3D(1, 0, -4.96705e-08, 0, 1, 0, 4.96705e-08, 0, 1, 0, 0, 0)
 shape = SubResource("ConcavePolygonShape3D_y8kt0")
 
-[node name="Sprite3D" type="Sprite3D" parent="."]
+[node name="dfghjk" type="Sprite3D" parent="."]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 28)
+visible = false
 texture = SubResource("ViewportTexture_rsc73")
 
-[node name="SubViewport" type="SubViewport" parent="Sprite3D"]
+[node name="SubViewport" type="SubViewport" parent="dfghjk"]
 transparent_bg = true
 size = Vector2i(224, 91)
 
-[node name="Label" type="Label" parent="Sprite3D/SubViewport"]
+[node name="Label" type="Label" parent="dfghjk/SubViewport"]
 offset_right = 224.0
 offset_bottom = 91.0
 text = "Health"
