@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=4 uid="uid://cgng6km46j0vt"]
+[gd_scene load_steps=21 format=4 uid="uid://cgng6km46j0vt"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_ho7d4"]
 [ext_resource type="Material" uid="uid://c0ly3fmh1oikw" path="res://Assets/materials/bulletMaterial.tres" id="2_4ru38"]
@@ -188,6 +188,14 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_o34j0")
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i2ihx"]
+diffuse_mode = 3
+specular_mode = 1
+albedo_color = Color(0.810547, 0.810547, 0.810547, 1)
+metallic = 0.7
+metallic_specular = 1.0
+roughness = 0.4
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tvbww"]
 albedo_color = Color(0.12, 0.12, 0.12, 1)
 metallic_specular = 1.0
@@ -201,10 +209,11 @@ roughness = 0.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_euddh"]
 diffuse_mode = 3
+specular_mode = 1
 albedo_color = Color(0.3216, 0.43248, 0.48, 1)
-metallic = 0.4
-metallic_specular = 1.0
-roughness = 0.0
+metallic = 0.7
+metallic_specular = 0.7
+roughness = 0.25
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_ixwam"]
 viewport_path = NodePath("SubViewport")
@@ -240,6 +249,7 @@ listOfGuns = [NodePath("mesh/weapons/machineGuns")]
 [node name="mesh" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.956, 0, 0, 0, 0.34, 0, 0, 0, 1, 0, 0, 0)
 mesh = SubResource("ArrayMesh_nbyhj")
+surface_material_override/0 = SubResource("StandardMaterial3D_i2ihx")
 surface_material_override/2 = SubResource("StandardMaterial3D_tvbww")
 surface_material_override/3 = ExtResource("2_4ru38")
 surface_material_override/4 = SubResource("StandardMaterial3D_fbths")

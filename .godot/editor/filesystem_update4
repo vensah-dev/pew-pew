@@ -21,3 +21,4 @@ res://Scenes/currency.tscn
 res://Scenes/Guns and Bullets/Boomer.tscn
 res://Scenes/Guns and Bullets/MachineGuns.tscn
 res://Scripts/gun.gd
+res://Scenes/target_lock.tscn
