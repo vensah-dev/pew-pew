@@ -189,21 +189,22 @@ blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_o34j0")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tvbww"]
-diffuse_mode = 3
 albedo_color = Color(0.12, 0.12, 0.12, 1)
+metallic_specular = 1.0
+roughness = 0.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fbths"]
-diffuse_mode = 3
-specular_mode = 1
 albedo_color = Color(0.39, 0.39, 0.39, 1)
 metallic = 0.4
 metallic_specular = 1.0
-roughness = 0.5
+roughness = 0.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_euddh"]
 diffuse_mode = 3
-specular_mode = 1
 albedo_color = Color(0.3216, 0.43248, 0.48, 1)
+metallic = 0.4
+metallic_specular = 1.0
+roughness = 0.0
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_ixwam"]
 viewport_path = NodePath("SubViewport")

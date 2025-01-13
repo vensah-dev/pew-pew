@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://d1s4v5nmj4yux" path="res://Assets/UI/targetLock.png" id="2_vimae"]
 [ext_resource type="PackedScene" uid="uid://dvon531nr1ynt" path="res://Scenes/Guns and Bullets/homingBullet.tscn" id="3_xyac7"]
 
-[node name="Boomer" type="Node3D"]
+[node name="Boomer" type="Node3D" node_paths=PackedStringArray("gunPoints")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 script = ExtResource("1_vbh2g")
 icon = ExtResource("2_vimae")
@@ -14,6 +14,7 @@ bulletNode = ExtResource("3_xyac7")
 automatic = false
 magSize = 2
 cooldownInterval = 15.0
+gunPoints = [NodePath("Gun0"), NodePath("Gun1")]
 idleColor = Color(1, 1, 1, 1)
 reloadColor = Color(1, 0.662109, 0.662109, 1)
 shootingColor = Color(1, 0.46875, 0.46875, 1)

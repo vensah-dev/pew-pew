@@ -20,14 +20,4 @@ res://Scenes/enemyWithMissles.tscn
 res://Scenes/currency.tscn
 res://Scenes/Guns and Bullets/Boomer.tscn
 res://Scenes/Guns and Bullets/MachineGuns.tscn
-res://Scripts/collectible.gd
 res://Scripts/gun.gd
-res://Scripts/spaceStation.gd
-res://Scripts/targetLock.gd
-res://Scripts/minimap.gd
-res://Scripts/player.gd
-res://Scripts/world/solarSystem.gd
-res://Scripts/bullet.gd
-res://Scripts/crosshair.gd
-res://Scripts/inventory.gd
-res://Scripts/enemy.gd
