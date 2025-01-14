@@ -9,6 +9,7 @@ transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 
 script = ExtResource("1_vbh2g")
 icon = ExtResource("2_vimae")
 bulletSpeed = 250.0
+bulletDamage = 50.0
 lockOnTarget = true
 bulletNode = ExtResource("3_xyac7")
 automatic = false

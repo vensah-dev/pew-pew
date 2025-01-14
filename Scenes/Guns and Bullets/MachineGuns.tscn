@@ -9,6 +9,7 @@ transform = Transform3D(2.98037e-09, 0.00276629, -0.249985, -1.53906e-10, 0.2499
 script = ExtResource("1_mrpj1")
 icon = ExtResource("2_r7yfv")
 bulletSpeed = 500.0
+bulletDamage = 200.0
 bulletNode = ExtResource("3_aai68")
 bulletInterval = 0.05
 magSize = 100
