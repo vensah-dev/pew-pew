@@ -426,7 +426,7 @@ func directions():
 func move(delta):
 	#State Handling
 		
-	if boostInput and inputVector.z > 0:
+	if boostInput:
 		currentFOV = boostFOV
 		activeForwardSpeed = lerp(activeForwardSpeed, inputVector.z * forwardSpeed * boostSpeed, forwardAcceleration * delta)
 		# inputVector *= Vector3(boostSpeed, boostSpeed, boostSpeed)
@@ -441,6 +441,8 @@ func move(delta):
 
 
 	speedLabel.text = str(snapped(activeForwardSpeed+activeHoverSpeed+activeStrifeSpeed, 0.1)) + "U/s"
+
+	roll = lerpf(roll, rollInput, rollAcceleration * delta)
 
 	var quaternionRot = Quaternion.from_euler(Vector3(y * mouseSpeed * delta, -x * mouseSpeed * delta, roll * rollSpeed * delta))
 	transform.basis *= Basis(quaternionRot)

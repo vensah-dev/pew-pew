@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=3 uid="uid://bae0rrler2lwr"]
+[gd_scene load_steps=45 format=3 uid="uid://bae0rrler2lwr"]
 
 [ext_resource type="Script" path="res://Scripts/gameManager.gd" id="1_jmc7e"]
 [ext_resource type="PackedScene" uid="uid://cgng6km46j0vt" path="res://Scenes/player.tscn" id="2_de30o"]
@@ -23,12 +23,10 @@
 [ext_resource type="PackedScene" uid="uid://cydpyr360sp2s" path="res://Scenes/cameraView.tscn" id="9_i6eme"]
 [ext_resource type="Resource" uid="uid://bidsfymvdyhek" path="res://addons/SphynxMotionBlurToolkit/Guertin/guertin_overlay_stage.tres" id="9_ykj30"]
 [ext_resource type="Script" path="res://addons/SphynxMotionBlurToolkit/Guertin/new_guertin_motion_blur.gd" id="10_jj805"]
-[ext_resource type="PackedScene" uid="uid://cs0ateo6cimnx" path="res://Scenes/enemyWithMissles.tscn" id="10_qmy3e"]
 [ext_resource type="Resource" uid="uid://dipvwksvqb3dm" path="res://addons/SphynxMotionBlurToolkit/Guertin/guertin_tile_max_x_stage.tres" id="11_t2g0a"]
 [ext_resource type="Resource" uid="uid://bxfg45ubc2pv7" path="res://addons/SphynxMotionBlurToolkit/Guertin/guertin_tile_max_y_stage.tres" id="12_co80g"]
 [ext_resource type="Resource" uid="uid://bqehecsdgt70s" path="res://addons/SphynxMotionBlurToolkit/Guertin/guertin_tile_variance_stage.tres" id="13_pn7nl"]
 [ext_resource type="PackedScene" uid="uid://ccks54v5ml2k3" path="res://Scenes/spaceStationExterior.tscn" id="14_h7gm1"]
-[ext_resource type="PackedScene" uid="uid://dmlb8utavpi4c" path="res://Scenes/enemy.tscn" id="15_4rndq"]
 [ext_resource type="FontFile" uid="uid://pw18l2pw732g" path="res://Assets/Poppins/Poppins-Light.ttf" id="20_0lqjg"]
 [ext_resource type="PackedScene" uid="uid://cqanug7lr8ug1" path="res://Scenes/inventory.tscn" id="25_n22hb"]
 [ext_resource type="Shader" path="res://Scripts/shaders/outlineShader.gdshader" id="30_ddqmw"]
@@ -148,6 +146,7 @@ shieldbar = NodePath("../UI/shieldbar")
 
 [node name="outlines" type="MeshInstance3D" parent="."]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -0.2)
+visible = false
 layers = 3
 extra_cull_margin = 16384.0
 mesh = SubResource("QuadMesh_gmtlk")
@@ -365,6 +364,5 @@ solarSystems = Array[PackedScene]([ExtResource("5_synb3")])
 transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 0, 0, -498.94)
 
 [node name="EnemySpawner" parent="world" node_paths=PackedStringArray("player") instance=ExtResource("6_t04ed")]
-enemies = Array[PackedScene]([ExtResource("15_4rndq"), ExtResource("10_qmy3e")])
 player = NodePath("../../player")
 spawnRadius = 1000.0

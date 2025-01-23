@@ -63,7 +63,7 @@ func _physics_process(delta: float) -> void:
 		hit()
 
 	if global_position.distance_to(startingPos) > bulletRange:
-		hit(true)
+		self.queue_free()
 
 func hit(explode = false):
 		rayCast.enabled = false

@@ -48,7 +48,7 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_ihyny")
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_k2fkj"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_pg2yf"]
 size = Vector3(15, 5.5, 12)
 
 [node name="enemy" type="CharacterBody3D" groups=["StaticMinimapItems", "enemy"]]
@@ -160,7 +160,7 @@ texture = ExtResource("6_wdxjh")
 
 [node name="boxCollider" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0201297, -0.0420356, 1.28361)
-shape = SubResource("BoxShape3D_k2fkj")
+shape = SubResource("BoxShape3D_pg2yf")
 
 [node name="RayCast3D" type="RayCast3D" parent="."]
 transform = Transform3D(1000, 0, 0, 0, -4.37114e-05, 1000, 0, -1000, -4.37114e-05, 0, 0, 0)

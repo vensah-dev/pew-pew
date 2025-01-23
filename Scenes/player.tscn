@@ -269,6 +269,8 @@ transform = Transform3D(-2.51478e-07, 0, 5.75314, 0, 16.1765, 0, -5.5, 0, -2.404
 
 [node name="machineGuns" parent="mesh/weapons" node_paths=PackedStringArray("ship", "cam") instance=ExtResource("5_4yu8b")]
 ship = NodePath("../../..")
+gunName = &"MachineGun"
+bulletDamage = 5.0
 cam = NodePath("../../../cameraGimbal/Camera")
 
 [node name="boxCollider" type="CollisionShape3D" parent="."]

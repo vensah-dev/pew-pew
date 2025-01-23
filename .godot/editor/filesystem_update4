@@ -1,6 +1,4 @@
 res://Assets/audio/default_bus_layout.tres
-res://Scripts/player.gd
-res://Scripts/enemy.gd
 res://Assets/Texture/environment.tres
 res://Scenes/Game.tscn
 res://Assets/materials/bulletMaterial.tres
@@ -23,3 +21,5 @@ res://Scenes/currency.tscn
 res://Scenes/Guns and Bullets/Boomer.tscn
 res://Scenes/Guns and Bullets/MachineGuns.tscn
 res://Scenes/target_lock.tscn
+res://Scripts/player.gd
+res://Scripts/bullet.gd
