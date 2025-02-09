@@ -1,25 +1,2 @@
 res://Assets/audio/default_bus_layout.tres
-res://Assets/Texture/environment.tres
-res://Scenes/Game.tscn
-res://Assets/materials/bulletMaterial.tres
-res://Scripts/shaders/vingette.gdshader
-res://Assets/presets/standardLabel.tres
-res://Scripts/resources/items/repairKit.tres
-res://Scripts/resources/items/maxHealthBoost.tres
-res://Scripts/resources/items/shieldCapcityUpgrade.tres
-res://Scripts/resources/items/machineGunItem.tres
-res://Scripts/shaders/outlineShader.gdshader
-res://Scripts/shaders/toonShader.gdshader
-res://Scripts/shaders/toon.gdshader
-res://Scenes/player.tscn
-res://Scenes/spaceStation.tscn
-res://Scenes/Guns and Bullets/homingBullet.tscn
-res://Scenes/explosion.tscn
-res://Scenes/enemy.tscn
-res://Scenes/enemyWithMissles.tscn
-res://Scenes/currency.tscn
-res://Scenes/Guns and Bullets/Boomer.tscn
-res://Scenes/Guns and Bullets/MachineGuns.tscn
-res://Scenes/target_lock.tscn
-res://Scripts/player.gd
-res://Scripts/bullet.gd
+res://Scripts/spaceStation.gd
