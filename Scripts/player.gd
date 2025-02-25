@@ -175,80 +175,8 @@ func _input(event):
 ########################
 
 func _physics_process(delta: float) -> void:
-	var space_state = get_world_3d().direct_space_state
-	
-	var from = camNode.project_ray_origin(centre)
-	var to = from + camNode.project_ray_normal(centre) * raycastRange
-	
-	var params = PhysicsRayQueryParameters3D.create(from, to)
-	params.exclude = [self]
-	
-	var result = space_state.intersect_ray(params)
-	distanceLabel.text = ""
-	
-	# lockedTarget = result
-
-	if result:
-		#stuff done for all colliders
-		var collider = result.collider
-		var hit_origin = collider.global_transform.origin
-
-		# targetLockSprite.scale = Vector3.ONE * max(collider.scale.x, collider.scale.y, collider.scale.z)
-
-		# var distanceM = global_position.distance_to(hit_origin)
-		# var distanceKM:float = snappedf(distanceM/1000, 0.001)
-		# distanceLabel.text = str(distanceKM) + "KM"
-
-		#stuff done for select colliders, e.g. target lock on enemies, celestial body info
-		if collider.is_in_group("enemy"):
-
-			updateTargetMarker(collider)
-			targetLockSprite.targetLockSpriteColor = targetMarkerNormalColour
-
-			if Input.is_action_just_pressed("lock") and canLockOnTarget:
-				targetLocked = !targetLocked
-				if targetLocked:
-					lockedTarget = result
-
-			if targetLocked and canLockOnTarget:
-				targetLockSprite.targetLockSpriteColor = targetMarkerLockedColour
-				targetLockSprite.global_position = lockedTarget.collider.global_transform.origin
-
-			else:
-				lockedTarget = null
-				targetLockSprite.global_position = hit_origin
-
-		else:
-			lockedTarget = null
-			targetLocked = false
-			targetLockSprite.visible = false
-
-		if collider.is_in_group("shop"):
-			lookingAtInteractable = true
-			showInteractionLabel("F to open shop")
-			if Input.is_action_just_pressed("interact"):
-				collider.openShop()
-
-		elif !collider.is_in_group("shop"):
-			lookingAtInteractable = false
-			hideInteractionLabel()
-
-	else:
-		#update markers if needed, like for example locked targets
-		if targetLocked and canLockOnTarget:
-			updateTargetMarker(lockedTarget.collider)
-			targetLockSprite.targetLockSpriteColor = targetMarkerLockedColour
-
-			var targetOrigin = lockedTarget.collider.global_transform.origin
-			targetLockSprite.global_position = targetOrigin
-
-
-
-		else:
-			lockedTarget = null
-			targetLocked = false
-			targetLockSprite.visible = false
-
+	#i truly eonder what this does
+	handleRayCast()
 
 	#to allow mouse pointer to be able to exit the window
 	mouse(delta)
@@ -288,6 +216,85 @@ func _process(delta: float) -> void:
 
 ################################################################################################
 ################################################################################################
+
+########################
+#HandleRayCast like showing the enemy info and stuff like that
+########################
+
+func handleRayCast():
+	var space_state = get_world_3d().direct_space_state
+	
+	var from = camNode.project_ray_origin(centre)
+	var to = from + camNode.project_ray_normal(centre) * raycastRange
+	
+	var params = PhysicsRayQueryParameters3D.create(from, to)
+	params.exclude = [self]
+	
+	var result = space_state.intersect_ray(params)
+	distanceLabel.text = ""
+	
+	# lockedTarget = result
+
+	if result:
+		#stuff done for all colliders
+		var targetCollider = result.collider
+		var hit_origin = targetCollider.global_transform.origin
+
+		# targetLockSprite.scale = Vector3.ONE * max(target_collider.scale.x, target_collider.scale.y, target_collider.scale.z)
+
+		# var distanceM = global_position.distance_to(hit_origin)
+		# var distanceKM:float = snappedf(distanceM/1000, 0.001)
+		# distanceLabel.text = str(distanceKM) + "KM"
+
+		#stuff done for select target_colliders, e.g. target lock on enemies, celestial body info
+		if targetCollider.is_in_group("enemy"):
+
+			updateTargetMarker(targetCollider)
+			targetLockSprite.targetLockSpriteColor = targetMarkerNormalColour
+
+			if Input.is_action_just_pressed("lock") and canLockOnTarget:
+				targetLocked = !targetLocked
+				if targetLocked:
+					lockedTarget = result
+
+			if targetLocked and canLockOnTarget:
+				targetLockSprite.targetLockSpriteColor = targetMarkerLockedColour
+				targetLockSprite.global_position = lockedTarget.target_collider.global_transform.origin
+
+			else:
+				lockedTarget = null
+				targetLockSprite.global_position = hit_origin
+
+		else:
+			lockedTarget = null
+			targetLocked = false
+			targetLockSprite.visible = false
+
+		if targetCollider.is_in_group("shop"):
+			lookingAtInteractable = true
+			showInteractionLabel("F to open shop")
+			if Input.is_action_just_pressed("interact"):
+				targetCollider.openShop()
+
+		elif !targetCollider.is_in_group("shop"):
+			lookingAtInteractable = false
+			hideInteractionLabel()
+
+	else:
+		#update markers if needed, like for example locked targets
+		if targetLocked and canLockOnTarget:
+			updateTargetMarker(lockedTarget.target_collider)
+			targetLockSprite.targetLockSpriteColor = targetMarkerLockedColour
+
+			var targetOrigin = lockedTarget.target_collider.global_transform.origin
+			targetLockSprite.global_position = targetOrigin
+
+
+
+		else:
+			lockedTarget = null
+			targetLocked = false
+			targetLockSprite.visible = false
 
 
 
@@ -341,7 +348,7 @@ func handleInventory():
 		gun.set_process(false)
 	#handle gun states
 	statusRing.visible = false
-	if inventoryItems[selectedIndex].get_class() == "Node3D": #check if its a gun node
+	if inventoryItems[selectedIndex].get_class() == "Node3D": #check if its a gun node remeber to change later 
 		statusRing.visible = true
 		if activeForwardSpeed+activeHoverSpeed+activeStrifeSpeed < inventoryItems[selectedIndex].bulletSpeed:
 
@@ -372,23 +379,23 @@ func addItem(item):
 #Target stuff
 ########################
 
-func updateTargetMarker(collider):
-	var hit_origin = collider.global_transform.origin
+func updateTargetMarker(targetMarkerCollider):
+	var hit_origin = targetMarkerCollider.global_transform.origin
 
 	var distanceM = global_position.distance_to(hit_origin)
 
 	# var scaleMultiplier = max(
-	# 	collider.get_child(1).get_shape().size.x/mesh.scale.x, 
-	# 	collider.get_child(1).get_shape().size.y/mesh.scale.y,
-	# 	collider.get_child(1).get_shape().size.z/mesh.scale.z
+	# 	targetMarkerCollider.get_child(1).get_shape().size.x/mesh.scale.x, 
+	# 	targetMarkerCollider.get_child(1).get_shape().size.y/mesh.scale.y,
+	# 	targetMarkerCollider.get_child(1).get_shape().size.z/mesh.scale.z
 	# )
 
 	# targetLockSprite.scale = Vector3.ONE * scaleMultiplier/800
 
 	targetLockSprite.distance = distanceM
 	
-	targetLockSprite.shieldValue = collider.healthData.shield
-	targetLockSprite.healthValue = collider.healthData.health
+	targetLockSprite.shieldValue = targetMarkerCollider.healthData.shield
+	targetLockSprite.healthValue = targetMarkerCollider.healthData.health
 
 
 	targetLockSprite.visible = true
