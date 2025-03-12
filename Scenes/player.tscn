@@ -1,9 +1,11 @@
-[gd_scene load_steps=21 format=4 uid="uid://cgng6km46j0vt"]
+[gd_scene load_steps=23 format=4 uid="uid://cgng6km46j0vt"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_ho7d4"]
 [ext_resource type="Material" uid="uid://c0ly3fmh1oikw" path="res://Assets/materials/bulletMaterial.tres" id="2_4ru38"]
 [ext_resource type="Script" path="res://Scripts/components/health.gd" id="2_kcxjs"]
+[ext_resource type="PackedScene" uid="uid://brhvvyyekkbfn" path="res://Scenes/explosion.tscn" id="2_vwtkj"]
 [ext_resource type="PackedScene" uid="uid://cx7vdmwhs2ds6" path="res://Scenes/target_lock.tscn" id="2_wavay"]
+[ext_resource type="PackedScene" uid="uid://2pdt6eob40jq" path="res://Scenes/gameOverScene.tscn" id="3_pkfnw"]
 [ext_resource type="PackedScene" uid="uid://cxhbnxsocgt5p" path="res://Scenes/Guns and Bullets/MachineGuns.tscn" id="5_4yu8b"]
 [ext_resource type="Script" path="res://Scripts/camera.gd" id="9_g6b74"]
 
@@ -234,8 +236,7 @@ forwardSpeedRange = {
 strifeSpeed = 30.0
 hoverSpeed = 30.0
 boostSpeed = 2.0
-mouseSpeed = 1.0
-mouseDamping = 10.0
+mouseDamping = 0.25
 mouseIdleThreshold = 0.001
 boostFOVMultiplier = 1.0
 cameraDamping = 5.0
@@ -245,6 +246,9 @@ raycastRange = 10000000
 targetMarkerNormalColour = Color(0.91, 0.979, 1, 1)
 targetMarkerLockedColour = Color(1, 0.266667, 0, 1)
 listOfGuns = [NodePath("mesh/weapons/machineGuns")]
+explode = ExtResource("2_vwtkj")
+gameOverScreen = ExtResource("3_pkfnw")
+regenVignetteColor = Color(0, 0.666667, 1, 1)
 
 [node name="mesh" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.956, 0, 0, 0, 0.34, 0, 0, 0, 1, 0, 0, 0)
@@ -270,7 +274,6 @@ transform = Transform3D(-2.51478e-07, 0, 5.75314, 0, 16.1765, 0, -5.5, 0, -2.404
 [node name="machineGuns" parent="mesh/weapons" node_paths=PackedStringArray("ship", "cam") instance=ExtResource("5_4yu8b")]
 ship = NodePath("../../..")
 gunName = &"MachineGun"
-bulletDamage = 5.0
 cam = NodePath("../../../cameraGimbal/Camera")
 
 [node name="boxCollider" type="CollisionShape3D" parent="."]

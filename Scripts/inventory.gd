@@ -20,12 +20,10 @@ func updateInventory() -> void:
 
 	for j in range(itemSlots.size()):
 		if j == selectedIndex:
-			print("panel color set to active")
 			var activeStyleBox = itemSlots[j].get_theme_stylebox("panel")
 			activeStyleBox.bg_color = activeItemSlotColor
 			itemSlots[j].add_theme_stylebox_override("panel", activeStyleBox)
 		else:
-			print("panel color set to idle")
 			var activeStyleBox = itemSlots[j].get_theme_stylebox("panel")
 			activeStyleBox.bg_color = idleItemSlotColor
 			itemSlots[j].add_theme_stylebox_override("panel", activeStyleBox)

@@ -54,7 +54,7 @@ var noise_y = 0
 @export_group("Health")
 @export var healthbar: Node
 @export var shieldbar: Node
-
+@export var immortal: bool = false
 # @export var shieldRegenPerUnit = 0.02
 # @export var timeToRegenShieldAfterHit = 5.0
 
@@ -62,16 +62,26 @@ var noise_y = 0
 @export_group("Guns")
 @export var listOfGuns: Array[Node]
 
-@onready var vw = DisplayServer.window_get_size()
+@onready var vw = get_viewport().get_visible_rect().size
 
 @onready var canvasNode:CanvasLayer = $"../UI"
 
+@export_group("Die")
+@export var explode: PackedScene
+@export var gameOverScreen: PackedScene
 
 @export_group("UI")
+
+@export var speedLabel: Node
+@export var inventory: Node
+@export var statusRing: Node
+
 @export_subgroup("vignette")
 
 @export var normalVignetteColor:Color = Color(0, 0, 0)
 @export var damageVignetteColor:Color = Color(1, 0, 0)
+@export var regenVignetteColor:Color = Color(1, 0, 0)
+
 var currentVignetteColor = normalVignetteColor
 # @export var interactionKey: StringName
 
@@ -82,11 +92,9 @@ var currentVignetteColor = normalVignetteColor
 
 @onready var ui = $"../UI"
 @onready var distanceLabel = $"../UI/distance"
-@onready var speedLabel = $"../UI/speed"
-@onready var statusRing = $"../UI/statusRing"
+
 @onready var interactionLabel = $"../UI/interactionLabel"
 @onready var vignette = $"../UI/vignette"
-@onready var inventory = $"../UI/inventory"
 
 @onready var healthData = $healthData
 
@@ -99,6 +107,8 @@ var currentVignetteColor = normalVignetteColor
 @onready var camNode = get_viewport().get_camera_3d()
 @onready var centre = get_viewport().get_visible_rect().size / 2
  
+@onready var root = get_tree().current_scene
+
 var inputVector = Vector3()
 var mouseDistance = Vector2()
 var mouseButtonLeft
@@ -149,32 +159,15 @@ func _ready() -> void:
 	inventory.selectedIndex = selectedIndex
 	inventory.updateInventory()
 
-	print(inventoryItems)
-
-	# shieldRegenTimer.timeout.connect(regenShield)
-	# updateHealth()
-
-	# var trail = GPUTrail3D.new()
-	# # trail.length = 50
-	# trail.length_seconds = 3
-	# trails.add_child(trail)
-	# trail.billboard = true
-
-	# # trail.visible = false
-
-
-func _input(event):
-	if event is InputEventMouse:
-		mouseDistance.x = (event.global_position.x - (vw.x*0.5))/(vw.y*0.5)
-		mouseDistance.y = (event.global_position.y - (vw.y*0.5))/(vw.y*0.5)
-		
-		mouseDistance = mouseDistance.clamp(Vector2(-1, -1), Vector2(1, 1))
+	print("inventoryItems: ", inventoryItems)
 
 ########################
 #Process functions
 ########################
 
 func _physics_process(delta: float) -> void:
+	centre = get_viewport().get_visible_rect().size / 2
+
 	#i truly eonder what this does
 	handleRayCast()
 
@@ -205,15 +198,6 @@ func _process(delta: float) -> void:
 	inputVector = inputVector.normalized()
 	roll = lerpf(roll, rollInput, rollAcceleration * delta)
 
-	# if trauma:
-	# 	trauma = max(trauma - decay * delta, 0)
-	# 	shake()
-	# 	vignette.get_material().set_shader_parameter("vignette_color", damageVignetteColor) 
-	# else:
-	# 	vignette.get_material().set_shader_parameter("vignette_color", normalVignetteColor) 
-	print(healthData.health)
-
-
 ################################################################################################
 ################################################################################################
 
@@ -225,7 +209,7 @@ func handleRayCast():
 	var space_state = get_world_3d().direct_space_state
 	
 	var from = camNode.project_ray_origin(centre)
-	var to = from + camNode.project_ray_normal(centre) * raycastRange
+	var to = from + camNode.project_ray_normal(get_viewport().get_mouse_position()) * raycastRange
 	
 	var params = PhysicsRayQueryParameters3D.create(from, to)
 	params.exclude = [self]
@@ -242,9 +226,9 @@ func handleRayCast():
 
 		# targetLockSprite.scale = Vector3.ONE * max(target_collider.scale.x, target_collider.scale.y, target_collider.scale.z)
 
-		# var distanceM = global_position.distance_to(hit_origin)
-		# var distanceKM:float = snappedf(distanceM/1000, 0.001)
-		# distanceLabel.text = str(distanceKM) + "KM"
+		var distanceM = global_position.distance_to(hit_origin)
+		var distanceKM:float = snappedf(distanceM/1000, 0.001)
+		distanceLabel.text = str(distanceKM) + "KM"
 
 		#stuff done for select target_colliders, e.g. target lock on enemies, celestial body info
 		if targetCollider.is_in_group("enemy"):
@@ -259,7 +243,7 @@ func handleRayCast():
 
 			if targetLocked and canLockOnTarget:
 				targetLockSprite.targetLockSpriteColor = targetMarkerLockedColour
-				targetLockSprite.global_position = lockedTarget.target_collider.global_transform.origin
+				targetLockSprite.global_position = lockedTarget.collider.global_transform.origin
 
 			else:
 				lockedTarget = null
@@ -283,10 +267,10 @@ func handleRayCast():
 	else:
 		#update markers if needed, like for example locked targets
 		if targetLocked and canLockOnTarget:
-			updateTargetMarker(lockedTarget.target_collider)
+			updateTargetMarker(lockedTarget.collider)
 			targetLockSprite.targetLockSpriteColor = targetMarkerLockedColour
 
-			var targetOrigin = lockedTarget.target_collider.global_transform.origin
+			var targetOrigin = lockedTarget.collider.global_transform.origin
 			targetLockSprite.global_position = targetOrigin
 
 
@@ -295,31 +279,6 @@ func handleRayCast():
 			lockedTarget = null
 			targetLocked = false
 			targetLockSprite.visible = false
-
-
-
-########################
-#Camera Shake
-########################
-
-# func add_trauma(amount):
-# 	trauma = min(trauma + amount, 1.0)
-		
-# func shake():
-# 	noise_y += 1
-# 	var amount = pow(trauma, trauma_power)
-
-# 	var shakeRotation = maxRotation * amount * noise.get_noise_2d(noise.seed, noise_y) * randi_range(-1, 1)
-# 	var shakeH_offset = maxRotation * amount * noise.get_noise_2d(noise.seed + 1, noise_y) * randi_range(-1, 1)
-# 	var shakeV_offset = maxRotation * amount * noise.get_noise_2d(noise.seed + 2, noise_y) * randi_range(-1, 1)
-
-# 	cam.rotation_degrees.z = initial_cam_rotation.z + shakeRotation
-# 	cam.rotation_degrees.y = initial_cam_rotation.y + shakeH_offset
-# 	cam.rotation_degrees.x = initial_cam_rotation.x + shakeV_offset
-
-# 	# canvasNode.rotation = shakeRotation * canvasShakeMultiplier
-# 	# canvasNode.offset.x = shakeH_offset * canvasShakeMultiplier
-# 	# canvasNode.offset.y = shakeV_offset * canvasShakeMultiplier
 
 ########################
 #Inventory stuff
@@ -365,7 +324,7 @@ func handleInventory():
 			inventoryItems[selectedIndex].use()
 			inventoryItems.remove_at(selectedIndex)
 			selectedIndex -= 1
-	print(inventoryItems)
+	print("inventoryItems: ", inventoryItems)
 	inventory.updateInventory()
 
 func inventoryFull():
@@ -404,6 +363,11 @@ func updateTargetMarker(targetMarkerCollider):
 #Movement and mouse
 ########################
 
+func directions():
+	forward = transform.basis.z
+	left = transform.basis.x
+	up = transform.basis.y
+
 func mouse(delta):
 	if Input.get_action_strength("ui_cancel"):
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
@@ -425,10 +389,12 @@ func mouse(delta):
 	mouseButtonRight = Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT)
 	mouseButtonMiddle = Input.is_mouse_button_pressed(MOUSE_BUTTON_MIDDLE)
 
-func directions():
-	forward = transform.basis.z
-	left = transform.basis.x
-	up = transform.basis.y
+func _input(event):
+	if event is InputEventMouse:
+		mouseDistance.x = (event.global_position.x - (vw.x*0.5))/(vw.y*0.5)
+		mouseDistance.y = (event.global_position.y - (vw.y*0.5))/(vw.y*0.5)
+		
+		mouseDistance = mouseDistance.clamp(Vector2(-1, -1), Vector2(1, 1))
 
 func move(delta):
 	#State Handling
@@ -451,22 +417,13 @@ func move(delta):
 
 	roll = lerpf(roll, rollInput, rollAcceleration * delta)
 
+	#ChatGPT sucks, good thing I deleted my account
 	var quaternionRot = Quaternion.from_euler(Vector3(y * mouseSpeed * delta, -x * mouseSpeed * delta, roll * rollSpeed * delta))
 	transform.basis *= Basis(quaternionRot)
 
 	global_position += transform.basis.z * activeForwardSpeed * delta
 	global_position += (transform.basis.x * activeStrifeSpeed * delta) + (transform.basis.y * activeHoverSpeed * delta) 
 
-
-
-		# weapons.set_process(true)
-		
-	# velocity = 
-	
-	#ChatGPT sucks, good thing I deleted my account
-
-	
-	#camera movement
 	cam.fov = lerpf(cam.fov, currentFOV, fovDamping * delta)
 
 ########################
@@ -474,17 +431,20 @@ func move(delta):
 ########################
 
 func hit(damage, bulletTrauma):
+	if !immortal:
 
-	if trauma < 0.1:
-		cam.add_trauma(bulletTrauma)
+		if trauma < 0.1:
+			cam.add_trauma(bulletTrauma)
 
-	if healthData.shield > 0:
-		healthData.setShield(healthData.shield - damage)
-	else:
-		healthData.setHealth(healthData.health - damage)
+		if healthData.shield > 0:
+			healthData.setShield(healthData.shield - damage)
+		else:
+			healthData.setHealth(healthData.health - damage)
 
+		if(healthData.health <= 0):
+			commitDie()
 
-	healthData.startRegenShield()
+		healthData.startRegenShield()
 
 func _on_health_data_health_changed(_value:Variant) -> void:
 	updateHealth()
@@ -520,13 +480,65 @@ func isInteractionKeyPressed():
 #Freeze
 ########################
 
-func freeze():
-	for gun in listOfGuns:
-		gun.set_process(false)
+func freeze(activate):
+	if activate:
+		for gun in listOfGuns:
+			gun.set_process(false)
 
+		set_process(false)
+		set_physics_process(false)
+	else:
+		set_process(true)
+		set_physics_process(true)
+
+func commitDie():
+	velocity = Vector3.ZERO
+	mesh.visible = false
+	collider.disabled = true
+
+	if lockedTarget:
+		if lockedTarget.collider == self:
+			targetLocked = false
+			lockedTarget = null
+
+	# print(state)
+
+	# collider.visible = false	
+	# mesh.visible = false
+
+	#all the set process falses
 	set_process(false)
 	set_physics_process(false)
 
-func unfreeze():
+	statusRing.visible = false
+	for gun in listOfGuns:
+		gun.set_process(false)
+
+	var explosion = explode.instantiate()
+	add_child(explosion)
+
+	await get_tree().create_timer(3.5).timeout
+
+	var gameover = gameOverScreen.instantiate()
+	root.add_child(gameover)
+
+	gameover.get_child(2).get_child(1).button_up.connect(undie)
+
+	#important
+	print(self, "is gone. forever") #prints funny message
+
+func undie():
+	# remove gameover scene
+	get_tree().get_first_node_in_group("gameover").queue_free()
+
+	velocity = Vector3.ZERO
+	mesh.visible = true
+	collider.disabled = false
+
+	healthData.setHealth(healthData.maxHealth)
+	healthData.setShield(healthData.maxShield)
+
 	set_process(true)
 	set_physics_process(true)
+
+	statusRing.visible = true

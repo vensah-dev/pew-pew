@@ -91,13 +91,9 @@ func _physics_process(delta: float) -> void:
 		# smoothed_destination = lerp(smoothed_destination, destination, 0.01)
 		# look_at(smoothed_destination.snapped(Vector3.ONE), Vector3.UP, true)
 		state = "attack"
-		print(self,"state: ", state)
 
 	elif state == "chasing":
 		# state = "chasing OKAY!"
-
-		print(destination)
-
 
 		lookAtButSmooth(destination, delta)
 
@@ -121,7 +117,6 @@ func _physics_process(delta: float) -> void:
 			# await get_tree().create_timer(1.0).timeout
 
 			state = "idle"
-			print(self,"state: ", state)
 
 		else:
 
@@ -140,11 +135,9 @@ func _physics_process(delta: float) -> void:
 
 		if global_position.distance_to(player.global_position) < 50:
 			state = "chasing"
-			print(self, "state: ", state)
 
 		if rayCast.is_colliding():
 			var collided_object = rayCast.get_collider()  
-			print("results from enemy: ", collided_object)
 
 			if collided_object.is_in_group("player"):
 				shoot(1)
@@ -257,9 +250,7 @@ func die():
 	collectible.global_position = explosion.global_position
 
 	await get_tree().create_timer(3.5).timeout
-	queue_free()
-	print(self, "is gone. forever")
-	
+	queue_free()	
 
 func random_point_in_sphere_surface(target, radius) -> Vector3:
 	var random_direction = Vector3(randf_range(-1.0, 1.0), randf_range(-1.0, 1.0), randf_range(-1.0, 1.0)).normalized()

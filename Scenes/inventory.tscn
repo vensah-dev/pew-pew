@@ -63,10 +63,10 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -664.0
-offset_top = -350.0
-offset_right = -128.0
-offset_bottom = -254.0
+offset_left = -408.0
+offset_top = -128.0
+offset_right = -64.0
+offset_bottom = -64.0
 grow_horizontal = 0
 grow_vertical = 0
 size_flags_horizontal = 0
@@ -89,7 +89,7 @@ size_flags_horizontal = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_sglcg")
 
 [node name="icon" type="TextureRect" parent="HBoxContainer/item1"]
-custom_minimum_size = Vector2(64, 64)
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 texture = ExtResource("2_3csid")
 expand_mode = 1
@@ -101,7 +101,7 @@ size_flags_horizontal = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_br6sb")
 
 [node name="icon" type="TextureRect" parent="HBoxContainer/item2"]
-custom_minimum_size = Vector2(64, 64)
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 texture = ExtResource("1_thu0s")
 expand_mode = 1
@@ -113,7 +113,7 @@ size_flags_horizontal = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_1kj1p")
 
 [node name="icon" type="TextureRect" parent="HBoxContainer/item3"]
-custom_minimum_size = Vector2(64, 64)
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 texture = ExtResource("3_3yaph")
 expand_mode = 1
@@ -125,7 +125,7 @@ size_flags_horizontal = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_m8ak4")
 
 [node name="icon" type="TextureRect" parent="HBoxContainer/item4"]
-custom_minimum_size = Vector2(64, 64)
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 texture = ExtResource("4_5b6cf")
 expand_mode = 1
@@ -137,7 +137,7 @@ size_flags_horizontal = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_321gt")
 
 [node name="icon" type="TextureRect" parent="HBoxContainer/item5"]
-custom_minimum_size = Vector2(64, 64)
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 texture = ExtResource("5_nbq3p")
 expand_mode = 1
@@ -149,7 +149,7 @@ size_flags_horizontal = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_hh4jn")
 
 [node name="icon" type="TextureRect" parent="HBoxContainer/item6"]
-custom_minimum_size = Vector2(64, 64)
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 texture = ExtResource("7_joj4k")
 expand_mode = 1

@@ -16,7 +16,6 @@ func _ready() -> void:
 	camera.set_cull_mask_value(cameraCullMask, true)
 	await get_tree().process_frame
 
-	print("self:", self)
 
 	subViewport.size = size
 	subViewportContainer.size = size

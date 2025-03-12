@@ -1,0 +1,180 @@
+[gd_scene load_steps=17 format=3 uid="uid://2pdt6eob40jq"]
+
+[ext_resource type="FontFile" uid="uid://dfgjr51y5pff7" path="res://Assets/Poppins/Poppins-Thin.ttf" id="2_362jk"]
+[ext_resource type="FontFile" uid="uid://pw18l2pw732g" path="res://Assets/Poppins/Poppins-Light.ttf" id="2_y50i7"]
+
+[sub_resource type="Animation" id="Animation_r5eb3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Background:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 0.501961)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("VBoxContainer:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_4itum"]
+resource_name = "gameOverScreen"
+length = 5.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Background:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 5),
+"transitions": PackedFloat32Array(2, 0.3),
+"update": 0,
+"values": [Color(0.34, 0, 0, 0), Color(0.16, 0, 0, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("VBoxContainer:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2.5),
+"transitions": PackedFloat32Array(0.2, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0b6eb"]
+_data = {
+"RESET": SubResource("Animation_r5eb3"),
+"gameOverScreen": SubResource("Animation_4itum")
+}
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_m87np"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6eo6m"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vmn5s"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_k14bt"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_e560q"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_v6g5o"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_q2jji"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2t8nv"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_oea7o"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_omehv"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ubhyx"]
+
+[node name="GameOver" type="CanvasLayer" groups=["gameover"]]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_0b6eb")
+}
+autoplay = "gameOverScreen"
+
+[node name="Background" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color(0, 0, 0, 0.501961)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+modulate = Color(0, 0, 0, 0)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -377.5
+offset_top = -129.0
+offset_right = 377.5
+offset_bottom = 129.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 32
+
+[node name="gameoverMessage" type="RichTextLabel" parent="VBoxContainer"]
+clip_contents = false
+layout_mode = 2
+theme_override_colors/default_color = Color(1, 0.166667, 0, 1)
+theme_override_fonts/normal_font = ExtResource("2_362jk")
+theme_override_font_sizes/normal_font_size = 72
+bbcode_enabled = true
+text = "[center]You were Pew Pewed![/center]"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="Respawn" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 0.25098)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 0.501961)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 0.282353)
+theme_override_colors/font_color = Color(1, 1, 1, 0.25098)
+theme_override_fonts/font = ExtResource("2_y50i7")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/focus = SubResource("StyleBoxEmpty_m87np")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_6eo6m")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_vmn5s")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_k14bt")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_e560q")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_v6g5o")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_q2jji")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_2t8nv")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_oea7o")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_omehv")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_ubhyx")
+text = "Respawn
+"
+flat = true
+
+[node name="Menu" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 0.25098)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 0.501961)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 0.282353)
+theme_override_colors/font_color = Color(1, 1, 1, 0.25098)
+theme_override_fonts/font = ExtResource("2_y50i7")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/focus = SubResource("StyleBoxEmpty_m87np")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_6eo6m")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_vmn5s")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_k14bt")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_e560q")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_v6g5o")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_q2jji")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_2t8nv")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_oea7o")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_omehv")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_ubhyx")
+text = "Menu
+"
+flat = true

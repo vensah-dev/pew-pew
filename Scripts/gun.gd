@@ -39,7 +39,7 @@ extends Node3D
 @onready var main = get_tree().current_scene
 
 @onready var space = get_world_3d().direct_space_state
-@onready var centre = get_viewport().get_visible_rect().size / 2
+@onready var crossHair = get_viewport().get_mouse_position()
 
 var statusRing
 var statusRingOGScale
@@ -81,13 +81,14 @@ func _ready():
 	statusRing.max_value = magSize
 
 func _process(delta: float) -> void:
+	crossHair = get_viewport().get_mouse_position()
+
 	if isPlayer:
 		if reloading:
 			statusRing.fill_mode = 5
 			statusRing.tint_progress = reloadColor
 			statusRing.max_value = cooldownInterval * 100
 			statusRing.value = (cooldownInterval - snapped(timer.time_left, 0.001)) * 100
-			print("timeLeft: ", cooldownInterval - snapped(timer.time_left, 0.001))
 
 		else:
 			statusRing.fill_mode = 4
@@ -163,8 +164,8 @@ func spawnBullet(gun):
 
 	# check if the gun need to aim the bullets toward the crosshair or not
 	if cam:
-		var from = cam.project_ray_origin(centre)
-		var to = from + cam.project_ray_normal(centre) * bulletRange
+		var from = cam.project_ray_origin(crossHair)
+		var to = from + cam.project_ray_normal(crossHair) * bulletRange
 		
 		var query = PhysicsRayQueryParameters3D.create(from, to)
 		query.exclude = [self]
@@ -175,7 +176,7 @@ func spawnBullet(gun):
 			bullet.look_at_from_position(gun.global_position, results.position, bullet.basis.y, true)
 			bullet.bulletRange = gun.global_position.distance_to(results.position) * 1.5
 		else:
-			bullet.look_at_from_position(gun.global_position, cam.project_position(centre, bulletRange), bullet.basis.y, true)
+			bullet.look_at_from_position(gun.global_position, cam.project_position(crossHair, bulletRange), bullet.basis.y, true)
 		# else:
 		# 	bullet.look_at_from_position(gun.global_position, gun.global_position * gun.global_transform.basis.z * bulletRange, bullet.basis.y, true)
 	

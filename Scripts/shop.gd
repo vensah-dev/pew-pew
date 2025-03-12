@@ -41,13 +41,13 @@ func generateShop():
 
 
 func openShop():
-	player.freeze()
+	player.freeze(true)
 
 	canvasAnim.play("spawn")
 	canvasAnim.advance(0)
 
 func closeShop():
-	player.unfreeze()
+	player.freeze(false)
 
 	canvasAnim.play("byebye")
 	canvasAnim.advance(0)

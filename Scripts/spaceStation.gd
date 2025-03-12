@@ -1,19 +1,23 @@
 extends Node3D
 
-@export var spawnPoint:Node3D
-
+@export var spawnPoint: Node
 @onready var player = get_tree().get_first_node_in_group("player")
 
-
+var playerExitPoint: Node
 var insideEntry = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	# SceneSwicther.worldSwitched.connect(movePlayer)
-	player.transform = spawnPoint.global_transform
-
-# func movePlayer():
+	SceneSwicther.worldSwitched.connect(movePlayer)
 	
+
+func movePlayer(currentWorld):
+	if currentWorld != self:
+		if playerExitPoint != null:
+			player.global_position = playerExitPoint.global_position
+
+	elif currentWorld == self:
+		player.global_position = spawnPoint.global_position
 
 func _process(_delta: float) -> void:
 	if insideEntry && Input.is_action_just_pressed("interact"):

@@ -8,15 +8,17 @@
 transform = Transform3D(2.98037e-09, 0.00276629, -0.249985, -1.53906e-10, 0.249985, 0.00276629, 0.25, 1.20919e-10, 2.98189e-09, 0, 0, 0)
 script = ExtResource("1_mrpj1")
 icon = ExtResource("2_r7yfv")
-bulletSpeed = 500.0
-bulletDamage = 200.0
+bulletSpeed = 1000.0
+bulletDamage = 2.5
 bulletNode = ExtResource("3_aai68")
-bulletInterval = 0.05
-magSize = 100
+bulletInterval = 0.1
+magSize = 75
 gunPoints = [NodePath("Gun0"), NodePath("Gun1")]
 idleColor = Color(1, 1, 1, 1)
 reloadColor = Color(0.72, 0.958, 1, 1)
 shootingColor = Color(0.53, 0.9295, 1, 1)
+hitScaleMultiplier = 0.9
+hitScaleSpeed = 2.0
 
 [node name="Gun0" type="Node3D" parent="."]
 transform = Transform3D(1, 5.55112e-17, 1.77636e-14, 2.77556e-16, 1, -9.31323e-10, 2.4869e-14, 3.72529e-09, 1, -0.32, -0.469, 2.159)

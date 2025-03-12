@@ -8,22 +8,19 @@ extends Resource
 @export var addMaxShield: float
 
 func purchased(player):
-    player.addItem(self)
+	player.addItem(self)
 
 func act(player):
-    
-    if addHealth > 0:
-        player.healthData.health += addHealth
-        print("health ", player.healthData.health)
+	
+	if addHealth > 0:
+		player.vignette.get_material().set_shader_parameter("vignette_color", player.regenVignetteColor) 
+		player.healthData.health += addHealth
 
-    elif addMaxHealth > 0:
-        player.healthData.maxHealth += addMaxHealth
-        print("maxHealth ", player.healthData.maxHealth)
+	elif addMaxHealth > 0:
+		player.healthData.maxHealth += addMaxHealth
 
-    elif addMaxShield > 0:
-        player.healthData.maxShield += addMaxShield
-        print("maxShield ", player.healthData.maxShield)
+	elif addMaxShield > 0:
+		player.healthData.maxShield += addMaxShield
 
-    elif addShieldRegen > 0:
-        player.healthData.shieldRegenPerUnit += addShieldRegen
-        print("shieldRegenPerUnit ", player.healthData.shieldRegenPerUnit)
+	elif addShieldRegen > 0:
+		player.healthData.shieldRegenPerUnit += addShieldRegen

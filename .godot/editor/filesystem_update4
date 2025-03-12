@@ -1,7 +1,7 @@
 res://Assets/audio/default_bus_layout.tres
 res://Assets/Texture/environment.tres
 res://Scenes/Game.tscn
-res://Assets/materials/bulletMaterial.tres
+res://Scripts/player.gd
 res://Scripts/shaders/vingette.gdshader
 res://Assets/presets/standardLabel.tres
 res://Scripts/resources/items/repairKit.tres
@@ -12,37 +12,15 @@ res://Scripts/shaders/outlineShader.gdshader
 res://Scripts/shaders/toonShader.gdshader
 res://Scripts/shaders/toon.gdshader
 res://Scenes/player.tscn
-res://Scenes/spaceStation.tscn
+res://Scenes/inventory.tscn
+res://Scenes/gameOverScene.tscn
 res://Scenes/Guns and Bullets/homingBullet.tscn
-res://Scenes/explosion.tscn
 res://Scenes/enemy.tscn
 res://Scenes/enemyWithMissles.tscn
-res://Scenes/currency.tscn
+res://Scenes/asteroidDefault.tscn
+res://Scenes/shop.tscn
+res://Scenes/environment/stars/starBlue.tscn
+res://Scenes/spaceStationExterior.tscn
 res://Scenes/Guns and Bullets/Boomer.tscn
 res://Scenes/Guns and Bullets/MachineGuns.tscn
-res://Scenes/target_lock.tscn
-res://Scripts/player.gd
-res://Scripts/inventory.gd
-res://Scripts/shop.gd
-res://Scripts/spaceStation.gd
-res://Scripts/spaceStationExterior.gd
-res://Scripts/targetLock.gd
-res://Scripts/minimap.gd
-res://Scripts/gun.gd
-res://Scripts/gameManager.gd
-res://Scripts/enemy.gd
-res://Scripts/crosshair.gd
-res://Scripts/collectible.gd
-res://Scripts/cameraView.gd
-res://Scripts/camera.gd
-res://Scripts/bullet.gd
-res://Scripts/world/body.gd
-res://Scripts/world/solarSystem.gd
-res://Scripts/world/world.gd
-res://Scripts/spawners/celestialBodySpawner.gd
-res://Scripts/spawners/enemySpawner.gd
-res://Scripts/spawners/SolarSystemSpawner.gd
-res://Scripts/spawners/starSpawner.gd
-res://Scripts/resources/scripts/items.gd
-res://Scripts/resources/items/functions/addWeapon.gd
-res://Scripts/resources/items/functions/healthManipulation.gd
+res://Scenes/spaceStation.tscn

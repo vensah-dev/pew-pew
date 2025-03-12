@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://bae0rrler2lwr"]
+[gd_scene load_steps=46 format=3 uid="uid://bae0rrler2lwr"]
 
 [ext_resource type="Script" path="res://Scripts/gameManager.gd" id="1_jmc7e"]
 [ext_resource type="PackedScene" uid="uid://cgng6km46j0vt" path="res://Scenes/player.tscn" id="2_de30o"]
@@ -27,7 +27,9 @@
 [ext_resource type="Resource" uid="uid://bxfg45ubc2pv7" path="res://addons/SphynxMotionBlurToolkit/Guertin/guertin_tile_max_y_stage.tres" id="12_co80g"]
 [ext_resource type="Resource" uid="uid://bqehecsdgt70s" path="res://addons/SphynxMotionBlurToolkit/Guertin/guertin_tile_variance_stage.tres" id="13_pn7nl"]
 [ext_resource type="PackedScene" uid="uid://ccks54v5ml2k3" path="res://Scenes/spaceStationExterior.tscn" id="14_h7gm1"]
+[ext_resource type="Script" path="res://Scripts/goToMouse.gd" id="18_xd0wm"]
 [ext_resource type="FontFile" uid="uid://pw18l2pw732g" path="res://Assets/Poppins/Poppins-Light.ttf" id="20_0lqjg"]
+[ext_resource type="FontFile" uid="uid://dfgjr51y5pff7" path="res://Assets/Poppins/Poppins-Thin.ttf" id="21_ot4q4"]
 [ext_resource type="PackedScene" uid="uid://cqanug7lr8ug1" path="res://Scenes/inventory.tscn" id="25_n22hb"]
 [ext_resource type="Shader" path="res://Scripts/shaders/outlineShader.gdshader" id="30_ddqmw"]
 
@@ -99,33 +101,31 @@ shader_parameter/vignette_strength = 0.1
 shader_parameter/dither_strength = 0.01
 shader_parameter/vignette_color = Color(1, 0, 0, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7axhe"]
-bg_color = Color(0.5, 0.5, 0.5, 0.0980392)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yj6ht"]
-bg_color = Color(0.91, 0.961, 1, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8eld4"]
-bg_color = Color(0.909804, 1, 0.921569, 1)
-
-[sub_resource type="LabelSettings" id="LabelSettings_8opnt"]
-line_spacing = 60.0
-font = ExtResource("20_0lqjg")
-font_size = 26
-font_color = Color(0, 0, 0, 1)
-outline_size = 5
-
 [sub_resource type="LabelSettings" id="LabelSettings_7r6wg"]
 font = ExtResource("20_0lqjg")
 font_size = 32
 
 [sub_resource type="LabelSettings" id="LabelSettings_3un3w"]
-font = ExtResource("20_0lqjg")
+font = ExtResource("21_ot4q4")
 font_size = 24
 font_color = Color(1, 0.883333, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_27fdn"]
 font_size = 24
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_w8y8v"]
+content_margin_left = 64.0
+content_margin_top = 64.0
+content_margin_right = 64.0
+content_margin_bottom = 64.0
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_v37g5"]
+color = Color(1, 1, 1, 0.0627451)
+thickness = 10
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_wyk5l"]
+color = Color(1, 1, 1, 1)
+thickness = 10
 
 [node name="Game" type="Node3D" groups=["gameManager"]]
 script = ExtResource("1_jmc7e")
@@ -140,13 +140,15 @@ transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 
 layers = 3
 light_cull_mask = 4294967291
 
-[node name="player" parent="." node_paths=PackedStringArray("healthbar", "shieldbar") instance=ExtResource("2_de30o")]
-healthbar = NodePath("../UI/healthbar")
-shieldbar = NodePath("../UI/shieldbar")
+[node name="player" parent="." node_paths=PackedStringArray("healthbar", "shieldbar", "speedLabel", "inventory", "statusRing") instance=ExtResource("2_de30o")]
+healthbar = NodePath("../UI/Bottom UI/VBoxContainer/HBoxContainer/MarginContainer/Bars/HealthBarContainer/healthbar")
+shieldbar = NodePath("../UI/Bottom UI/VBoxContainer/HBoxContainer/MarginContainer/Bars/ShieldBarContainer/shieldbar")
+speedLabel = NodePath("../UI/Bottom UI/VBoxContainer/speed")
+inventory = NodePath("../UI/Bottom UI/VBoxContainer/HBoxContainer/inventory")
+statusRing = NodePath("../UI/CrossHairGroup/statusRing")
 
 [node name="outlines" type="MeshInstance3D" parent="."]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -0.2)
-visible = false
 layers = 3
 extra_cull_margin = 16384.0
 mesh = SubResource("QuadMesh_gmtlk")
@@ -160,10 +162,28 @@ material = SubResource("ShaderMaterial_kgtun")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = 2.0
+offset_bottom = 2.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Crosshair" type="CenterContainer" parent="UI"]
+[node name="CrossHairGroup" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("18_xd0wm")
+
+[node name="Crosshair" type="CenterContainer" parent="UI/CrossHairGroup"]
+layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -180,19 +200,20 @@ script = ExtResource("7_mhgb4")
 innerRadius = 1.0
 outerRadius = 0.0
 
-[node name="statusRing" type="TextureProgressBar" parent="UI"]
+[node name="statusRing" type="TextureProgressBar" parent="UI/CrossHairGroup"]
+layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -64.0
-offset_top = -64.0
-offset_right = 64.0
-offset_bottom = 64.0
+offset_left = -48.0
+offset_top = -48.0
+offset_right = 48.0
+offset_bottom = 48.0
 grow_horizontal = 2
 grow_vertical = 2
-pivot_offset = Vector2(64, 64)
+pivot_offset = Vector2(48, 48)
 value = 32.0
 fill_mode = 4
 nine_patch_stretch = true
@@ -201,100 +222,28 @@ texture_progress = ExtResource("7_n3nd6")
 tint_under = Color(1, 1, 1, 0.25098)
 tint_over = Color(1, 1, 1, 0)
 
-[node name="shieldbar" type="ProgressBar" parent="UI"]
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 160.0
-offset_top = -268.0
-offset_right = 800.0
-offset_bottom = -256.0
-grow_vertical = 0
-theme_override_colors/font_color = Color(0.5, 0.5, 0.5, 1)
-theme_override_font_sizes/font_size = 16
-theme_override_styles/background = SubResource("StyleBoxFlat_7axhe")
-theme_override_styles/fill = SubResource("StyleBoxFlat_yj6ht")
-value = 50.0
-show_percentage = false
-
-[node name="icon" type="TextureRect" parent="UI/shieldbar"]
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = -32.0
-offset_top = -10.0
-offset_right = 68.0
-offset_bottom = 90.0
-grow_vertical = 2
-scale = Vector2(0.2, 0.2)
-texture = ExtResource("5_o6m3p")
-
-[node name="healthbar" type="ProgressBar" parent="UI"]
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 160.0
-offset_top = -236.0
-offset_right = 800.0
-offset_bottom = -224.0
-grow_vertical = 0
-theme_override_colors/font_color = Color(0.5, 0.5, 0.5, 1)
-theme_override_font_sizes/font_size = 16
-theme_override_styles/background = SubResource("StyleBoxFlat_7axhe")
-theme_override_styles/fill = SubResource("StyleBoxFlat_8eld4")
-step = 0.001
-value = 50.0
-show_percentage = false
-
-[node name="icon" type="TextureRect" parent="UI/healthbar"]
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = -32.0
-offset_top = -10.0
-offset_right = 68.0
-offset_bottom = 90.0
-grow_vertical = 2
-scale = Vector2(0.2, 0.2)
-texture = ExtResource("6_2yts4")
-
 [node name="distance" type="Label" parent="UI"]
-visible = false
 anchors_preset = 14
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_top = -71.0
-offset_bottom = -26.0
+offset_top = -150.0
+offset_bottom = -105.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "distance"
-label_settings = SubResource("LabelSettings_8opnt")
+label_settings = SubResource("LabelSettings_7r6wg")
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="speed" type="Label" parent="UI"]
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 160.0
-offset_top = -174.0
-offset_right = 271.0
-offset_bottom = -128.0
-grow_vertical = 0
-text = "100 u/s"
-label_settings = SubResource("LabelSettings_7r6wg")
 
 [node name="FPS" type="Label" parent="UI"]
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 16.0
-offset_top = -50.0
-offset_right = 90.0
-offset_bottom = -16.0
+offset_left = 69.0
+offset_top = -65.0
+offset_right = 145.0
+offset_bottom = -30.0
 grow_vertical = 0
 pivot_offset = Vector2(37, 17)
 text = "FPS 60"
@@ -326,14 +275,10 @@ text = "F to Enter"
 label_settings = SubResource("LabelSettings_27fdn")
 
 [node name="gyroscope" parent="UI" instance=ExtResource("9_i6eme")]
-anchors_preset = 3
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = -432.0
-offset_top = -1048.0
-offset_right = -32.0
-offset_bottom = -648.0
-grow_vertical = 0
+offset_left = -400.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 400.0
 color = Color(1, 1, 1, 0.0392157)
 target = NodePath("../../player")
 followTarget = true
@@ -347,9 +292,98 @@ offset_right = -20.0
 offset_bottom = 521.0
 playerPath = NodePath("../../player")
 solarSystemSpawnerPath = NodePath("../../world/Solar System Spawner")
-keyBind = "9"
 
-[node name="inventory" parent="UI" instance=ExtResource("25_n22hb")]
+[node name="Bottom UI" type="PanelContainer" parent="UI"]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 3
+size_flags_vertical = 6
+theme_override_styles/panel = SubResource("StyleBoxEmpty_w8y8v")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Bottom UI"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/Bottom UI/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/Bottom UI/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 256
+theme_override_constants/margin_bottom = 8
+
+[node name="Bars" type="VBoxContainer" parent="UI/Bottom UI/VBoxContainer/HBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="ShieldBarContainer" type="HBoxContainer" parent="UI/Bottom UI/VBoxContainer/HBoxContainer/MarginContainer/Bars"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 16
+
+[node name="icon" type="TextureRect" parent="UI/Bottom UI/VBoxContainer/HBoxContainer/MarginContainer/Bars/ShieldBarContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+texture = ExtResource("5_o6m3p")
+expand_mode = 3
+stretch_mode = 4
+
+[node name="shieldbar" type="ProgressBar" parent="UI/Bottom UI/VBoxContainer/HBoxContainer/MarginContainer/Bars/ShieldBarContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0.5, 0.5, 0.5, 1)
+theme_override_font_sizes/font_size = 16
+theme_override_styles/background = SubResource("StyleBoxLine_v37g5")
+theme_override_styles/fill = SubResource("StyleBoxLine_wyk5l")
+value = 50.0
+show_percentage = false
+
+[node name="HealthBarContainer" type="HBoxContainer" parent="UI/Bottom UI/VBoxContainer/HBoxContainer/MarginContainer/Bars"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="icon" type="TextureRect" parent="UI/Bottom UI/VBoxContainer/HBoxContainer/MarginContainer/Bars/HealthBarContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("6_2yts4")
+expand_mode = 2
+stretch_mode = 4
+
+[node name="healthbar" type="ProgressBar" parent="UI/Bottom UI/VBoxContainer/HBoxContainer/MarginContainer/Bars/HealthBarContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0.5, 0.5, 0.5, 1)
+theme_override_font_sizes/font_size = 16
+theme_override_styles/background = SubResource("StyleBoxLine_v37g5")
+theme_override_styles/fill = SubResource("StyleBoxLine_wyk5l")
+value = 50.0
+show_percentage = false
+
+[node name="Expand Spacer" type="Control" parent="UI/Bottom UI/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="inventory" parent="UI/Bottom UI/VBoxContainer/HBoxContainer" instance=ExtResource("25_n22hb")]
+layout_mode = 2
+
+[node name="speed" type="Label" parent="UI/Bottom UI/VBoxContainer"]
+layout_mode = 2
+text = "100 u/s"
+label_settings = SubResource("LabelSettings_7r6wg")
 
 [node name="world" type="Node3D" parent="." groups=["worldNode"]]
 script = ExtResource("3_aiun5")

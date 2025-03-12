@@ -32,7 +32,7 @@ func _deferredSwitchScene(newWorld) -> void:
 	currentWorld = newWorldInstance
 	# var player = body.instantiate()
 	
-	worldSwitched.emit()
+	worldSwitched.emit(currentWorld)
 
 func _deferredSwitchSceneBack() -> void:
 	game.remove_child(currentWorld)
@@ -42,5 +42,4 @@ func _deferredSwitchSceneBack() -> void:
 	currentWorld = game.get_child(game.get_child_count()-1)
 
 	# var player = body.instantiate()
-
-	worldSwitched.emit()
+	worldSwitched.emit(currentWorld)

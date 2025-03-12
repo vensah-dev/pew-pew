@@ -7,7 +7,10 @@
 
 [sub_resource type="SphereMesh" id="SphereMesh_mlgiw"]
 material = ExtResource("2_ydrg3")
+radius = 0.75
 height = 5.0
+radial_segments = 25
+rings = 16
 
 [sub_resource type="Curve" id="Curve_o4oqm"]
 _data = [Vector2(0, 0.989953), 0.0, -2.39777, 0, 0, Vector2(1, 0), 0.10215, 0.0, 0, 0]
