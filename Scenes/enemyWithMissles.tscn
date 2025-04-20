@@ -1,6 +1,6 @@
 [gd_scene load_steps=13 format=4 uid="uid://cs0ateo6cimnx"]
 
-[ext_resource type="Script" path="res://Scripts/enemy.gd" id="1_m4un2"]
+[ext_resource type="Script" path="res://Scripts/enemy AI/enemy.gd" id="1_m4un2"]
 [ext_resource type="PackedScene" uid="uid://brhvvyyekkbfn" path="res://Scenes/explosion.tscn" id="2_68dj7"]
 [ext_resource type="PackedScene" uid="uid://bq68p4cwpovt2" path="res://Scenes/currency.tscn" id="3_66gur"]
 [ext_resource type="Texture2D" uid="uid://cwrhaah37bt4i" path="res://Assets/Models/Spaceship_Atlas.png" id="4_23g0k"]

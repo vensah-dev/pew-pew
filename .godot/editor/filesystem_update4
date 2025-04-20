@@ -1,26 +1,47 @@
 res://Assets/audio/default_bus_layout.tres
 res://Assets/Texture/environment.tres
-res://Scenes/Game.tscn
+res://Scenes/player.tscn
 res://Scripts/player.gd
+res://Assets/materials/blueGlow.tres
+res://Assets/particle effects/bulletImpactEffect.tres
 res://Scripts/shaders/vingette.gdshader
+res://Assets/materials/purpleGlow.tres
 res://Assets/presets/standardLabel.tres
+res://Scripts/resources/items/functions/healthManipulation.gd
 res://Scripts/resources/items/repairKit.tres
 res://Scripts/resources/items/maxHealthBoost.tres
 res://Scripts/resources/items/shieldCapcityUpgrade.tres
 res://Scripts/resources/items/machineGunItem.tres
 res://Scripts/shaders/outlineShader.gdshader
+res://Assets/materials/redGlow.tres
 res://Scripts/shaders/toonShader.gdshader
 res://Scripts/shaders/toon.gdshader
-res://Scenes/player.tscn
-res://Scenes/inventory.tscn
-res://Scenes/gameOverScene.tscn
-res://Scenes/Guns and Bullets/homingBullet.tscn
-res://Scenes/enemy.tscn
-res://Scenes/enemyWithMissles.tscn
-res://Scenes/asteroidDefault.tscn
-res://Scenes/shop.tscn
-res://Scenes/environment/stars/starBlue.tscn
-res://Scenes/spaceStationExterior.tscn
-res://Scenes/Guns and Bullets/Boomer.tscn
+res://Scenes/enemies/EU6.1.tscn
+res://Scenes/enemies/EU6.1(aggressive).tscn
+res://Scripts/enemy AI/enemy.gd
+res://GPUTrail-main/defaults/texture.tres
+res://GPUTrail-main/defaults/curve.tres
+res://Scenes/enemies/EU6.1(tank).tscn
+res://Scenes/Guns and Bullets/homingBulletYellow.tscn
+res://Scenes/Game.tscn
 res://Scenes/Guns and Bullets/MachineGuns.tscn
+res://Scenes/Guns and Bullets/bulletPurple.tscn
+res://Scenes/Guns and Bullets/Boomer.tscn
+res://Scenes/Guns and Bullets/bulletRed.tscn
+res://Scenes/spaceStationExterior.tscn
+res://Scenes/Guns and Bullets/homingBullet.tscn
+res://Scenes/Guns and Bullets/Railgun.tscn
+res://Scripts/bullet.gd
+res://Scripts/gun.gd
+res://Scenes/Guns and Bullets/bulletYellow.tscn
+res://Scenes/Guns and Bullets/bullet.tscn
+res://Scripts/inventory.gd
+res://Scripts/targetLock.gd
+res://Scripts/spawners/enemySpawner.gd
+res://Scenes/enemies/EU6.1(sniper).tscn
+res://Scripts/resources/items/railgunItem.tres
+res://Scripts/resources/items/boomerItem.tres
 res://Scenes/spaceStation.tscn
+res://Scenes/shop.tscn
+res://Scenes/shopItem.tscn
+res://Scripts/spaceStation.gd

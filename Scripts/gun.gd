@@ -159,27 +159,58 @@ func spawnBullet(gun):
 	if lockOnTarget:
 		print("what the ship is locked on: ", ship.lockedTarget)
 		if ship.lockedTarget:
-			if ship.lockedTarget.collider:
-				bullet.target = ship.lockedTarget.collider
+			if ship.lockedTarget:
+				bullet.target = ship.lockedTarget
 
 	# check if the gun need to aim the bullets toward the crosshair or not
 	if cam:
-		var from = cam.project_ray_origin(crossHair)
-		var to = from + cam.project_ray_normal(crossHair) * bulletRange
+		bullet.enemyBullet = false
+
+		var ray_origin = cam.project_ray_origin(get_viewport().get_mouse_position())
+		var ray_direction = cam.project_ray_normal(get_viewport().get_mouse_position())
+		var target_world_position = ray_origin + ray_direction * bulletRange
+
+		var look_direction = (target_world_position - global_position).normalized()
+
+		var from = global_position
+		var to = global_position + look_direction * bulletRange
 		
 		var query = PhysicsRayQueryParameters3D.create(from, to)
 		query.exclude = [self]
+		query.collide_with_areas = true
+
+		var exclude_layer = 13
+		var exclude_mask = 1 << exclude_layer
+		query.collision_mask = ~exclude_mask
 		
 		var results = space.intersect_ray(query)
 
+
 		if results:
-			bullet.look_at_from_position(gun.global_position, results.position, bullet.basis.y, true)
-			bullet.bulletRange = gun.global_position.distance_to(results.position) * 1.5
+			if (results.collider.is_in_group("enemyReticleArea3D")):
+				print("hit a reticle")
+
+				bullet.look_at_from_position(gun.global_position, results.collider.global_position, bullet.basis.y, true)
+				#remove when making guns have different ranges as part of gameplay
+				bullet.bulletRange = gun.global_position.distance_to(results.collider.global_position) * 1.5 # arbitrary constant
+
+			else:
+
+				bullet.look_at_from_position(gun.global_position, results.position, bullet.basis.y, true)
+				#remove when making guns have different ranges as part of gameplay
+				bullet.bulletRange = gun.global_position.distance_to(results.position) * 1.5 # arbitrary constant
+
 		else:
 			bullet.look_at_from_position(gun.global_position, cam.project_position(crossHair, bulletRange), bullet.basis.y, true)
-		# else:
-		# 	bullet.look_at_from_position(gun.global_position, gun.global_position * gun.global_transform.basis.z * bulletRange, bullet.basis.y, true)
-	
+
+	#if gun is on enemy
+	else:
+		bullet.enemyBullet = true
+
+		#assuming that the enemy does a check that its facing toward the player before shooting. As of 19/4/2025, yes it does (HitAndRunEnemyBehaviour)
+		bullet.look_at_from_position(gun.global_position, player.global_position, bullet.basis.y, true)
+		#remove when making guns have different ranges as part of gameplay
+		bullet.bulletRange = gun.global_position.distance_to(player.global_position) * 1.5 # arbitrary constant
 
 	main.add_child(bullet)
 

@@ -1,37 +1,20 @@
-[gd_scene load_steps=10 format=3 uid="uid://cl3jfdc3m0j2x"]
+[gd_scene load_steps=8 format=3 uid="uid://c3iea224xeger"]
 
-[ext_resource type="Script" path="res://Scripts/bullet.gd" id="1_niwft"]
-[ext_resource type="AudioStream" uid="uid://f5h284pvyqcx" path="res://Assets/audio/pew-pew.wav" id="2_rjiwv"]
-[ext_resource type="Material" uid="uid://cdihkyul8d7w1" path="res://Assets/materials/bulletRedMaterial.tres" id="2_x2781"]
-[ext_resource type="AudioStream" uid="uid://dl2l8upuc3bj" path="res://Assets/audio/smallExplosion.wav" id="3_uewmk"]
+[ext_resource type="Script" path="res://Scripts/bullet.gd" id="1_l0dwn"]
+[ext_resource type="Material" uid="uid://cph1177jeyx1o" path="res://Assets/materials/redGlow.tres" id="2_h47em"]
+[ext_resource type="Material" uid="uid://c3cauj8iawm16" path="res://Assets/particle effects/bulletImpactEffect.tres" id="3_883uy"]
+[ext_resource type="AudioStream" uid="uid://dl2l8upuc3bj" path="res://Assets/audio/smallExplosion.wav" id="3_cb76q"]
+[ext_resource type="AudioStream" uid="uid://f5h284pvyqcx" path="res://Assets/audio/pew-pew.wav" id="4_3mhsd"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_44bll"]
-material = ExtResource("2_x2781")
+material = ExtResource("2_h47em")
 height = 5.0
 
-[sub_resource type="Curve" id="Curve_o4oqm"]
-_data = [Vector2(0, 0.989953), 0.0, -2.39777, 0, 0, Vector2(1, 0), 0.10215, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="CurveTexture" id="CurveTexture_85rrc"]
-curve = SubResource("Curve_o4oqm")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_u3sro"]
-particle_flag_align_y = true
-emission_shape = 1
-emission_sphere_radius = 1.0
-direction = Vector3(0, 0, -1)
-spread = 90.0
-initial_velocity_min = 50.0
-initial_velocity_max = 50.0
-gravity = Vector3(0, 0, 0)
-scale_curve = SubResource("CurveTexture_85rrc")
-
 [sub_resource type="SphereMesh" id="SphereMesh_p128s"]
-material = ExtResource("2_x2781")
+material = ExtResource("2_h47em")
 
 [node name="Bullet" type="Node3D"]
-script = ExtResource("1_niwft")
+script = ExtResource("1_l0dwn")
 
 [node name="mesh" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
@@ -46,21 +29,20 @@ debug_shape_thickness = 5
 [node name="impact" type="GPUParticles3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.5)
 emitting = false
-amount = 4
 lifetime = 0.5
 one_shot = true
 explosiveness = 1.0
-process_material = SubResource("ParticleProcessMaterial_u3sro")
+process_material = ExtResource("3_883uy")
 draw_pass_1 = SubResource("SphereMesh_p128s")
 
 [node name="impactSound" type="AudioStreamPlayer3D" parent="impact"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.5)
-stream = ExtResource("3_uewmk")
+stream = ExtResource("3_cb76q")
 volume_db = -10.0
 pitch_scale = 2.5
 max_distance = 4096.0
 
 [node name="sound" type="AudioStreamPlayer3D" parent="."]
-stream = ExtResource("2_rjiwv")
+stream = ExtResource("4_3mhsd")
 attenuation_model = 3
 volume_db = -2.5

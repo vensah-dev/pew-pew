@@ -5,23 +5,29 @@
 [ext_resource type="PackedScene" uid="uid://b7sa02arh0p24" path="res://Scenes/Guns and Bullets/bullet.tscn" id="3_aai68"]
 
 [node name="machineGuns" type="Node3D" node_paths=PackedStringArray("gunPoints")]
-transform = Transform3D(2.98037e-09, 0.00276629, -0.249985, -1.53906e-10, 0.249985, 0.00276629, 0.25, 1.20919e-10, 2.98189e-09, 0, 0, 0)
+transform = Transform3D(-1.09278e-08, 0, -0.25, 0, 0.25, 0, 0.25, 0, -1.09279e-08, 0, 0, 0)
 script = ExtResource("1_mrpj1")
 icon = ExtResource("2_r7yfv")
-bulletSpeed = 1000.0
+bulletSpeed = 500.0
 bulletDamage = 2.5
 bulletNode = ExtResource("3_aai68")
 bulletInterval = 0.1
 magSize = 75
-gunPoints = [NodePath("Gun0"), NodePath("Gun1")]
+gunPoints = [NodePath("Gun 0"), NodePath("Gun 1"), NodePath("Gun 2"), NodePath("Gun 3")]
 idleColor = Color(1, 1, 1, 1)
 reloadColor = Color(0.72, 0.958, 1, 1)
 shootingColor = Color(0.53, 0.9295, 1, 1)
 hitScaleMultiplier = 0.9
 hitScaleSpeed = 2.0
 
-[node name="Gun0" type="Node3D" parent="."]
-transform = Transform3D(1, 5.55112e-17, 1.77636e-14, 2.77556e-16, 1, -9.31323e-10, 2.4869e-14, 3.72529e-09, 1, -0.32, -0.469, 2.159)
+[node name="Gun 0" type="Node3D" parent="."]
+transform = Transform3D(1, -7.10543e-14, 2.84217e-14, 1.77636e-15, 1, -2.79397e-09, -3.55271e-14, -4.6566e-09, 1, -0.100725, 0.027023, -2.44202)
 
-[node name="Gun1" type="Node3D" parent="."]
-transform = Transform3D(1, 5.55112e-17, 1.06581e-14, 1.11022e-16, 1, 0, 1.77636e-14, 1.86265e-09, 1, 0.27091, -0.469195, 2.15914)
+[node name="Gun 1" type="Node3D" parent="."]
+transform = Transform3D(1, -7.10543e-14, 2.84217e-14, 1.77636e-15, 1, -2.79397e-09, -3.55271e-14, -4.6566e-09, 1, -0.100725, 0.0223234, -2.01732)
+
+[node name="Gun 2" type="Node3D" parent="."]
+transform = Transform3D(1, -4.26326e-14, 1.42109e-14, 1.77636e-15, 1, -9.31321e-10, -2.84217e-14, -2.79396e-09, 1, -0.100725, -0.027023, 2.44202)
+
+[node name="Gun 3" type="Node3D" parent="."]
+transform = Transform3D(1, -5.68434e-14, 2.13163e-14, 1.77636e-15, 1, -1.86264e-09, -3.55271e-14, -3.72528e-09, 1, -0.100725, -0.0223235, 2.01732)

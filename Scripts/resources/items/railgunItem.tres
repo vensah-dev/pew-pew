@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="Item" load_steps=6 format=3 uid="uid://btqc370nqt0nx"]
+
+[ext_resource type="Script" path="res://Scripts/resources/items/functions/addWeapon.gd" id="1_ek4pb"]
+[ext_resource type="PackedScene" uid="uid://ifbyfeosltgy" path="res://Scenes/Guns and Bullets/Railgun.tscn" id="2_slw4o"]
+[ext_resource type="Script" path="res://Scripts/resources/scripts/items.gd" id="3_2thmk"]
+[ext_resource type="Texture2D" uid="uid://dn6gmbx86b4gl" path="res://Assets/UI/CrossHair.png" id="3_14adn"]
+
+[sub_resource type="Resource" id="Resource_4tmtf"]
+script = ExtResource("1_ek4pb")
+weapon = ExtResource("2_slw4o")
+
+[resource]
+script = ExtResource("3_2thmk")
+name = &"Railgun"
+description = &"A literal railgun, has a range of 2000 units, long range, but onky does like lemme see 70 DAMAGE!!!"
+icon = ExtResource("3_14adn")
+priceRange = {
+"max": 1500,
+"min": 1000
+}
+function = SubResource("Resource_4tmtf")
+immediate = false
+type = 2

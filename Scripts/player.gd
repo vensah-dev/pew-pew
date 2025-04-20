@@ -22,6 +22,7 @@ var forwardSpeed = forwardSpeedRange.min;
 @export var mouseSpeed = 2.0
 @export var mouseDamping = 1.5
 @export var mouseIdleThreshold = 0.15
+@export var aimAssist = 0.5
 
 
 @export_group("Camera")
@@ -46,6 +47,7 @@ var trauma_power = 2  # Trauma exponent. Use [2, 3].
 var noise_y = 0
 
 @export_group("Raycast")
+@onready var shapeCast = ShapeCast3D.new()
 @export var raycastRange = 1000
 @export var targetMarkerNormalColour: Color
 @export var targetMarkerLockedColour: Color
@@ -143,9 +145,17 @@ var lookingAtInteractable = false
 
 var inventoryItems = []
 
+@onready var currentMouseSpeed = mouseSpeed
+
 func _ready() -> void:
 
 	await get_tree().process_frame
+
+	# var coneShape = coneMesh()
+	# shapeCast.shape = coneShape
+
+	# add_child(shapeCast)
+
 	Input.mouse_mode = Input.MOUSE_MODE_CONFINED
 
 	healthData.setHealth(healthData.maxHealth)
@@ -207,18 +217,30 @@ func _process(delta: float) -> void:
 
 func handleRayCast():
 	var space_state = get_world_3d().direct_space_state
-	
-	var from = camNode.project_ray_origin(centre)
-	var to = from + camNode.project_ray_normal(get_viewport().get_mouse_position()) * raycastRange
-	
+
+	var ray_origin = camNode.project_ray_origin(get_viewport().get_mouse_position())
+	var ray_direction = camNode.project_ray_normal(get_viewport().get_mouse_position())
+	var target_world_position = ray_origin + ray_direction * raycastRange
+
+	var look_direction = (target_world_position - global_position).normalized()
+
+	var from = global_position
+	var to = global_position + look_direction * raycastRange
+
 	var params = PhysicsRayQueryParameters3D.create(from, to)
+
+	var exclude_layer = 12
+	var exclude_mask = 1 << exclude_layer
+	params.collision_mask = ~exclude_mask
+
 	params.exclude = [self]
+	params.collide_with_areas = true
 	
 	var result = space_state.intersect_ray(params)
+
 	distanceLabel.text = ""
 	
 	# lockedTarget = result
-
 	if result:
 		#stuff done for all colliders
 		var targetCollider = result.collider
@@ -231,19 +253,21 @@ func handleRayCast():
 		distanceLabel.text = str(distanceKM) + "KM"
 
 		#stuff done for select target_colliders, e.g. target lock on enemies, celestial body info
-		if targetCollider.is_in_group("enemy"):
+		if targetCollider.is_in_group("aimBox"):
+			var actualCollider = targetCollider.get_parent().get_parent()
+			updateTargetMarker(actualCollider)
+			currentMouseSpeed = mouseSpeed * (1-aimAssist)
 
-			updateTargetMarker(targetCollider)
 			targetLockSprite.targetLockSpriteColor = targetMarkerNormalColour
 
 			if Input.is_action_just_pressed("lock") and canLockOnTarget:
 				targetLocked = !targetLocked
 				if targetLocked:
-					lockedTarget = result
+					lockedTarget = actualCollider
 
-			if targetLocked and canLockOnTarget:
+			if targetLocked and canLockOnTarget and lockedTarget:
 				targetLockSprite.targetLockSpriteColor = targetMarkerLockedColour
-				targetLockSprite.global_position = lockedTarget.collider.global_transform.origin
+				targetLockSprite.global_position = lockedTarget.global_transform.origin
 
 			else:
 				lockedTarget = null
@@ -253,6 +277,7 @@ func handleRayCast():
 			lockedTarget = null
 			targetLocked = false
 			targetLockSprite.visible = false
+			currentMouseSpeed = mouseSpeed
 
 		if targetCollider.is_in_group("shop"):
 			lookingAtInteractable = true
@@ -266,11 +291,11 @@ func handleRayCast():
 
 	else:
 		#update markers if needed, like for example locked targets
-		if targetLocked and canLockOnTarget:
-			updateTargetMarker(lockedTarget.collider)
+		if targetLocked and canLockOnTarget and lockedTarget:
+			updateTargetMarker(lockedTarget)
 			targetLockSprite.targetLockSpriteColor = targetMarkerLockedColour
 
-			var targetOrigin = lockedTarget.collider.global_transform.origin
+			var targetOrigin = lockedTarget.global_transform.origin
 			targetLockSprite.global_position = targetOrigin
 
 
@@ -279,6 +304,8 @@ func handleRayCast():
 			lockedTarget = null
 			targetLocked = false
 			targetLockSprite.visible = false
+
+			currentMouseSpeed = mouseSpeed
 
 ########################
 #Inventory stuff
@@ -318,6 +345,7 @@ func handleInventory():
 				updatePredictionReticle = false
 			else:
 				canLockOnTarget = false
+				lockedTarget = null
 
 	elif inventoryItems[selectedIndex].get_class() == "Resource":
 		if Input.is_action_just_pressed("interact"):
@@ -352,10 +380,13 @@ func updateTargetMarker(targetMarkerCollider):
 	# targetLockSprite.scale = Vector3.ONE * scaleMultiplier/800
 
 	targetLockSprite.distance = distanceM
-	
-	targetLockSprite.shieldValue = targetMarkerCollider.healthData.shield
-	targetLockSprite.healthValue = targetMarkerCollider.healthData.health
 
+	if targetMarkerCollider.healthData.maxShield == 0:
+		targetLockSprite.shieldValue = 0
+	else:
+		targetLockSprite.shieldValue = (targetMarkerCollider.healthData.shield/targetMarkerCollider.healthData.maxShield) * 100
+
+	targetLockSprite.healthValue = (targetMarkerCollider.healthData.health/targetMarkerCollider.healthData.maxHealth) * 100
 
 	targetLockSprite.visible = true
 
@@ -418,7 +449,7 @@ func move(delta):
 	roll = lerpf(roll, rollInput, rollAcceleration * delta)
 
 	#ChatGPT sucks, good thing I deleted my account
-	var quaternionRot = Quaternion.from_euler(Vector3(y * mouseSpeed * delta, -x * mouseSpeed * delta, roll * rollSpeed * delta))
+	var quaternionRot = Quaternion.from_euler(Vector3(y * currentMouseSpeed * delta, -x * currentMouseSpeed * delta, roll * rollSpeed * delta))
 	transform.basis *= Basis(quaternionRot)
 
 	global_position += transform.basis.z * activeForwardSpeed * delta

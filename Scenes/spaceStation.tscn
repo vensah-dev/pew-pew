@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=4 uid="uid://ot5y5kip2g5p"]
+[gd_scene load_steps=40 format=4 uid="uid://ot5y5kip2g5p"]
 
 [ext_resource type="Script" path="res://Scripts/spaceStation.gd" id="1_yc6ne"]
 [ext_resource type="PackedScene" uid="uid://co1f6l8523pa4" path="res://Scenes/shop.tscn" id="2_a6ou8"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" path="res://Scripts/resources/items/functions/addWeapon.gd" id="9_xiibh"]
 [ext_resource type="Resource" uid="uid://dx43vf0tf7t5x" path="res://Scripts/resources/items/machineGunItem.tres" id="10_hp6wa"]
 [ext_resource type="PackedScene" uid="uid://06p05h1hg8ha" path="res://Scenes/Guns and Bullets/Boomer.tscn" id="10_qyemn"]
+[ext_resource type="Resource" uid="uid://btqc370nqt0nx" path="res://Scripts/resources/items/railgunItem.tres" id="12_sr4oo"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bhn7b"]
 resource_name = "Station_Base"
@@ -188,7 +189,7 @@ addMaxShield = 0.0
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_hykx4"]
 load_path = "res://.godot/imported/shield icon.png-0074577a5a0400733c8ebd96f93bf843.s3tc.ctex"
 
-[sub_resource type="Resource" id="Resource_eo6h0"]
+[sub_resource type="Resource" id="Resource_gnmbl"]
 resource_local_to_scene = true
 script = ExtResource("3_4fihq")
 name = &"Shield Recharger"
@@ -212,7 +213,7 @@ weapon = ExtResource("10_qyemn")
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_xbpr3"]
 load_path = "res://.godot/imported/targetLock.png-5d6e799ad7519a4a3cf47a8605901527.s3tc.ctex"
 
-[sub_resource type="Resource" id="Resource_xv1e4"]
+[sub_resource type="Resource" id="Resource_5dkm3"]
 resource_local_to_scene = true
 script = ExtResource("3_4fihq")
 name = &"Boomer"
@@ -280,7 +281,7 @@ skeleton = NodePath("")
 
 [node name="healthShop" parent="." instance=ExtResource("2_a6ou8")]
 transform = Transform3D(1, 1.74846e-07, 0, -1.74846e-07, 1, 0, 0, 0, 1, 0, 0, -192)
-possibleItems = Array[ExtResource("3_4fihq")]([ExtResource("4_3xhko"), ExtResource("5_8bo4o"), SubResource("Resource_eo6h0"), ExtResource("7_xwmyu")])
+possibleItems = Array[ExtResource("3_4fihq")]([ExtResource("4_3xhko"), ExtResource("5_8bo4o"), SubResource("Resource_gnmbl"), ExtResource("7_xwmyu")])
 
 [node name="logo" type="Sprite3D" parent="healthShop"]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 26)
@@ -298,7 +299,7 @@ label_settings = ExtResource("8_u4xj6")
 
 [node name="armsShop" parent="." instance=ExtResource("2_a6ou8")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 178)
-possibleItems = Array[ExtResource("3_4fihq")]([SubResource("Resource_xv1e4"), ExtResource("10_hp6wa")])
+possibleItems = Array[ExtResource("3_4fihq")]([SubResource("Resource_5dkm3"), ExtResource("10_hp6wa"), ExtResource("12_sr4oo")])
 
 [node name="logo" type="Sprite3D" parent="armsShop"]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -2.27299e-06, 0, 26)

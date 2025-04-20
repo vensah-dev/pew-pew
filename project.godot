@@ -13,7 +13,6 @@ config_version=5
 config/name="Pew Pew"
 run/main_scene="res://Scenes/Game.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
-run/max_fps=120
 boot_splash/bg_color=Color(0, 0, 0, 1)
 boot_splash/show_image=false
 config/icon="res://icon.svg"
@@ -33,7 +32,6 @@ window/size/viewport_height=1080
 window/size/mode=4
 window/stretch/mode="viewport"
 window/stretch/aspect="expand"
-window/vsync/vsync_mode=0
 
 [editor]
 
@@ -58,6 +56,8 @@ worldNode=""
 shop=""
 gameover=""
 spaceStation="exterior"
+aimBox=""
+enemyTargetMarker=""
 
 [input]
 
@@ -238,15 +238,9 @@ jolt_3d/limits/max_temporary_memory=1024
 
 renderer/rendering_method.mobile="gl_compatibility"
 renderer/rendering_method.web="forward_plus"
-textures/vram_compression/import_etc2_astc=true
 global_illumination/gi/use_half_resolution=true
 camera/depth_of_field/depth_of_field_bokeh_quality=2
-anti_aliasing/screen_space_roughness_limiter/enabled=false
-anti_aliasing/screen_space_roughness_limiter/amount=0.01
-anti_aliasing/screen_space_roughness_limiter/limit=0.01
 environment/glow/upscale_mode=0
 environment/defaults/default_clear_color=Color(0, 0, 0, 1)
-anti_aliasing/quality/msaa_2d=3
-anti_aliasing/quality/msaa_3d=3
 viewport/hdr_2d=true
 environment/defaults/default_environment="res://Assets/Texture/environment.tres"

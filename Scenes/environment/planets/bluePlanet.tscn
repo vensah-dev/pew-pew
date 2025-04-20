@@ -1,15 +1,15 @@
 [gd_scene load_steps=6 format=3 uid="uid://buow2cclieyvp"]
 
 [ext_resource type="Script" path="res://Scripts/world/body.gd" id="1_cxiul"]
-[ext_resource type="Texture2D" uid="uid://b412vurs6f155" path="res://Assets/Texture/mars.jpeg" id="2_10fmh"]
+[ext_resource type="Texture2D" uid="uid://dygglpo8lktpi" path="res://Assets/Texture/neptunish texture.jpg" id="2_rdfvi"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kigfh"]
-albedo_color = Color(0.933333, 0, 1, 1)
-albedo_texture = ExtResource("2_10fmh")
-emission = Color(0, 0.815686, 1, 1)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6lg2f"]
+albedo_color = Color(0, 0.616667, 1, 1)
+albedo_texture = ExtResource("2_rdfvi")
+emission_enabled = true
 
 [sub_resource type="SphereMesh" id="SphereMesh_cpmb8"]
-material = SubResource("StandardMaterial3D_kigfh")
+material = SubResource("StandardMaterial3D_6lg2f")
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_xowde"]
 

@@ -17,8 +17,8 @@ name = &"Machine Guns"
 description = &"A gun system with 100 rounds, 0.1 second fire rate, 2.5 second reload with 5 damage per shot"
 icon = SubResource("CompressedTexture2D_wbtyv")
 priceRange = {
-"max": 1000,
-"min": 750
+"max": 750,
+"min": 500
 }
 function = SubResource("Resource_4tmtf")
 immediate = false

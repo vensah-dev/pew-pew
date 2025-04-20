@@ -1,7 +1,7 @@
 [gd_scene load_steps=28 format=3 uid="uid://brhvvyyekkbfn"]
 
 [ext_resource type="Animation" uid="uid://dbb73h1u3x74b" path="res://Assets/animations/explode.res" id="1_ivybg"]
-[ext_resource type="Material" uid="uid://bo8ygvnen1iyf" path="res://Assets/materials/particleEffectMaterial.tres" id="2_ot0wi"]
+[ext_resource type="Material" uid="uid://bo8ygvnen1iyf" path="res://Assets/particle effects/particleEffectMaterial.tres" id="2_ot0wi"]
 [ext_resource type="AudioStream" uid="uid://bfvqpc58ydd27" path="res://Assets/audio/bigExplosion.wav" id="3_0q056"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_yyylb"]

@@ -1,7 +1,7 @@
-[gd_scene load_steps=46 format=3 uid="uid://bae0rrler2lwr"]
+[gd_scene load_steps=49 format=3 uid="uid://bae0rrler2lwr"]
 
 [ext_resource type="Script" path="res://Scripts/gameManager.gd" id="1_jmc7e"]
-[ext_resource type="PackedScene" uid="uid://cgng6km46j0vt" path="res://Scenes/player.tscn" id="2_de30o"]
+[ext_resource type="PackedScene" uid="uid://cm3ydrh3c6bxd" path="res://Scenes/player.tscn" id="2_de30o"]
 [ext_resource type="Environment" uid="uid://ytdp4206auxd" path="res://Assets/Texture/environment.tres" id="2_kpeq3"]
 [ext_resource type="Resource" uid="uid://cslvcweyejh3c" path="res://addons/SphynxMotionBlurToolkit/PreBlurProcessing/default_camera_movement_component.tres" id="2_ybq70"]
 [ext_resource type="Script" path="res://Scripts/world/world.gd" id="3_aiun5"]
@@ -32,6 +32,9 @@
 [ext_resource type="FontFile" uid="uid://dfgjr51y5pff7" path="res://Assets/Poppins/Poppins-Thin.ttf" id="21_ot4q4"]
 [ext_resource type="PackedScene" uid="uid://cqanug7lr8ug1" path="res://Scenes/inventory.tscn" id="25_n22hb"]
 [ext_resource type="Shader" path="res://Scripts/shaders/outlineShader.gdshader" id="30_ddqmw"]
+[ext_resource type="PackedScene" uid="uid://rlv02n2awb4m" path="res://Scenes/enemies/EU6.1(aggressive).tscn" id="33_6fwoh"]
+[ext_resource type="PackedScene" uid="uid://bxrrcg7duxrd3" path="res://Scenes/enemies/EU6.1.tscn" id="33_m0fq4"]
+[ext_resource type="PackedScene" uid="uid://dlinsmn12say8" path="res://Scenes/enemies/EU6.1(sniper).tscn" id="35_dapno"]
 
 [sub_resource type="CompositorEffect" id="CompositorEffect_oh7tx"]
 resource_local_to_scene = false
@@ -141,6 +144,8 @@ layers = 3
 light_cull_mask = 4294967291
 
 [node name="player" parent="." node_paths=PackedStringArray("healthbar", "shieldbar", "speedLabel", "inventory", "statusRing") instance=ExtResource("2_de30o")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 9.63764)
+raycastRange = 10000
 healthbar = NodePath("../UI/Bottom UI/VBoxContainer/HBoxContainer/MarginContainer/Bars/HealthBarContainer/healthbar")
 shieldbar = NodePath("../UI/Bottom UI/VBoxContainer/HBoxContainer/MarginContainer/Bars/ShieldBarContainer/shieldbar")
 speedLabel = NodePath("../UI/Bottom UI/VBoxContainer/speed")
@@ -249,11 +254,29 @@ pivot_offset = Vector2(37, 17)
 text = "FPS 60"
 label_settings = SubResource("LabelSettings_3un3w")
 
+[node name="enemyLabel" type="Label" parent="UI"]
+offset_left = 77.0
+offset_top = 200.0
+offset_right = 271.0
+offset_bottom = 246.0
+text = "enemies left
+"
+label_settings = SubResource("LabelSettings_7r6wg")
+
+[node name="waveLabel" type="Label" parent="UI"]
+offset_left = 77.0
+offset_top = 136.0
+offset_right = 214.0
+offset_bottom = 182.0
+text = "wave: 
+"
+label_settings = SubResource("LabelSettings_7r6wg")
+
 [node name="currencyLabel" type="Label" parent="UI"]
 offset_left = 77.0
-offset_top = 69.0
+offset_top = 72.0
 offset_right = 214.0
-offset_bottom = 115.0
+offset_bottom = 118.0
 text = "moneies
 "
 label_settings = SubResource("LabelSettings_7r6wg")
@@ -390,13 +413,19 @@ script = ExtResource("3_aiun5")
 
 [node name="Solar System Spawner" type="Node3D" parent="world"]
 script = ExtResource("4_s4hp0")
-maxSpawnRadius = 3e+07
+maxNumber = 1
+minNumber = 1
+maxSpawnRadius = 300000.0
+minSpawnRadius = 100000.0
 bodySpacingBuffer = 25.0
 solarSystems = Array[PackedScene]([ExtResource("5_synb3")])
 
 [node name="space station" parent="world" instance=ExtResource("14_h7gm1")]
 transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 0, 0, -498.94)
 
-[node name="EnemySpawner" parent="world" node_paths=PackedStringArray("player") instance=ExtResource("6_t04ed")]
+[node name="EnemySpawner" parent="world" node_paths=PackedStringArray("player", "waveLabel", "enemyLabel") instance=ExtResource("6_t04ed")]
+enemies = Array[PackedScene]([ExtResource("33_6fwoh"), ExtResource("33_m0fq4"), ExtResource("35_dapno")])
 player = NodePath("../../player")
 spawnRadius = 1000.0
+waveLabel = NodePath("../../UI/waveLabel")
+enemyLabel = NodePath("../../UI/enemyLabel")

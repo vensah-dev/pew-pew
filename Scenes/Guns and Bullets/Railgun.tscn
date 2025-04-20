@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://ifbyfeosltgy"]
+
+[ext_resource type="Script" path="res://Scripts/gun.gd" id="1_2cghi"]
+[ext_resource type="Texture2D" uid="uid://dn6gmbx86b4gl" path="res://Assets/UI/CrossHair.png" id="2_bvt1t"]
+[ext_resource type="PackedScene" uid="uid://b7sa02arh0p24" path="res://Scenes/Guns and Bullets/bullet.tscn" id="3_3u1ap"]
+
+[node name="railgun" type="Node3D" node_paths=PackedStringArray("gunPoints")]
+transform = Transform3D(-1.09278e-08, 0, -0.25, 0, 0.25, 0, 0.25, 0, -1.09279e-08, 0, 0, 0)
+script = ExtResource("1_2cghi")
+icon = ExtResource("2_bvt1t")
+gunName = &"Railgun"
+bulletSpeed = 500.0
+bulletRange = 2000.0
+bulletDamage = 70.0
+lockOnTarget = true
+bulletNode = ExtResource("3_3u1ap")
+automatic = false
+bulletInterval = 30.0
+magSize = 5
+cooldownInterval = 20.0
+gunPoints = [NodePath("Gun 0")]
+idleColor = Color(1, 1, 1, 1)
+reloadColor = Color(1, 1, 0.72, 1)
+shootingColor = Color(1, 1, 0.53, 1)
+hitScaleMultiplier = 0.9
+hitScaleSpeed = 2.0
+
+[node name="Gun 0" type="Node3D" parent="."]
+transform = Transform3D(1, -7.11098e-14, 2.84217e-14, 1.72085e-15, 1, -2.79397e-09, -3.55271e-14, -4.65661e-09, 1, 1.11022e-16, -1.5, -8.6536e-18)

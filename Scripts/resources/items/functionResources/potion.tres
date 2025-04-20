@@ -6,3 +6,5 @@
 script = ExtResource("1_7oye2")
 addHealth = 25.0
 addMaxHealth = 0.0
+addShieldRegen = 0.0
+addMaxShield = 0.0

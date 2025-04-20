@@ -1,8 +1,11 @@
+res://Assets/materials
+res://Scripts/enemy AI/behaviours/
+res://
+/Users/mac/downloads
 res://Assets/UI
 /Users/mac/Desktop/Godot/Space-Shooter/Builds
 res://Assets/Texture
 /Applications/Visual Studio Code.app/Contents/MacOS
-res://
 res://Assets/audio
 res://Scripts/resources/items
 res://Scenes/Guns and Bullets
@@ -14,7 +17,5 @@ res://Scripts/resources/
 res://Scripts
 res://Scripts/resources/items/functionResources/
 res://Scenes
-res://Assets/materials
 res://Scripts/spawners
-/Users/mac/downloads
 res://Assets/Models

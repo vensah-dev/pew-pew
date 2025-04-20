@@ -1,0 +1,48 @@
+[gd_scene load_steps=8 format=3 uid="uid://b2lcxxpd0trpf"]
+
+[ext_resource type="Script" path="res://Scripts/bullet.gd" id="1_ehxe5"]
+[ext_resource type="Material" uid="uid://ceo2hwl77rfl6" path="res://Assets/materials/yellowGlow.tres" id="2_m8jkc"]
+[ext_resource type="Material" uid="uid://c3cauj8iawm16" path="res://Assets/particle effects/bulletImpactEffect.tres" id="3_x2yqa"]
+[ext_resource type="AudioStream" uid="uid://dl2l8upuc3bj" path="res://Assets/audio/smallExplosion.wav" id="4_iw0u6"]
+[ext_resource type="AudioStream" uid="uid://f5h284pvyqcx" path="res://Assets/audio/pew-pew.wav" id="5_2evej"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_44bll"]
+material = ExtResource("2_m8jkc")
+height = 5.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_p128s"]
+material = ExtResource("2_m8jkc")
+
+[node name="Bullet" type="Node3D"]
+script = ExtResource("1_ehxe5")
+
+[node name="mesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+mesh = SubResource("SphereMesh_44bll")
+skeleton = NodePath("")
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, 10, 0, -10, -4.37114e-07, 0, 0, 1.5)
+collision_mask = 6
+debug_shape_thickness = 5
+
+[node name="impact" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.5)
+emitting = false
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+process_material = ExtResource("3_x2yqa")
+draw_pass_1 = SubResource("SphereMesh_p128s")
+
+[node name="impactSound" type="AudioStreamPlayer3D" parent="impact"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.5)
+stream = ExtResource("4_iw0u6")
+volume_db = -10.0
+pitch_scale = 2.5
+max_distance = 4096.0
+
+[node name="sound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("5_2evej")
+attenuation_model = 3
+volume_db = -2.5
