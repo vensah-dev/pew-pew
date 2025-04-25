@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=3 uid="uid://bae0rrler2lwr"]
+[gd_scene load_steps=50 format=3 uid="uid://bae0rrler2lwr"]
 
 [ext_resource type="Script" path="res://Scripts/gameManager.gd" id="1_jmc7e"]
 [ext_resource type="PackedScene" uid="uid://cm3ydrh3c6bxd" path="res://Scenes/player.tscn" id="2_de30o"]
@@ -26,11 +26,12 @@
 [ext_resource type="Resource" uid="uid://dipvwksvqb3dm" path="res://addons/SphynxMotionBlurToolkit/Guertin/guertin_tile_max_x_stage.tres" id="11_t2g0a"]
 [ext_resource type="Resource" uid="uid://bxfg45ubc2pv7" path="res://addons/SphynxMotionBlurToolkit/Guertin/guertin_tile_max_y_stage.tres" id="12_co80g"]
 [ext_resource type="Resource" uid="uid://bqehecsdgt70s" path="res://addons/SphynxMotionBlurToolkit/Guertin/guertin_tile_variance_stage.tres" id="13_pn7nl"]
-[ext_resource type="PackedScene" uid="uid://ccks54v5ml2k3" path="res://Scenes/spaceStationExterior.tscn" id="14_h7gm1"]
+[ext_resource type="PackedScene" uid="uid://8h5yc54jas2n" path="res://Scenes/spaceStationExterior.tscn" id="14_h7gm1"]
 [ext_resource type="Script" path="res://Scripts/goToMouse.gd" id="18_xd0wm"]
 [ext_resource type="FontFile" uid="uid://pw18l2pw732g" path="res://Assets/Poppins/Poppins-Light.ttf" id="20_0lqjg"]
 [ext_resource type="FontFile" uid="uid://dfgjr51y5pff7" path="res://Assets/Poppins/Poppins-Thin.ttf" id="21_ot4q4"]
 [ext_resource type="PackedScene" uid="uid://cqanug7lr8ug1" path="res://Scenes/inventory.tscn" id="25_n22hb"]
+[ext_resource type="Texture2D" uid="uid://1djd3isbml2n" path="res://Assets/Texture/currency.png" id="28_sje32"]
 [ext_resource type="Shader" path="res://Scripts/shaders/outlineShader.gdshader" id="30_ddqmw"]
 [ext_resource type="PackedScene" uid="uid://rlv02n2awb4m" path="res://Scenes/enemies/EU6.1(aggressive).tscn" id="33_6fwoh"]
 [ext_resource type="PackedScene" uid="uid://bxrrcg7duxrd3" path="res://Scenes/enemies/EU6.1.tscn" id="33_m0fq4"]
@@ -254,12 +255,22 @@ pivot_offset = Vector2(37, 17)
 text = "FPS 60"
 label_settings = SubResource("LabelSettings_3un3w")
 
-[node name="enemyLabel" type="Label" parent="UI"]
+[node name="currencyContainer" type="HBoxContainer" parent="UI"]
 offset_left = 77.0
-offset_top = 200.0
-offset_right = 271.0
-offset_bottom = 246.0
-text = "enemies left
+offset_top = 64.0
+offset_right = 264.0
+offset_bottom = 110.0
+theme_override_constants/separation = 32
+
+[node name="icon" type="TextureRect" parent="UI/currencyContainer"]
+layout_mode = 2
+texture = ExtResource("28_sje32")
+expand_mode = 2
+stretch_mode = 4
+
+[node name="currencyLabel" type="Label" parent="UI/currencyContainer"]
+layout_mode = 2
+text = "moneies
 "
 label_settings = SubResource("LabelSettings_7r6wg")
 
@@ -272,12 +283,12 @@ text = "wave:
 "
 label_settings = SubResource("LabelSettings_7r6wg")
 
-[node name="currencyLabel" type="Label" parent="UI"]
+[node name="enemyLabel" type="Label" parent="UI"]
 offset_left = 77.0
-offset_top = 72.0
-offset_right = 214.0
-offset_bottom = 118.0
-text = "moneies
+offset_top = 200.0
+offset_right = 271.0
+offset_bottom = 246.0
+text = "enemies left
 "
 label_settings = SubResource("LabelSettings_7r6wg")
 
@@ -421,7 +432,7 @@ bodySpacingBuffer = 25.0
 solarSystems = Array[PackedScene]([ExtResource("5_synb3")])
 
 [node name="space station" parent="world" instance=ExtResource("14_h7gm1")]
-transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 0, 0, -498.94)
+transform = Transform3D(125, 0, 0, 0, 125, 0, 0, 0, 125, 0, 0, -498.94)
 
 [node name="EnemySpawner" parent="world" node_paths=PackedStringArray("player", "waveLabel", "enemyLabel") instance=ExtResource("6_t04ed")]
 enemies = Array[PackedScene]([ExtResource("33_6fwoh"), ExtResource("33_m0fq4"), ExtResource("35_dapno")])

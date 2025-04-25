@@ -1,6 +1,6 @@
 [gd_scene load_steps=17 format=3 uid="uid://2pdt6eob40jq"]
 
-[ext_resource type="FontFile" uid="uid://dfgjr51y5pff7" path="res://Assets/Poppins/Poppins-Thin.ttf" id="2_362jk"]
+[ext_resource type="FontFile" uid="uid://dx05ojt4m1ko8" path="res://Assets/Poppins/Poppins-SemiBold.ttf" id="1_gj31l"]
 [ext_resource type="FontFile" uid="uid://pw18l2pw732g" path="res://Assets/Poppins/Poppins-Light.ttf" id="2_y50i7"]
 
 [sub_resource type="Animation" id="Animation_r5eb3"]
@@ -40,7 +40,7 @@ tracks/0/path = NodePath("Background:color")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 5),
+"times": PackedFloat32Array(0, 1.25),
 "transitions": PackedFloat32Array(2, 0.3),
 "update": 0,
 "values": [Color(0.34, 0, 0, 0), Color(0.16, 0, 0, 1)]
@@ -86,7 +86,7 @@ _data = {
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ubhyx"]
 
-[node name="GameOver" type="CanvasLayer" groups=["gameover"]]
+[node name="GameOverScene" type="CanvasLayer" groups=["gameover"]]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -122,8 +122,8 @@ theme_override_constants/separation = 32
 [node name="gameoverMessage" type="RichTextLabel" parent="VBoxContainer"]
 clip_contents = false
 layout_mode = 2
-theme_override_colors/default_color = Color(1, 0.166667, 0, 1)
-theme_override_fonts/normal_font = ExtResource("2_362jk")
+theme_override_colors/default_color = Color(0.729911, 0.288652, 0.2004, 1)
+theme_override_fonts/normal_font = ExtResource("1_gj31l")
 theme_override_font_sizes/normal_font_size = 72
 bbcode_enabled = true
 text = "[center]You were Pew Pewed![/center]"
@@ -132,6 +132,7 @@ scroll_active = false
 autowrap_mode = 0
 
 [node name="Respawn" type="Button" parent="VBoxContainer"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_colors/font_disabled_color = Color(0, 0, 0, 0.25098)
@@ -151,8 +152,7 @@ theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_2t8nv")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_oea7o")
 theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_omehv")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_ubhyx")
-text = "Respawn
-"
+text = "Respawn"
 flat = true
 
 [node name="Menu" type="Button" parent="VBoxContainer"]
@@ -175,6 +175,5 @@ theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_2t8nv")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_oea7o")
 theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_omehv")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_ubhyx")
-text = "Menu
-"
+text = "Main Menu"
 flat = true

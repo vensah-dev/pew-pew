@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=4 uid="uid://ccks54v5ml2k3"]
+[gd_scene load_steps=15 format=4 uid="uid://8h5yc54jas2n"]
 
 [ext_resource type="Script" path="res://Scripts/spaceStationExterior.gd" id="1_t1t5p"]
 [ext_resource type="PackedScene" uid="uid://ot5y5kip2g5p" path="res://Scenes/spaceStation.tscn" id="2_8cj1j"]

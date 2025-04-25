@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=4 uid="uid://cm3ydrh3c6bxd"]
+[gd_scene load_steps=21 format=4 uid="uid://cm3ydrh3c6bxd"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_ho7d4"]
 [ext_resource type="Script" path="res://Scripts/components/health.gd" id="2_kcxjs"]
@@ -7,7 +7,6 @@
 [ext_resource type="PackedScene" uid="uid://2pdt6eob40jq" path="res://Scenes/gameOverScene.tscn" id="3_qpheg"]
 [ext_resource type="Material" uid="uid://bt8mgpyjr7d5n" path="res://Assets/materials/blueGlow.tres" id="4_4qdu7"]
 [ext_resource type="PackedScene" uid="uid://cxhbnxsocgt5p" path="res://Scenes/Guns and Bullets/MachineGuns.tscn" id="5_4yu8b"]
-[ext_resource type="PackedScene" uid="uid://06p05h1hg8ha" path="res://Scenes/Guns and Bullets/Boomer.tscn" id="7_1nvwc"]
 [ext_resource type="Script" path="res://Scripts/camera.gd" id="9_g6b74"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_601g4"]
@@ -52,7 +51,7 @@ cull_mode = 2
 albedo_color = Color(0.159989, 0.159989, 0.159989, 1)
 roughness = 0.5
 
-[sub_resource type="ArrayMesh" id="ArrayMesh_121l0"]
+[sub_resource type="ArrayMesh" id="ArrayMesh_cvqxi"]
 _surfaces = [{
 "aabb": AABB(-1.18278, -1.68462, -8.50588, 2.17616, 4.47281, 17.0118),
 "format": 34359742465,
@@ -198,7 +197,7 @@ _surfaces = [{
 "vertex_data": PackedByteArray("pAfEPhBNpL5+C7K/pAfEPhBNpL5+C7K/pAfEPhBNpL6CC7I/pAfEPhBNpL6CC7I/KnSuvhBNpL6CC7I/KnSuvhBNpL6CC7I/KnSuvhBNpL5+C7K/KnSuvhBNpL5+C7K/SOd4PjgIYr6H/fA/SOd4PjgIYr6H/fA/SOd4PjgIYr6D/fC/SOd4PjgIYr6D/fC/IixyvkgIYr6H/fA/IixyvkgIYr6H/fA/IixyvkgIYr6D/fC/IixyvkgIYr6D/fC/QnSuvoBnpz1+C7K/QnSuvoBnpz1+C7K/QnSuvoBnpz1+C7K/VCxyvpBFOj6D/fC/VCxyvpBFOj6D/fC/VCxyvpBFOj6D/fC/Q3SuvoBnpz2CC7I/Q3SuvoBnpz2CC7I/Q3SuvoBnpz2CC7I/igfEPoBnpz2CC7I/igfEPoBnpz2CC7I/igfEPoBnpz2CC7I/FOd4PqBFOj6D/fC/FOd4PqBFOj6D/fC/FOd4PqBFOj6D/fC/VCxyvpBFOj6H/fA/VCxyvpBFOj6H/fA/VCxyvpBFOj6H/fA/FOd4PqBFOj6H/fA/FOd4PqBFOj6H/fA/FOd4PqBFOj6H/fA/igfEPoBnpz1+C7K/igfEPoBnpz1+C7K/igfEPoBnpz1+C7K/Vhz/f////z//////////vwAAVZz///+//3//f////z//f/9/////P///Y5b///+//////////7+b6f9/////PwAAVZz///+//////////79WHP9/////P/9//3////8//////////7///2OW////v/9//3////8/m+n/f////z+olQAAAAD/v/////////+/m+n/f////z+olQAAAAD/v/9//3////8/m+n/f////z//f6kVAAD/v/9//3////8///9jlv///78AAFWc////v/9/qRUAAP+//3//f////z9WHP9/////P6iVAAAAAP+//3//f////z//f6kVAAD/v/////////+///9jlv///78AAFWc////v/9/qRUAAP+//////////79WHP9/////P6iVAAAAAP+//////////78=")
 }]
 blend_shape_mode = 0
-shadow_mesh = SubResource("ArrayMesh_121l0")
+shadow_mesh = SubResource("ArrayMesh_cvqxi")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u4y5p"]
 metallic = 0.4
@@ -206,10 +205,9 @@ metallic_specular = 1.0
 roughness = 0.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8iuv3"]
-albedo_color = Color(1, 0.569333, 0.24, 1)
-metallic = 0.75
+albedo_color = Color(1, 0.572549, 0.00784314, 1)
 metallic_specular = 1.0
-roughness = 0.54
+roughness = 0.6
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_ixwam"]
 viewport_path = NodePath("SubViewport")
@@ -232,7 +230,7 @@ canvasShakeMultiplier = 0.25
 raycastRange = 100000
 targetMarkerNormalColour = Color(1, 1, 1, 1)
 targetMarkerLockedColour = Color(1, 0, 0, 1)
-listOfGuns = [NodePath("mesh/weapons/machineGuns"), NodePath("mesh/weapons/Boomer")]
+listOfGuns = [NodePath("mesh/weapons/machineGuns")]
 explode = ExtResource("2_uxdkn")
 gameOverScreen = ExtResource("3_qpheg")
 regenVignetteColor = Color(0, 0.732143, 1, 1)
@@ -247,6 +245,7 @@ surface_material_override/4 = SubResource("StandardMaterial3D_8iuv3")
 
 [node name="targetLock" parent="mesh" instance=ExtResource("2_wavay")]
 transform = Transform3D(-4.80825e-10, -0.035, -3.70568e-28, 0.011, -1.5299e-09, 5.73265e-15, -1.80169e-15, 2.50582e-22, 0.035, 0, 2.5652e-14, 1.65079e-06)
+visible = false
 texture = SubResource("ViewportTexture_ixwam")
 targetLockSpriteColor = Color(1, 1, 1, 1)
 distance = 24.2
@@ -259,10 +258,6 @@ transform = Transform3D(0, -17.2315, 0, -8.67938e-08, 0, 1.98561, -5.85869, 0, -
 [node name="machineGuns" parent="mesh/weapons" node_paths=PackedStringArray("ship", "cam") instance=ExtResource("5_4yu8b")]
 ship = NodePath("../../..")
 gunName = &"MachineGun"
-cam = NodePath("../../../cameraGimbal/Camera")
-
-[node name="Boomer" parent="mesh/weapons" node_paths=PackedStringArray("ship", "cam") instance=ExtResource("7_1nvwc")]
-ship = NodePath("../../..")
 cam = NodePath("../../../cameraGimbal/Camera")
 
 [node name="boxCollider" type="CollisionShape3D" parent="."]

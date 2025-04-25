@@ -191,7 +191,12 @@ func _physics_process(delta: float) -> void:
 	#Camera Follow but.. SMOOTH HEHEHABUTCTUYC EOUBds
 	camGimbal.global_transform = camGimbal.global_transform.interpolate_with(global_transform, cameraDamping * delta)
 
+	if Input.is_action_just_pressed("toggleUI") and healthData.health > 0:
+		canvasNode.visible = !canvasNode.visible
+
+
 func _process(delta: float) -> void:
+
 	#what do u think nerd
 	handleInventory()
 
@@ -523,6 +528,8 @@ func freeze(activate):
 		set_physics_process(true)
 
 func commitDie():
+	canvasNode.visible = false
+
 	velocity = Vector3.ZERO
 	mesh.visible = false
 	collider.disabled = true
@@ -551,9 +558,12 @@ func commitDie():
 	await get_tree().create_timer(3.5).timeout
 
 	var gameover = gameOverScreen.instantiate()
-	root.add_child(gameover)
+	root.get_child(0).add_child(gameover)
 
 	gameover.get_child(2).get_child(1).button_up.connect(undie)
+	gameover.get_child(2).get_child(2).button_up.connect(gotoMainMenu)
+
+	root.save_high_score(root.get_child(0).waveNumber)
 
 	#important
 	print(self, "is gone. forever") #prints funny message
@@ -562,6 +572,7 @@ func undie():
 	# remove gameover scene
 	get_tree().get_first_node_in_group("gameover").queue_free()
 
+	canvasNode.visible = true
 	velocity = Vector3.ZERO
 	mesh.visible = true
 	collider.disabled = false
@@ -573,3 +584,7 @@ func undie():
 	set_physics_process(true)
 
 	statusRing.visible = true
+
+func gotoMainMenu():
+	get_tree().get_first_node_in_group("gameover").queue_free()
+	get_parent().get_parent().mainMenu()

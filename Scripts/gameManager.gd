@@ -1,5 +1,7 @@
 extends Node
 
+signal seed_ready
+
 @export var spawnSeed = ""
 
 @onready var rng = RandomNumberGenerator.new()
@@ -7,11 +9,13 @@ extends Node
 @onready var world = $world
 
 @onready var fpsLabel = $"UI/FPS"
-@onready var currencyLabel = $"UI/currencyLabel"
+@onready var currencyLabel = $"UI/currencyContainer/currencyLabel"
 
-var currency = 10000
+@onready var enemySpawner = $world/EnemySpawner
 
-signal seed_ready
+var waveNumber: int
+
+var currency = 0
 
 var spawnSeedHashed: int
 
@@ -31,7 +35,9 @@ func _ready():
 	
 func _process(_delta):
 	fpsLabel.text = "FPS " + str(Engine.get_frames_per_second())
-	currencyLabel.text = "Currency: " + str(currency)
+	currencyLabel.text = str(currency)
+
+	waveNumber = enemySpawner.waveNumber
 
 	
 ##seed random functions

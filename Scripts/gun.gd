@@ -36,7 +36,7 @@ extends Node3D
 @export var hitScaleMultiplier = 0.8
 @export var hitScaleSpeed = 2.5
 
-@onready var main = get_tree().current_scene
+@onready var main = get_tree().current_scene.get_child(0)
 
 @onready var space = get_world_3d().direct_space_state
 @onready var crossHair = get_viewport().get_mouse_position()

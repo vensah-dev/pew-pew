@@ -1,0 +1,243 @@
+[gd_scene load_steps=19 format=3 uid="uid://bvlj6mywc2mry"]
+
+[ext_resource type="Script" path="res://Scenes/mainMenu.gd" id="1_ux6iv"]
+[ext_resource type="PackedScene" uid="uid://8h5yc54jas2n" path="res://Scenes/spaceStationExterior.tscn" id="3_vw6pu"]
+[ext_resource type="Script" path="res://Scripts/rotateMenu.gd" id="4_a00rx"]
+[ext_resource type="Shader" path="res://Scripts/shaders/vingette.gdshader" id="5_8shfx"]
+[ext_resource type="FontFile" uid="uid://dx05ojt4m1ko8" path="res://Assets/Poppins/Poppins-SemiBold.ttf" id="6_oqulw"]
+[ext_resource type="FontFile" uid="uid://pw18l2pw732g" path="res://Assets/Poppins/Poppins-Light.ttf" id="7_ypdxv"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ivdme"]
+shader = ExtResource("5_8shfx")
+shader_parameter/inner_radius = 0.5
+shader_parameter/outer_radius = 1.0
+shader_parameter/vignette_strength = 0.1
+shader_parameter/dither_strength = 0.01
+shader_parameter/vignette_color = Color(1, 0.572549, 0.00784314, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_y1361"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4wr3g"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_an4kb"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_y6h4e"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8yarl"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7n1te"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7h54j"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wyook"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2ccsj"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_21tgd"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tdrqi"]
+
+[node name="MainMenu" type="Node3D"]
+script = ExtResource("1_ux6iv")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+offset_left = 673.0
+offset_right = 2833.0
+offset_bottom = 2160.0
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+handle_input_locally = false
+size = Vector2i(2160, 2160)
+render_target_update_mode = 4
+
+[node name="space station" parent="SubViewportContainer/SubViewport" instance=ExtResource("3_vw6pu")]
+transform = Transform3D(1.25, 0, 0, 0, 1.25, 0, 0, 0, 1.25, 0, 0, 0)
+script = ExtResource("4_a00rx")
+rotationSpeed = 0.1
+
+[node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport"]
+transform = Transform3D(-0.699663, -0.599207, 0.38913, 0, 0.544639, 0.838671, -0.714473, 0.586787, -0.381064, 5.61069, 6.2, -5.43496)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="SubViewportContainer/SubViewport"]
+transform = Transform3D(-4.37114e-08, 0.878817, -0.477159, 0, 0.477159, 0.878817, 1, 3.84143e-08, -2.08573e-08, -9.16596, 4.71208, 0)
+light_energy = 0.5
+
+[node name="Menu UI" type="CanvasLayer" parent="."]
+
+[node name="vignette" type="ColorRect" parent="Menu UI"]
+visible = false
+material = SubResource("ShaderMaterial_ivdme")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 2.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="RichTextLabel" parent="Menu UI"]
+offset_left = 128.0
+offset_top = 96.0
+offset_right = 723.0
+offset_bottom = 276.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_colors/default_color = Color(0.882353, 0.286275, 0.286275, 1)
+theme_override_fonts/normal_font = ExtResource("6_oqulw")
+theme_override_font_sizes/normal_font_size = 128
+text = "PEW PEW"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="Buttons" type="VBoxContainer" parent="Menu UI"]
+offset_left = 128.0
+offset_top = 320.0
+offset_right = 352.0
+offset_bottom = 552.0
+theme_override_constants/separation = 32
+
+[node name="Play" type="Button" parent="Menu UI/Buttons"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 0.25098)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 0.501961)
+theme_override_colors/font_color = Color(1, 1, 1, 0.74902)
+theme_override_fonts/font = ExtResource("7_ypdxv")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/focus = SubResource("StyleBoxEmpty_y1361")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_4wr3g")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_an4kb")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_y6h4e")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_8yarl")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_7n1te")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_7h54j")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_wyook")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_2ccsj")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_21tgd")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_tdrqi")
+text = "PLAY
+"
+flat = true
+
+[node name="Highscore" type="Button" parent="Menu UI/Buttons"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 0.25098)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 0.501961)
+theme_override_colors/font_color = Color(1, 1, 1, 0.74902)
+theme_override_fonts/font = ExtResource("7_ypdxv")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/focus = SubResource("StyleBoxEmpty_y1361")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_4wr3g")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_an4kb")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_y6h4e")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_8yarl")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_7n1te")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_7h54j")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_wyook")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_2ccsj")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_21tgd")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_tdrqi")
+text = "HIGHSCORE"
+flat = true
+
+[node name="Exit" type="Button" parent="Menu UI/Buttons"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 0.25098)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 0.501961)
+theme_override_colors/font_color = Color(1, 1, 1, 0.74902)
+theme_override_fonts/font = ExtResource("7_ypdxv")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/focus = SubResource("StyleBoxEmpty_y1361")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_4wr3g")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_an4kb")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_y6h4e")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_8yarl")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_7n1te")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_7h54j")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_wyook")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_2ccsj")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_21tgd")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_tdrqi")
+text = "EXIT"
+flat = true
+
+[node name="highscorePage" type="ColorRect" parent="Menu UI"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.921569)
+
+[node name="Exit" type="Button" parent="Menu UI/highscorePage"]
+layout_mode = 1
+offset_left = 64.0
+offset_top = 64.0
+offset_right = 131.0
+offset_bottom = 120.0
+size_flags_horizontal = 0
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 0.25098)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 0.501961)
+theme_override_colors/font_color = Color(1, 1, 1, 0.74902)
+theme_override_fonts/font = ExtResource("7_ypdxv")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/focus = SubResource("StyleBoxEmpty_y1361")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_4wr3g")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_an4kb")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_y6h4e")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_8yarl")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_7n1te")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_7h54j")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_wyook")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_2ccsj")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_21tgd")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_tdrqi")
+text = "exit"
+flat = true
+
+[node name="HBoxContainer" type="VBoxContainer" parent="Menu UI/highscorePage"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -164.5
+offset_top = -89.5
+offset_right = 164.5
+offset_bottom = 89.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 32
+
+[node name="highscore" type="RichTextLabel" parent="Menu UI/highscorePage/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_fonts/normal_font = ExtResource("6_oqulw")
+theme_override_font_sizes/normal_font_size = 64
+text = "Highscore"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="highscoreValue" type="RichTextLabel" parent="Menu UI/highscorePage/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_fonts/normal_font = ExtResource("7_ypdxv")
+theme_override_font_sizes/normal_font_size = 40
+text = "8 Waves"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
