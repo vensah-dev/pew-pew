@@ -1,12 +1,12 @@
 {
 	"asset":{
-		"generator":"Khronos glTF Blender I/O v3.6.28",
+		"generator":"Khronos glTF Blender I/O v5.1.20",
 		"version":"2.0"
 	},
 	"extensionsUsed":[
+		"KHR_materials_emissive_strength",
 		"KHR_materials_specular",
-		"KHR_materials_ior",
-		"KHR_materials_emissive_strength"
+		"KHR_materials_ior"
 	],
 	"scene":0,
 	"scenes":[
@@ -61,11 +61,7 @@
 			"doubleSided":true,
 			"extensions":{
 				"KHR_materials_specular":{
-					"specularColorFactor":[
-						0,
-						0,
-						0
-					]
+					"specularFactor":0
 				},
 				"KHR_materials_ior":{
 					"ior":1.4500000476837158
@@ -160,7 +156,7 @@
 		{
 			"bufferView":0,
 			"componentType":5126,
-			"count":2446,
+			"count":2444,
 			"max":[
 				2.648193120956421,
 				2.208771228790283,
@@ -176,13 +172,13 @@
 		{
 			"bufferView":1,
 			"componentType":5126,
-			"count":2446,
+			"count":2444,
 			"type":"VEC3"
 		},
 		{
 			"bufferView":2,
 			"componentType":5126,
-			"count":2446,
+			"count":2444,
 			"type":"VEC2"
 		},
 		{
@@ -263,80 +259,80 @@
 	"bufferViews":[
 		{
 			"buffer":0,
-			"byteLength":29352,
+			"byteLength":29328,
 			"byteOffset":0,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":29352,
-			"byteOffset":29352,
+			"byteLength":29328,
+			"byteOffset":29328,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":19568,
-			"byteOffset":58704,
+			"byteLength":19552,
+			"byteOffset":58656,
 			"target":34962
 		},
 		{
 			"buffer":0,
 			"byteLength":12840,
-			"byteOffset":78272,
+			"byteOffset":78208,
 			"target":34963
 		},
 		{
 			"buffer":0,
 			"byteLength":8544,
-			"byteOffset":91112,
+			"byteOffset":91048,
 			"target":34962
 		},
 		{
 			"buffer":0,
 			"byteLength":8544,
-			"byteOffset":99656,
+			"byteOffset":99592,
 			"target":34962
 		},
 		{
 			"buffer":0,
 			"byteLength":5696,
-			"byteOffset":108200,
+			"byteOffset":108136,
 			"target":34962
 		},
 		{
 			"buffer":0,
 			"byteLength":4332,
-			"byteOffset":113896,
+			"byteOffset":113832,
 			"target":34963
 		},
 		{
 			"buffer":0,
 			"byteLength":10896,
-			"byteOffset":118228,
+			"byteOffset":118164,
 			"target":34962
 		},
 		{
 			"buffer":0,
 			"byteLength":10896,
-			"byteOffset":129124,
+			"byteOffset":129060,
 			"target":34962
 		},
 		{
 			"buffer":0,
 			"byteLength":7264,
-			"byteOffset":140020,
+			"byteOffset":139956,
 			"target":34962
 		},
 		{
 			"buffer":0,
 			"byteLength":4992,
-			"byteOffset":147284,
+			"byteOffset":147220,
 			"target":34963
 		}
 	],
 	"buffers":[
 		{
-			"byteLength":152276,
+			"byteLength":152212,
 			"uri":"newSpaceStation-cb4e2b0a2b91605ab9a254d216008edc.bin"
 		}
 	]

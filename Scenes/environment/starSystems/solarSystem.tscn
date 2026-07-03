@@ -22,8 +22,8 @@ areaBuffer = 1.1
 
 [node name="Planets" type="Node3D" parent="."]
 script = ExtResource("2_jlk52")
-minNumberOfBodies = 1
-maxNumberOfBodies = 10
+minNumberOfBodies = 10
+maxNumberOfBodies = 15
 maxSpawnRadius = 0.0
 randomizePositions = false
 aoidOverlap = false

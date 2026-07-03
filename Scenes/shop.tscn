@@ -1,8 +1,8 @@
 [gd_scene load_steps=19 format=3 uid="uid://co1f6l8523pa4"]
 
-[ext_resource type="Script" path="res://Scripts/shop.gd" id="1_ng4jo"]
+[ext_resource type="Script" uid="uid://xdkuwegh7xje" path="res://Scripts/shop.gd" id="1_ng4jo"]
 [ext_resource type="LabelSettings" uid="uid://ryv112ku4qpr" path="res://Assets/presets/standardLabel.tres" id="2_y5l2a"]
-[ext_resource type="FontFile" uid="uid://pw18l2pw732g" path="res://Assets/Poppins/Poppins-Light.ttf" id="3_od3k5"]
+[ext_resource type="FontFile" uid="uid://pw18l2pw732g" path="res://Assets/fonts/Poppins/Poppins-Light.ttf" id="3_od3k5"]
 [ext_resource type="PackedScene" uid="uid://cv77pm8badd5p" path="res://Scenes/shopItem.tscn" id="4_d7in0"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_o3kww"]

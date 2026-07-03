@@ -1,7 +1,7 @@
 [gd_scene load_steps=17 format=3 uid="uid://2pdt6eob40jq"]
 
-[ext_resource type="FontFile" uid="uid://dx05ojt4m1ko8" path="res://Assets/Poppins/Poppins-SemiBold.ttf" id="1_gj31l"]
-[ext_resource type="FontFile" uid="uid://pw18l2pw732g" path="res://Assets/Poppins/Poppins-Light.ttf" id="2_y50i7"]
+[ext_resource type="FontFile" uid="uid://dx05ojt4m1ko8" path="res://Assets/fonts/Poppins/Poppins-SemiBold.ttf" id="1_gj31l"]
+[ext_resource type="FontFile" uid="uid://pw18l2pw732g" path="res://Assets/fonts/Poppins/Poppins-Light.ttf" id="2_y50i7"]
 
 [sub_resource type="Animation" id="Animation_r5eb3"]
 length = 0.001
@@ -43,7 +43,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 1.25),
 "transitions": PackedFloat32Array(2, 0.3),
 "update": 0,
-"values": [Color(0.34, 0, 0, 0), Color(0.16, 0, 0, 1)]
+"values": [Color(1, 0.829333, 0.36, 0), Color(1, 1, 1, 1)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -122,7 +122,7 @@ theme_override_constants/separation = 32
 [node name="gameoverMessage" type="RichTextLabel" parent="VBoxContainer"]
 clip_contents = false
 layout_mode = 2
-theme_override_colors/default_color = Color(0.729911, 0.288652, 0.2004, 1)
+theme_override_colors/default_color = Color(0, 0, 0, 1)
 theme_override_fonts/normal_font = ExtResource("1_gj31l")
 theme_override_font_sizes/normal_font_size = 72
 bbcode_enabled = true
@@ -136,9 +136,9 @@ visible = false
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_colors/font_disabled_color = Color(0, 0, 0, 0.25098)
-theme_override_colors/font_hover_color = Color(1, 1, 1, 0.501961)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 0.501961)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 0.282353)
-theme_override_colors/font_color = Color(1, 1, 1, 0.25098)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_y50i7")
 theme_override_font_sizes/font_size = 32
 theme_override_styles/focus = SubResource("StyleBoxEmpty_m87np")
@@ -159,9 +159,9 @@ flat = true
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_colors/font_disabled_color = Color(0, 0, 0, 0.25098)
-theme_override_colors/font_hover_color = Color(1, 1, 1, 0.501961)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 0.501961)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 0.282353)
-theme_override_colors/font_color = Color(1, 1, 1, 0.25098)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_y50i7")
 theme_override_font_sizes/font_size = 32
 theme_override_styles/focus = SubResource("StyleBoxEmpty_m87np")

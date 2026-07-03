@@ -1,16 +1,15 @@
 extends CharacterBody3D
 
 @export var behaviour: Resource
-@export var worth: int = 100
+@export var dropCurrency: int = 0
+@export var dropExperience: int = 100
 @export var powerLevel: int = 1
 
 @export var maxSpeed = 50.0
 @export var stoppingDistance = 25.0
-@export var attackRadius = 10.0
+# @export var attackRadius = 10.0
 @export var acceleration = 10.0   
 @export var turningSpeed = 2.5
-@export var explode:PackedScene
-@export var despawnDistance: float = 75000
 @export var drops: Array[PackedScene]
 @export var aimBoxMultipler = 0.2
 # @export_group("UI")
@@ -39,6 +38,9 @@ extends CharacterBody3D
 @onready var state = behaviour.startState
 
 @onready var gameManager = get_tree().get_first_node_in_group("gameManager")
+
+var explode: PackedScene = preload("res://Scenes/explosion.tscn")
+
 
 var playerGuns 
 
@@ -78,7 +80,7 @@ func _physics_process(delta: float) -> void:
 	else:
 		playerGuns = null
 
-	var multiplier = global_position.distance_to(player.global_position) * aimBoxMultipler
+	var multiplier = global_position.distance_to(player.global_position) * 0.2
 	aimBox.get_child(0).shape.size = (Vector3.ONE * multiplier).clamp(collider.shape.size*1.5, Vector3.ONE * multiplier)
 	predictionReticle.get_child(0).scale = Vector3.ONE * multiplier * 1.25
 
@@ -86,12 +88,8 @@ func _physics_process(delta: float) -> void:
 	# print("enemy health: ", healthData.health)
 	# if healthData.health <= 0 and state != "dead":
 	# 	die()
-
-	if global_position.distance_to(player.global_position) >= despawnDistance:
-		queue_free()
-
-	else:
-		behaviour.behave(self, delta)
+		
+	behaviour.behave(self, delta)
 				
 	updatePredictionReticle()
 
@@ -208,7 +206,8 @@ func die():
 	var explosion = explode.instantiate()
 	add_child(explosion)
 
-	gameManager.currency += worth
+	gameManager.currency += dropCurrency
+	gameManager.addEXP(dropExperience)
 
 	if drops.size() > 0:
 		var random = randi_range(0, drops.size()-1)
@@ -216,7 +215,7 @@ func die():
 		root.add_child(collectible)
 		collectible.global_position = explosion.global_position
 
-	await get_tree().create_timer(3.5).timeout
+	await get_tree().create_timer(7.9).timeout
 	queue_free()	
 
 func random_point_in_sphere_surface(target, radius) -> Vector3:

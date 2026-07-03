@@ -11,6 +11,8 @@ var insideEntry = false
 
 @onready var anim: AnimationPlayer = $anim
 
+var alreadyInteracted = false
+
 func _ready() -> void:
 	SceneSwicther.worldSwitched.connect(movePlayer)
 
@@ -21,6 +23,7 @@ func _ready() -> void:
 func movePlayer(currentWorld):
 	print("currentWorld fromm exterior: ", currentWorld)
 	if currentWorld != self and currentWorld.is_in_group("spaceStation"):
+		print("Switch success")
 		currentWorld.playerExitPoint = entries[0]
 		# currentWorld.player = player
 
@@ -28,14 +31,15 @@ func movePlayer(currentWorld):
 	# 	player.transform = entries[0].transform
 	# 	player.global_position = Vector3.ZERO
 
-	SceneSwicther.worldSwitched.disconnect(movePlayer)
+	# SceneSwicther.worldSwitched.disconnect(movePlayer)
 
 func _process(delta: float) -> void:
 	rotate_y(rotationSpeed * delta)
 
 	if insideEntry:
-		player.showInteractionLabel("F to enter")
-		if Input.is_action_just_pressed("interact"):
+		if !alreadyInteracted:
+			player.showInteractionLabel("F to enter")
+		if Input.is_action_just_pressed("interact") and !alreadyInteracted:
 			player.hideInteractionLabel()
 
 			anim.play("Spin")
@@ -46,7 +50,7 @@ func _process(delta: float) -> void:
 
 			await timer.timeout
 			if insideEntry:
-				SceneSwicther.switchScene(spaceStationScene)
+				SceneSwicther.switchScene(spaceStationScene, true)
 
 	else:
 		player.hideInteractionLabel()

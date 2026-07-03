@@ -29,12 +29,11 @@ func _process(_delta: float) -> void:
 
 
 func _on_buy_pressed() -> void:
-	if gameManager.currency > item.price:
+	if gameManager.currency >= item.price:
 		gameManager.currency -= item.price
 		item.purchased()
 		# player.addItem(item)
-
-	if gameManager.currency < item.price:
+	else:
 		buyButton.disabled = true
 
 func resetUI():

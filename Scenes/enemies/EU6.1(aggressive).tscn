@@ -1,19 +1,17 @@
-[gd_scene load_steps=21 format=4 uid="uid://rlv02n2awb4m"]
+[gd_scene load_steps=20 format=4 uid="uid://rlv02n2awb4m"]
 
-[ext_resource type="Script" path="res://Scripts/enemy AI/enemy.gd" id="1_khmui"]
-[ext_resource type="Script" path="res://Scripts/enemy AI/behaviours/chaseAndKillEnemyBehaviour.gd" id="2_p3ru1"]
-[ext_resource type="PackedScene" uid="uid://brhvvyyekkbfn" path="res://Scenes/explosion.tscn" id="3_5qf10"]
+[ext_resource type="Script" uid="uid://ctrie0flsmam3" path="res://Scripts/enemy AI/enemy.gd" id="1_khmui"]
+[ext_resource type="Script" uid="uid://dcb2b8j6dhff5" path="res://Scripts/enemy AI/behaviours/chaseAndKillEnemyBehaviour.gd" id="2_p3ru1"]
 [ext_resource type="PackedScene" uid="uid://06p05h1hg8ha" path="res://Scenes/Guns and Bullets/Boomer.tscn" id="4_xi26o"]
 [ext_resource type="PackedScene" uid="uid://b76mlkcsyhi8v" path="res://Scenes/Guns and Bullets/homingBulletYellow.tscn" id="5_svxsy"]
 [ext_resource type="Texture2D" uid="uid://3heoeqy1bffv" path="res://Assets/UI/Reticle.png" id="7_w8da7"]
 [ext_resource type="Material" uid="uid://cph1177jeyx1o" path="res://Assets/materials/redGlow.tres" id="8_hl64h"]
-[ext_resource type="Script" path="res://Scripts/components/health.gd" id="9_1y72h"]
+[ext_resource type="Script" uid="uid://cxhjh5dihk8al" path="res://Scripts/components/health.gd" id="9_1y72h"]
 
 [sub_resource type="Resource" id="Resource_cdths"]
 script = ExtResource("2_p3ru1")
-startState = "attack"
-surroundRadius = 500
-closestRadius = 100
+surroundRadius = 1000
+closestRadius = 150
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_70ano"]
 size = Vector3(50, 50, 50)
@@ -192,13 +190,13 @@ collision_mask = 4
 motion_mode = 1
 script = ExtResource("1_khmui")
 behaviour = SubResource("Resource_cdths")
-worth = 75
+dropCurrency = 100
+dropExperience = 1000
 powerLevel = 2
-maxSpeed = 75.0
+maxSpeed = 100.0
 stoppingDistance = 10.0
 acceleration = 1.5
 turningSpeed = 2.0
-explode = ExtResource("3_5qf10")
 predictionReticleDisapearDistance = 75
 
 [node name="main" type="Node3D" parent="."]
@@ -206,6 +204,8 @@ predictionReticleDisapearDistance = 75
 [node name="Boomer" parent="main" node_paths=PackedStringArray("ship", "gunPoints") instance=ExtResource("4_xi26o")]
 ship = NodePath("../..")
 bulletRange = 1200.0
+bulletDamage = 25.0
+lockOnTarget = false
 bulletNode = ExtResource("5_svxsy")
 isPlayer = false
 automatic = true

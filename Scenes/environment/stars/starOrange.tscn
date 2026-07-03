@@ -16,8 +16,8 @@ material = SubResource("StandardMaterial3D_n4bu6")
 [node name="Star" type="Node3D" groups=["CelestialBody"]]
 script = ExtResource("1_gwgyk")
 size = {
-"max": 30000,
-"min": 20000
+"max": 5000,
+"min": 3000
 }
 type = "star"
 mass = 1000

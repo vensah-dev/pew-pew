@@ -18,8 +18,8 @@ name = &"Boomer"
 description = &"Boomer"
 icon = SubResource("CompressedTexture2D_xbpr3")
 priceRange = {
-"max": 1000,
-"min": 750
+"max": 250,
+"min": 250
 }
 function = SubResource("Resource_rmfhx")
 immediate = false

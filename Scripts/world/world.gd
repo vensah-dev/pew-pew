@@ -1,16 +1,15 @@
 extends Node3D
 
-@export var distanceThreshold = 10000.0
+# @export var distanceThreshold = 10000.0
 
 @onready var player = $"../player"
 
-var prevPlayerPos
-var originOffset
+# var prevPlayerPos
+# var originOffset
 
 var celestialBodies
 
 func _ready():
-	await get_tree().process_frame
 	celestialBodies = get_tree().get_nodes_in_group("CelestialBody")
 
 	for b in celestialBodies:
@@ -19,17 +18,20 @@ func _ready():
 
 func _process(_delta):
 
-	if prevPlayerPos != player.global_position:
-		originOffset = player.global_position
-		player.actualPosition += originOffset
+#
+# no more moving the player to origin
+#
+	# if prevPlayerPos != player.global_position:
+	# 	originOffset = player.global_position
+	# 	player.actualPosition += originOffset
 
-		prevPlayerPos = player.global_position
+	# 	prevPlayerPos = player.global_position
 
-	var dstFromOrigin = originOffset.distance_to(Vector3(0, 0, 0))
-	if dstFromOrigin >= distanceThreshold:
+	# var dstFromOrigin = originOffset.distance_to(Vector3(0, 0, 0))
+	# if dstFromOrigin >= distanceThreshold:
 
-		global_position -= originOffset
-		player.global_position = Vector3(0, 0, 0)		
+	# 	global_position -= originOffset
+	# 	player.global_position = Vector3(0, 0, 0)		
 
 	for b in celestialBodies:
 		if is_instance_valid(b):

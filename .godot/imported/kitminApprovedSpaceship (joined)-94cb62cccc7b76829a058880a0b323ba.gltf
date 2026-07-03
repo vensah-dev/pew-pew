@@ -1,13 +1,13 @@
 {
 	"asset":{
-		"generator":"Khronos glTF Blender I/O v3.6.28",
+		"generator":"Khronos glTF Blender I/O v5.1.20",
 		"version":"2.0"
 	},
 	"extensionsUsed":[
 		"KHR_lights_punctual",
+		"KHR_materials_emissive_strength",
 		"KHR_materials_specular",
-		"KHR_materials_ior",
-		"KHR_materials_emissive_strength"
+		"KHR_materials_ior"
 	],
 	"extensionsRequired":[
 		"KHR_lights_punctual"
@@ -21,7 +21,7 @@
 						1,
 						1
 					],
-					"intensity":6830,
+					"intensity":10,
 					"type":"directional",
 					"name":"Light"
 				}
@@ -122,9 +122,9 @@
 			"extensions":{
 				"KHR_materials_specular":{
 					"specularColorFactor":[
-						2.371357614441398,
-						2.371357614441398,
-						2.371357614441398
+						2.0,
+						2.0,
+						2.0
 					]
 				},
 				"KHR_materials_ior":{
@@ -148,9 +148,9 @@
 			"extensions":{
 				"KHR_materials_specular":{
 					"specularColorFactor":[
-						2.371357614441398,
-						2.371357614441398,
-						2.371357614441398
+						2.0,
+						2.0,
+						2.0
 					]
 				},
 				"KHR_materials_ior":{

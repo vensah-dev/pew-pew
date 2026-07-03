@@ -13,8 +13,7 @@ func _ready() -> void:
 
 func movePlayer(currentWorld):
 	if currentWorld != self:
-		if playerExitPoint != null:
-			player.global_position = playerExitPoint.global_position
+		player.global_position = playerExitPoint.global_position
 
 	elif currentWorld == self:
 		player.global_position = spawnPoint.global_position
@@ -23,7 +22,7 @@ func _process(_delta: float) -> void:
 	if insideEntry && Input.is_action_just_pressed("interact"):
 		player.hideInteractionLabel()
 		insideEntry = false
-		SceneSwicther.switchSceneBack()
+		SceneSwicther.switchSceneBack(true)
 
 func _on_exit_entered(body: Node3D) -> void:
 	enterExitNode(body)

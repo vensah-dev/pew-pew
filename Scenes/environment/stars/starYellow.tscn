@@ -15,8 +15,8 @@ material = SubResource("StandardMaterial3D_n4bu6")
 [node name="Star" type="Node3D" groups=["CelestialBody"]]
 script = ExtResource("1_lhjhc")
 size = {
-"max": 40000,
-"min": 30000
+"max": 7500,
+"min": 5000
 }
 type = "star"
 mass = 1000

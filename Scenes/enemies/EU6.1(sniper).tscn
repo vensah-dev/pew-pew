@@ -1,8 +1,7 @@
-[gd_scene load_steps=21 format=4 uid="uid://dlinsmn12say8"]
+[gd_scene load_steps=20 format=4 uid="uid://dlinsmn12say8"]
 
 [ext_resource type="Script" path="res://Scripts/enemy AI/enemy.gd" id="1_fol24"]
 [ext_resource type="Script" path="res://Scripts/enemy AI/behaviours/chaseAndKillEnemyBehaviour.gd" id="2_22t7w"]
-[ext_resource type="PackedScene" uid="uid://brhvvyyekkbfn" path="res://Scenes/explosion.tscn" id="3_rni2f"]
 [ext_resource type="PackedScene" uid="uid://ifbyfeosltgy" path="res://Scenes/Guns and Bullets/Railgun.tscn" id="4_8uvx7"]
 [ext_resource type="PackedScene" uid="uid://b2lcxxpd0trpf" path="res://Scenes/Guns and Bullets/bulletYellow.tscn" id="5_4j108"]
 [ext_resource type="Material" uid="uid://ceo2hwl77rfl6" path="res://Assets/materials/yellowGlow.tres" id="6_qovt6"]
@@ -192,12 +191,12 @@ collision_mask = 4
 motion_mode = 1
 script = ExtResource("1_fol24")
 behaviour = SubResource("Resource_iyrb4")
-worth = 150
-powerLevel = 3
-stoppingDistance = 10.0
+dropCurrency = null
+powerLevel = null
+stoppingDistance = 1000.0
 acceleration = 1.5
 turningSpeed = 2.0
-explode = ExtResource("3_rni2f")
+drops = null
 predictionReticleDisapearDistance = 75
 
 [node name="main" type="Node3D" parent="."]

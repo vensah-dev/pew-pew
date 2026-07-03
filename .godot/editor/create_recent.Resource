@@ -1,4 +1,0 @@
-StandardEnemyBehaviour
-Resource
-Item
-HealthManipulationFunction

@@ -14,7 +14,6 @@ extends Node3D
 
 
 @export_group("Gun Settings")
-@export var isPlayer : bool = true
 @export var automatic = true
 @export var bulletInterval = 0.25
 @export var magSize = 25
@@ -39,7 +38,8 @@ extends Node3D
 @onready var main = get_tree().current_scene.get_child(0)
 
 @onready var space = get_world_3d().direct_space_state
-@onready var crossHair = get_viewport().get_mouse_position()
+
+var crossHair
 
 var statusRing
 var statusRingOGScale
@@ -72,7 +72,6 @@ var currentGunPoint = 0
 func _ready():
 	add_to_group("guns")
 	numberOfBullets = magSize
-	await get_tree().process_frame
 	player = get_tree().get_nodes_in_group("player")[0]
 
 	#init statusRing
@@ -81,9 +80,13 @@ func _ready():
 	statusRing.max_value = magSize
 
 func _process(delta: float) -> void:
-	crossHair = get_viewport().get_mouse_position()
 
-	if isPlayer:
+	# main = get_tree().current_scene.get_child(0).get_child(-1)
+
+
+	if cam:
+		crossHair = ship.crosshair.global_position
+
 		if reloading:
 			statusRing.fill_mode = 5
 			statusRing.tint_progress = reloadColor
@@ -166,8 +169,10 @@ func spawnBullet(gun):
 	if cam:
 		bullet.enemyBullet = false
 
-		var ray_origin = cam.project_ray_origin(get_viewport().get_mouse_position())
-		var ray_direction = cam.project_ray_normal(get_viewport().get_mouse_position())
+		var crosshair_screen_pos = ship.crosshair.get_global_transform_with_canvas().origin
+
+		var ray_origin = cam.project_ray_origin(crosshair_screen_pos)
+		var ray_direction = cam.project_ray_normal(crosshair_screen_pos)
 		var target_world_position = ray_origin + ray_direction * bulletRange
 
 		var look_direction = (target_world_position - global_position).normalized()
@@ -212,7 +217,7 @@ func spawnBullet(gun):
 		#remove when making guns have different ranges as part of gameplay
 		bullet.bulletRange = gun.global_position.distance_to(player.global_position) * 1.5 # arbitrary constant
 
-	main.add_child(bullet)
+	main.get_child(-1).add_child(bullet)
 
 func handleShoot():
 	canShoot = false
@@ -245,7 +250,7 @@ func on_timer_timeout():
 	numberOfBullets = magSize
 	canShoot = true
 
-	if isPlayer:
+	if cam:
 		statusRing.max_value = magSize
 		statusRing.value = magSize
 		reloading = false

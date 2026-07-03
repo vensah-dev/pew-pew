@@ -1,11 +1,33 @@
-[gd_scene load_steps=19 format=3 uid="uid://bvlj6mywc2mry"]
+[gd_scene format=3 uid="uid://bvlj6mywc2mry"]
 
-[ext_resource type="Script" path="res://Scenes/mainMenu.gd" id="1_ux6iv"]
+[ext_resource type="Script" uid="uid://bfb1og8oqyeud" path="res://Scenes/mainMenu.gd" id="1_ux6iv"]
 [ext_resource type="PackedScene" uid="uid://8h5yc54jas2n" path="res://Scenes/spaceStationExterior.tscn" id="3_vw6pu"]
-[ext_resource type="Script" path="res://Scripts/rotateMenu.gd" id="4_a00rx"]
-[ext_resource type="Shader" path="res://Scripts/shaders/vingette.gdshader" id="5_8shfx"]
-[ext_resource type="FontFile" uid="uid://dx05ojt4m1ko8" path="res://Assets/Poppins/Poppins-SemiBold.ttf" id="6_oqulw"]
-[ext_resource type="FontFile" uid="uid://pw18l2pw732g" path="res://Assets/Poppins/Poppins-Light.ttf" id="7_ypdxv"]
+[ext_resource type="Script" uid="uid://dlnslp18bddf0" path="res://Scripts/rotateMenu.gd" id="4_a00rx"]
+[ext_resource type="Shader" uid="uid://8gu2lxm77eh" path="res://Scripts/shaders/vingette.gdshader" id="5_8shfx"]
+[ext_resource type="FontFile" uid="uid://dx05ojt4m1ko8" path="res://Assets/fonts/Poppins/Poppins-SemiBold.ttf" id="6_oqulw"]
+[ext_resource type="FontFile" uid="uid://pw18l2pw732g" path="res://Assets/fonts/Poppins/Poppins-Light.ttf" id="7_ypdxv"]
+
+[sub_resource type="Environment" id="Environment_8um5k"]
+background_mode = 1
+ambient_light_source = 2
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_sky_contribution = 0.0
+ambient_light_energy = 0.5
+tonemap_mode = 2
+glow_enabled = true
+glow_levels/7 = 1.0
+glow_normalized = true
+glow_strength = 0.95
+glow_mix = 0.15
+glow_bloom = 0.2
+glow_blend_mode = 4
+fog_mode = 1
+fog_light_color = Color(0, 0, 0, 1)
+fog_density = 1.0
+fog_depth_begin = 500000.0
+fog_depth_end = 1000000.0
+volumetric_fog_density = 0.0001
+volumetric_fog_albedo = Color(0, 0, 0, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ivdme"]
 shader = ExtResource("5_8shfx")
@@ -15,56 +37,69 @@ shader_parameter/vignette_strength = 0.1
 shader_parameter/dither_strength = 0.01
 shader_parameter/vignette_color = Color(1, 0.572549, 0.00784314, 1)
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_y1361"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4wr3g"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_an4kb"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_y6h4e"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8yarl"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7n1te"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7h54j"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wyook"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2ccsj"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tdrqi"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_21tgd"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tdrqi"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2ccsj"]
 
-[node name="MainMenu" type="Node3D"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wyook"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7h54j"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7n1te"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8yarl"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_y6h4e"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_an4kb"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4wr3g"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_y1361"]
+
+[node name="MainMenu" type="Node3D" unique_id=474708929]
 script = ExtResource("1_ux6iv")
 
-[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
-offset_left = 673.0
-offset_right = 2833.0
-offset_bottom = 2160.0
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1642710286]
+environment = SubResource("Environment_8um5k")
 
-[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
-handle_input_locally = false
-size = Vector2i(2160, 2160)
-render_target_update_mode = 4
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment" unique_id=1722991818]
+transform = Transform3D(0.7671651, -0.33706364, -0.5457526, 0, -0.8508113, 0.5254717, -0.64144963, -0.40312356, -0.6527128, 0, 0, 0)
+layers = 3
+light_specular = 0.75
+light_cull_mask = 4294967291
 
-[node name="space station" parent="SubViewportContainer/SubViewport" instance=ExtResource("3_vw6pu")]
+[node name="space station" parent="." unique_id=1281697211 instance=ExtResource("3_vw6pu")]
 transform = Transform3D(1.25, 0, 0, 0, 1.25, 0, 0, 0, 1.25, 0, 0, 0)
 script = ExtResource("4_a00rx")
 rotationSpeed = 0.1
 
-[node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport"]
-transform = Transform3D(-0.699663, -0.599207, 0.38913, 0, 0.544639, 0.838671, -0.714473, 0.586787, -0.381064, 5.61069, 6.2, -5.43496)
+[node name="Camera3D" type="Camera3D" parent="." unique_id=515575729]
+transform = Transform3D(0.9945219, 0.104528464, 0, -0.09410894, 0.89538676, 0.4352311, 0.04549404, -0.43284684, 0.9003188, -2.786, 3.467, 6.335)
+current = true
+fov = 40.0
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="SubViewportContainer/SubViewport"]
-transform = Transform3D(-4.37114e-08, 0.878817, -0.477159, 0, 0.477159, 0.878817, 1, 3.84143e-08, -2.08573e-08, -9.16596, 4.71208, 0)
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=679038635]
+transform = Transform3D(-4.37114e-08, 0.878817, -0.477159, 0, 0.477159, 0.878817, 1, 3.841432e-08, -2.0857287e-08, -9.16596, 4.71208, 0)
+visible = false
 light_energy = 0.5
 
-[node name="Menu UI" type="CanvasLayer" parent="."]
+[node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=1617865399]
+visible = false
+offset_left = 673.0
+offset_right = 2833.0
+offset_bottom = 2160.0
 
-[node name="vignette" type="ColorRect" parent="Menu UI"]
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer" unique_id=534945106]
+handle_input_locally = false
+size = Vector2i(2160, 2160)
+render_target_update_mode = 0
+
+[node name="Menu UI" type="CanvasLayer" parent="." unique_id=1475176643]
+
+[node name="vignette" type="ColorRect" parent="Menu UI" unique_id=1948592983]
 visible = false
 material = SubResource("ShaderMaterial_ivdme")
 anchors_preset = 15
@@ -75,7 +110,7 @@ offset_bottom = 2.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Title" type="RichTextLabel" parent="Menu UI"]
+[node name="Title" type="RichTextLabel" parent="Menu UI" unique_id=850408340]
 offset_left = 128.0
 offset_top = 96.0
 offset_right = 723.0
@@ -90,84 +125,84 @@ fit_content = true
 scroll_active = false
 autowrap_mode = 0
 
-[node name="Buttons" type="VBoxContainer" parent="Menu UI"]
+[node name="Buttons" type="VBoxContainer" parent="Menu UI" unique_id=1495354365]
 offset_left = 128.0
 offset_top = 320.0
 offset_right = 352.0
 offset_bottom = 552.0
 theme_override_constants/separation = 32
 
-[node name="Play" type="Button" parent="Menu UI/Buttons"]
+[node name="Play" type="Button" parent="Menu UI/Buttons" unique_id=153685565]
 layout_mode = 2
 size_flags_horizontal = 0
-theme_override_colors/font_disabled_color = Color(0, 0, 0, 0.25098)
-theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
-theme_override_colors/font_pressed_color = Color(1, 1, 1, 0.501961)
 theme_override_colors/font_color = Color(1, 1, 1, 0.74902)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 0.501961)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 0.25098)
 theme_override_fonts/font = ExtResource("7_ypdxv")
 theme_override_font_sizes/font_size = 40
-theme_override_styles/focus = SubResource("StyleBoxEmpty_y1361")
-theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_4wr3g")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_an4kb")
-theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_y6h4e")
-theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_8yarl")
-theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_7n1te")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_7h54j")
-theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_wyook")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_2ccsj")
-theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_21tgd")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_tdrqi")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_21tgd")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_2ccsj")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_wyook")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_7h54j")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_7n1te")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_8yarl")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_y6h4e")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_an4kb")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_4wr3g")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_y1361")
 text = "PLAY
 "
 flat = true
 
-[node name="Highscore" type="Button" parent="Menu UI/Buttons"]
+[node name="Highscore" type="Button" parent="Menu UI/Buttons" unique_id=13636800]
 layout_mode = 2
 size_flags_horizontal = 0
-theme_override_colors/font_disabled_color = Color(0, 0, 0, 0.25098)
-theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
-theme_override_colors/font_pressed_color = Color(1, 1, 1, 0.501961)
 theme_override_colors/font_color = Color(1, 1, 1, 0.74902)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 0.501961)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 0.25098)
 theme_override_fonts/font = ExtResource("7_ypdxv")
 theme_override_font_sizes/font_size = 40
-theme_override_styles/focus = SubResource("StyleBoxEmpty_y1361")
-theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_4wr3g")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_an4kb")
-theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_y6h4e")
-theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_8yarl")
-theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_7n1te")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_7h54j")
-theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_wyook")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_2ccsj")
-theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_21tgd")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_tdrqi")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_21tgd")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_2ccsj")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_wyook")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_7h54j")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_7n1te")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_8yarl")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_y6h4e")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_an4kb")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_4wr3g")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_y1361")
 text = "HIGHSCORE"
 flat = true
 
-[node name="Exit" type="Button" parent="Menu UI/Buttons"]
+[node name="Quit" type="Button" parent="Menu UI/Buttons" unique_id=351260167]
 layout_mode = 2
 size_flags_horizontal = 0
-theme_override_colors/font_disabled_color = Color(0, 0, 0, 0.25098)
-theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
-theme_override_colors/font_pressed_color = Color(1, 1, 1, 0.501961)
 theme_override_colors/font_color = Color(1, 1, 1, 0.74902)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 0.501961)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 0.25098)
 theme_override_fonts/font = ExtResource("7_ypdxv")
 theme_override_font_sizes/font_size = 40
-theme_override_styles/focus = SubResource("StyleBoxEmpty_y1361")
-theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_4wr3g")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_an4kb")
-theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_y6h4e")
-theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_8yarl")
-theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_7n1te")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_7h54j")
-theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_wyook")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_2ccsj")
-theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_21tgd")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_tdrqi")
-text = "EXIT"
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_21tgd")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_2ccsj")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_wyook")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_7h54j")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_7n1te")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_8yarl")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_y6h4e")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_an4kb")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_4wr3g")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_y1361")
+text = "QUIT"
 flat = true
 
-[node name="highscorePage" type="ColorRect" parent="Menu UI"]
+[node name="highscorePage" type="ColorRect" parent="Menu UI" unique_id=1045053183]
 visible = false
 anchors_preset = 15
 anchor_right = 1.0
@@ -176,34 +211,34 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.921569)
 
-[node name="Exit" type="Button" parent="Menu UI/highscorePage"]
+[node name="Exit" type="Button" parent="Menu UI/highscorePage" unique_id=678703023]
 layout_mode = 1
 offset_left = 64.0
 offset_top = 64.0
 offset_right = 131.0
 offset_bottom = 120.0
 size_flags_horizontal = 0
-theme_override_colors/font_disabled_color = Color(0, 0, 0, 0.25098)
-theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
-theme_override_colors/font_pressed_color = Color(1, 1, 1, 0.501961)
 theme_override_colors/font_color = Color(1, 1, 1, 0.74902)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 0.501961)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 0.25098)
 theme_override_fonts/font = ExtResource("7_ypdxv")
 theme_override_font_sizes/font_size = 40
-theme_override_styles/focus = SubResource("StyleBoxEmpty_y1361")
-theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_4wr3g")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_an4kb")
-theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_y6h4e")
-theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_8yarl")
-theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_7n1te")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_7h54j")
-theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_wyook")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_2ccsj")
-theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_21tgd")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_tdrqi")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_21tgd")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_2ccsj")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_wyook")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_7h54j")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_7n1te")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_8yarl")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_y6h4e")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_an4kb")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_4wr3g")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_y1361")
 text = "exit"
 flat = true
 
-[node name="HBoxContainer" type="VBoxContainer" parent="Menu UI/highscorePage"]
+[node name="HBoxContainer" type="VBoxContainer" parent="Menu UI/highscorePage" unique_id=1070995460]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -218,7 +253,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 32
 
-[node name="highscore" type="RichTextLabel" parent="Menu UI/highscorePage/HBoxContainer"]
+[node name="highscore" type="RichTextLabel" parent="Menu UI/highscorePage/HBoxContainer" unique_id=1530973818]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
@@ -230,7 +265,7 @@ fit_content = true
 scroll_active = false
 autowrap_mode = 0
 
-[node name="highscoreValue" type="RichTextLabel" parent="Menu UI/highscorePage/HBoxContainer"]
+[node name="highscoreValue" type="RichTextLabel" parent="Menu UI/highscorePage/HBoxContainer" unique_id=1660950337]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0

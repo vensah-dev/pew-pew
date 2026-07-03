@@ -1,4 +1,4 @@
-[gd_resource type="AudioBusLayout" load_steps=2 format=3 uid="uid://bsi8qxst8t4be"]
+[gd_resource type="AudioBusLayout" format=3 uid="uid://bsi8qxst8t4be"]
 
 [sub_resource type="AudioEffectStereoEnhance" id="AudioEffectStereoEnhance_2e8iq"]
 resource_name = "StereoEnhance"

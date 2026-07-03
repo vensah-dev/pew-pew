@@ -1,8 +1,7 @@
-[gd_scene load_steps=21 format=4 uid="uid://bxrrcg7duxrd3"]
+[gd_scene load_steps=20 format=4 uid="uid://bxrrcg7duxrd3"]
 
 [ext_resource type="Script" path="res://Scripts/enemy AI/enemy.gd" id="1_jjdv4"]
 [ext_resource type="Script" path="res://Scripts/enemy AI/behaviours/HitAndRunEnemyBehaviour.gd" id="2_eychg"]
-[ext_resource type="PackedScene" uid="uid://brhvvyyekkbfn" path="res://Scenes/explosion.tscn" id="2_xgumq"]
 [ext_resource type="PackedScene" uid="uid://cxhbnxsocgt5p" path="res://Scenes/Guns and Bullets/MachineGuns.tscn" id="4_aaw0s"]
 [ext_resource type="PackedScene" uid="uid://cl3jfdc3m0j2x" path="res://Scenes/Guns and Bullets/bulletPurple.tscn" id="5_33u3b"]
 [ext_resource type="Texture2D" uid="uid://3heoeqy1bffv" path="res://Assets/UI/Reticle.png" id="6_k3oq0"]
@@ -192,10 +191,15 @@ collision_mask = 4
 motion_mode = 1
 script = ExtResource("1_jjdv4")
 behaviour = SubResource("Resource_250jt")
+dropCurrency = 250
+dropExperience = 500
+powerLevel = 3
+maxSpeed = 100.0
 stoppingDistance = 10.0
 acceleration = 1.5
 turningSpeed = 2.0
-explode = ExtResource("2_xgumq")
+drops = null
+aimBoxMultipler = null
 predictionReticleDisapearDistance = 75
 
 [node name="main" type="Node3D" parent="."]

@@ -1,11 +1,10 @@
 extends CharacterBody3D
 
 @export_group("Speed")
-@export var forwardSpeedRange = {"min": 25, "max": 25}; 
+@export var forwardSpeed = 100
 @export var strifeSpeed = 7.5;
 @export var hoverSpeed = 5.0;
 @export var rollSpeed = 5.0;
-var forwardSpeed = forwardSpeedRange.min;
 @onready var actualPosition = Vector3(0, 0, 0)
 
 @export var boostSpeed = 10.0;
@@ -23,6 +22,17 @@ var forwardSpeed = forwardSpeedRange.min;
 @export var mouseDamping = 1.5
 @export var mouseIdleThreshold = 0.15
 @export var aimAssist = 0.5
+
+@export_subgroup("Virtual Joystick")
+@export var crosshair: Node
+
+@export var joystick_sensitivity: float = 0.05 # Lower this to make your physical hand movements affect the cursor less
+@export var joystick_radius: float = 250.0 
+@export var crosshair_smooth_speed: float = 15.0 # Higher = snappier, Lower = smoother/heavier glide
+
+var virtual_mouse := Vector2.ZERO 
+# Track where the crosshair wants to be vs where it visually is
+var visual_crosshair_pos := Vector2.ZERO
 
 
 @export_group("Camera")
@@ -77,6 +87,8 @@ var noise_y = 0
 @export var speedLabel: Node
 @export var inventory: Node
 @export var statusRing: Node
+@export var innerRing: Node
+
 
 @export_subgroup("vignette")
 
@@ -145,18 +157,22 @@ var lookingAtInteractable = false
 
 var inventoryItems = []
 
-@onready var currentMouseSpeed = mouseSpeed
+@onready var currentMouseSpeed = 1000
 
 func _ready() -> void:
 
-	await get_tree().process_frame
+	# await get_tree().process_frame
 
 	# var coneShape = coneMesh()
 	# shapeCast.shape = coneShape
 
 	# add_child(shapeCast)
 
-	Input.mouse_mode = Input.MOUSE_MODE_CONFINED
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	virtual_mouse = Vector2.ZERO
+	mouseDistance = Vector2.ZERO
+	innerRing.size = Vector2(mouseIdleThreshold*joystick_radius*2, mouseIdleThreshold*joystick_radius*2)
+	innerRing.position = Vector2(vw.x/2, vw.y/2) - innerRing.size/2
 
 	healthData.setHealth(healthData.maxHealth)
 	healthData.setShield(healthData.maxShield)
@@ -175,25 +191,28 @@ func _ready() -> void:
 #Process functions
 ########################
 
-func _physics_process(delta: float) -> void:
+func _physics_process(pdelta: float) -> void:
 	centre = get_viewport().get_visible_rect().size / 2
+	
+	visual_crosshair_pos = visual_crosshair_pos.lerp(virtual_mouse, crosshair_smooth_speed * pdelta)
+	
+	crosshair.global_position = centre + visual_crosshair_pos
 
 	#i truly eonder what this does
 	handleRayCast()
 
 	#to allow mouse pointer to be able to exit the window
-	mouse(delta)
+	mouse(pdelta)
 	
 	#put under physics process asap
-	move(delta)
+	move(pdelta)
 	move_and_slide()
 
 	#Camera Follow but.. SMOOTH HEHEHABUTCTUYC EOUBds
-	camGimbal.global_transform = camGimbal.global_transform.interpolate_with(global_transform, cameraDamping * delta)
+	camGimbal.global_transform = camGimbal.global_transform.interpolate_with(global_transform, cameraDamping * pdelta)
 
 	if Input.is_action_just_pressed("toggleUI") and healthData.health > 0:
 		canvasNode.visible = !canvasNode.visible
-
 
 func _process(delta: float) -> void:
 
@@ -223,8 +242,10 @@ func _process(delta: float) -> void:
 func handleRayCast():
 	var space_state = get_world_3d().direct_space_state
 
-	var ray_origin = camNode.project_ray_origin(get_viewport().get_mouse_position())
-	var ray_direction = camNode.project_ray_normal(get_viewport().get_mouse_position())
+	var crosshair_screen_pos = crosshair.get_global_transform_with_canvas().origin
+
+	var ray_origin = camNode.project_ray_origin(crosshair_screen_pos)
+	var ray_direction = camNode.project_ray_normal(crosshair_screen_pos)
 	var target_world_position = ray_origin + ray_direction * raycastRange
 
 	var look_direction = (target_world_position - global_position).normalized()
@@ -339,26 +360,28 @@ func handleInventory():
 		gun.set_process(false)
 	#handle gun states
 	statusRing.visible = false
-	if inventoryItems[selectedIndex].get_class() == "Node3D": #check if its a gun node remeber to change later 
-		statusRing.visible = true
-		if activeForwardSpeed+activeHoverSpeed+activeStrifeSpeed < inventoryItems[selectedIndex].bulletSpeed:
+	if inventoryItems.size() != 0:
+		if inventoryItems[selectedIndex].get_class() == "Node3D": #check if its a gun node remeber to change later 
+			statusRing.visible = true
+			if activeForwardSpeed+activeHoverSpeed+activeStrifeSpeed < inventoryItems[selectedIndex].bulletSpeed:
 
-			inventoryItems[selectedIndex].set_process(true)
+				inventoryItems[selectedIndex].set_process(true)
 
-			if inventoryItems[selectedIndex].lockOnTarget == true:
-				canLockOnTarget = true
-				updatePredictionReticle = false
-			else:
-				canLockOnTarget = false
-				lockedTarget = null
+				if inventoryItems[selectedIndex].lockOnTarget == true:
+					canLockOnTarget = true
+					updatePredictionReticle = false
+				else:
+					canLockOnTarget = false
+					lockedTarget = null
 
-	elif inventoryItems[selectedIndex].get_class() == "Resource":
-		if Input.is_action_just_pressed("interact"):
-			inventoryItems[selectedIndex].use()
-			inventoryItems.remove_at(selectedIndex)
-			selectedIndex -= 1
-	print("inventoryItems: ", inventoryItems)
-	inventory.updateInventory()
+	elif inventoryItems.size() != 0:
+		if inventoryItems[selectedIndex].get_class() == "Resource":
+			if Input.is_action_just_pressed("interact"):
+				inventoryItems[selectedIndex].use()
+				inventoryItems.remove_at(selectedIndex)
+				selectedIndex -= 1
+		print("inventoryItems: ", inventoryItems)
+		inventory.updateInventory()
 
 func inventoryFull():
 	return inventoryItems.size() == 6
@@ -405,19 +428,18 @@ func directions():
 	up = transform.basis.y
 
 func mouse(delta):
-	if Input.get_action_strength("ui_cancel"):
-		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-	elif Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
-		Input.mouse_mode = Input.MOUSE_MODE_CONFINED
-		
-	#mouse damping and to make sure the spaceship can actually stay still when the mouse pointer is rough;y in the middle
-	if absf(mouseDistance.y) > mouseIdleThreshold*(vw.y/vw.y):
-		y = mouseDistance.y
+	# Process Pitch (Y)
+	print("mouse distance Y: ", absf(mouseDistance.y))
+	print("mouse distance X: ", absf(mouseDistance.x))
+
+	if absf(mouseDistance.y) > mouseIdleThreshold:
+		y = lerpf(y, mouseDistance.y, mouseDamping * delta)
 	else:
 		y = lerpf(y, 0, mouseDamping * delta)
 		
-	if absf(mouseDistance.x) > mouseIdleThreshold*(vw.x/vw.y):
-		x = mouseDistance.x
+	# Process Yaw (X)
+	if absf(mouseDistance.x) > mouseIdleThreshold:
+		x = lerpf(x, mouseDistance.x, mouseDamping * delta)
 	else:
 		x = lerpf(x, 0, mouseDamping * delta)
 		
@@ -425,12 +447,29 @@ func mouse(delta):
 	mouseButtonRight = Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT)
 	mouseButtonMiddle = Input.is_mouse_button_pressed(MOUSE_BUTTON_MIDDLE)
 
+	#handling the mouse mdoe
+	if Input.is_action_just_pressed("escape"):
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+
+	if mouseButtonLeft:
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+
+
+
 func _input(event):
-	if event is InputEventMouse:
-		mouseDistance.x = (event.global_position.x - (vw.x*0.5))/(vw.y*0.5)
-		mouseDistance.y = (event.global_position.y - (vw.y*0.5))/(vw.y*0.5)
+	if event is InputEventMouseMotion:
+		# Scale the raw input down firmly
+		virtual_mouse.x += event.relative.x * joystick_sensitivity
+		virtual_mouse.y += event.relative.y * joystick_sensitivity
 		
-		mouseDistance = mouseDistance.clamp(Vector2(-1, -1), Vector2(1, 1))
+		# Keep it trapped in the circle
+		var current_radius = virtual_mouse.length()
+		if current_radius > joystick_radius:
+			virtual_mouse = virtual_mouse.normalized() * joystick_radius
+			
+		# Update your gameplay vector
+		mouseDistance.x = virtual_mouse.x / joystick_radius
+		mouseDistance.y = virtual_mouse.y / joystick_radius
 
 func move(delta):
 	#State Handling

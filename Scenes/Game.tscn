@@ -1,79 +1,27 @@
-[gd_scene load_steps=50 format=3 uid="uid://bae0rrler2lwr"]
+[gd_scene format=3 uid="uid://bae0rrler2lwr"]
 
-[ext_resource type="Script" path="res://Scripts/gameManager.gd" id="1_jmc7e"]
+[ext_resource type="Script" uid="uid://prw4wqcg2te4" path="res://Scripts/gameManager.gd" id="1_jmc7e"]
 [ext_resource type="PackedScene" uid="uid://cm3ydrh3c6bxd" path="res://Scenes/player.tscn" id="2_de30o"]
 [ext_resource type="Environment" uid="uid://ytdp4206auxd" path="res://Assets/Texture/environment.tres" id="2_kpeq3"]
-[ext_resource type="Resource" uid="uid://cslvcweyejh3c" path="res://addons/SphynxMotionBlurToolkit/PreBlurProcessing/default_camera_movement_component.tres" id="2_ybq70"]
-[ext_resource type="Script" path="res://Scripts/world/world.gd" id="3_aiun5"]
-[ext_resource type="Resource" uid="uid://iru8ynu04i00" path="res://addons/SphynxMotionBlurToolkit/PreBlurProcessing/default_camera_rotation_component.tres" id="3_djdsl"]
-[ext_resource type="Shader" path="res://Scripts/shaders/vingette.gdshader" id="3_xantu"]
-[ext_resource type="Resource" uid="uid://rp3mpjmisoyh" path="res://addons/SphynxMotionBlurToolkit/PreBlurProcessing/default_object_movement_component.tres" id="4_j8wks"]
-[ext_resource type="Script" path="res://Scripts/spawners/SolarSystemSpawner.gd" id="4_s4hp0"]
+[ext_resource type="Script" uid="uid://bjmcb0tktcosl" path="res://Scripts/world/world.gd" id="3_aiun5"]
+[ext_resource type="Shader" uid="uid://8gu2lxm77eh" path="res://Scripts/shaders/vingette.gdshader" id="3_xantu"]
+[ext_resource type="Script" uid="uid://bpv5e3fvtv5im" path="res://Scripts/spawners/SolarSystemSpawner.gd" id="4_s4hp0"]
 [ext_resource type="Texture2D" uid="uid://da6mtyhcrgjyd" path="res://Assets/UI/shield icon.png" id="5_o6m3p"]
-[ext_resource type="Resource" uid="uid://c8ulad7utgrg7" path="res://addons/SphynxMotionBlurToolkit/PreBlurProcessing/pre_blur_processing_stage.tres" id="5_ojqdg"]
 [ext_resource type="PackedScene" uid="uid://bxtudok6crrjx" path="res://Scenes/environment/starSystems/solarSystem.tscn" id="5_synb3"]
 [ext_resource type="Texture2D" uid="uid://da8qpfk8sann1" path="res://Assets/UI/health icon.png" id="6_2yts4"]
-[ext_resource type="Script" path="res://addons/SphynxMotionBlurToolkit/PreBlurProcessing/pre_blur_processor.gd" id="6_opyl4"]
 [ext_resource type="PackedScene" uid="uid://6nobhr26vtvf" path="res://Scenes/spawners/enemySpawner.tscn" id="6_t04ed"]
-[ext_resource type="Resource" uid="uid://ca45noqewsyvp" path="res://addons/SphynxMotionBlurToolkit/Guertin/guertin_experimental_blur_stage.tres" id="7_atebm"]
-[ext_resource type="Script" path="res://Scripts/crosshair.gd" id="7_mhgb4"]
+[ext_resource type="Script" uid="uid://db7o1gb4k0ep0" path="res://Scripts/crosshair.gd" id="7_mhgb4"]
 [ext_resource type="Texture2D" uid="uid://copsrd5jrk7o6" path="res://Assets/UI/statusRing.png" id="7_n3nd6"]
-[ext_resource type="Resource" uid="uid://cvb65hfs2lrxo" path="res://addons/SphynxMotionBlurToolkit/Guertin/guertin_neighbor_max_stage.tres" id="8_3rte8"]
-[ext_resource type="PackedScene" uid="uid://34hbmj2ovvb2" path="res://Scenes/minimap.tscn" id="9_7ngw5"]
 [ext_resource type="PackedScene" uid="uid://cydpyr360sp2s" path="res://Scenes/cameraView.tscn" id="9_i6eme"]
-[ext_resource type="Resource" uid="uid://bidsfymvdyhek" path="res://addons/SphynxMotionBlurToolkit/Guertin/guertin_overlay_stage.tres" id="9_ykj30"]
-[ext_resource type="Script" path="res://addons/SphynxMotionBlurToolkit/Guertin/new_guertin_motion_blur.gd" id="10_jj805"]
-[ext_resource type="Resource" uid="uid://dipvwksvqb3dm" path="res://addons/SphynxMotionBlurToolkit/Guertin/guertin_tile_max_x_stage.tres" id="11_t2g0a"]
-[ext_resource type="Resource" uid="uid://bxfg45ubc2pv7" path="res://addons/SphynxMotionBlurToolkit/Guertin/guertin_tile_max_y_stage.tres" id="12_co80g"]
-[ext_resource type="Resource" uid="uid://bqehecsdgt70s" path="res://addons/SphynxMotionBlurToolkit/Guertin/guertin_tile_variance_stage.tres" id="13_pn7nl"]
+[ext_resource type="LabelSettings" uid="uid://0t8kobfrtpyj" path="res://Assets/fonts/normal label.tres" id="10_i0vto"]
 [ext_resource type="PackedScene" uid="uid://8h5yc54jas2n" path="res://Scenes/spaceStationExterior.tscn" id="14_h7gm1"]
-[ext_resource type="Script" path="res://Scripts/goToMouse.gd" id="18_xd0wm"]
-[ext_resource type="FontFile" uid="uid://pw18l2pw732g" path="res://Assets/Poppins/Poppins-Light.ttf" id="20_0lqjg"]
-[ext_resource type="FontFile" uid="uid://dfgjr51y5pff7" path="res://Assets/Poppins/Poppins-Thin.ttf" id="21_ot4q4"]
+[ext_resource type="FontFile" uid="uid://dfgjr51y5pff7" path="res://Assets/fonts/Poppins/Poppins-Thin.ttf" id="21_ot4q4"]
 [ext_resource type="PackedScene" uid="uid://cqanug7lr8ug1" path="res://Scenes/inventory.tscn" id="25_n22hb"]
 [ext_resource type="Texture2D" uid="uid://1djd3isbml2n" path="res://Assets/Texture/currency.png" id="28_sje32"]
-[ext_resource type="Shader" path="res://Scripts/shaders/outlineShader.gdshader" id="30_ddqmw"]
+[ext_resource type="Shader" uid="uid://b1ucpwipb0he7" path="res://Scripts/shaders/outlineShader.gdshader" id="30_ddqmw"]
 [ext_resource type="PackedScene" uid="uid://rlv02n2awb4m" path="res://Scenes/enemies/EU6.1(aggressive).tscn" id="33_6fwoh"]
 [ext_resource type="PackedScene" uid="uid://bxrrcg7duxrd3" path="res://Scenes/enemies/EU6.1.tscn" id="33_m0fq4"]
 [ext_resource type="PackedScene" uid="uid://dlinsmn12say8" path="res://Scenes/enemies/EU6.1(sniper).tscn" id="35_dapno"]
-
-[sub_resource type="CompositorEffect" id="CompositorEffect_oh7tx"]
-resource_local_to_scene = false
-resource_name = ""
-enabled = false
-effect_callback_type = 4
-needs_motion_vectors = false
-needs_normal_roughness = false
-script = ExtResource("6_opyl4")
-pre_blur_processor_stage = ExtResource("5_ojqdg")
-camera_rotation_component = ExtResource("3_djdsl")
-camera_movement_component = ExtResource("2_ybq70")
-object_movement_component = ExtResource("4_j8wks")
-debug = false
-
-[sub_resource type="CompositorEffect" id="CompositorEffect_1156h"]
-resource_local_to_scene = false
-resource_name = ""
-enabled = true
-effect_callback_type = 4
-needs_motion_vectors = false
-needs_normal_roughness = false
-script = ExtResource("10_jj805")
-blur_stage = ExtResource("7_atebm")
-overlay_stage = ExtResource("9_ykj30")
-tile_max_x_stage = ExtResource("11_t2g0a")
-tile_max_y_stage = ExtResource("12_co80g")
-neighbor_max_stage = ExtResource("8_3rte8")
-tile_variance_stage = ExtResource("13_pn7nl")
-tile_size = 40
-linear_falloff_slope = 1.0
-importance_bias = 40.0
-maximum_jitter_value = 0.95
-minimum_user_threshold = 1.5
-debug = false
-
-[sub_resource type="Compositor" id="Compositor_0qyyx"]
-compositor_effects = Array[CompositorEffect]([SubResource("CompositorEffect_oh7tx"), SubResource("CompositorEffect_1156h")])
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_kqtgv"]
 
@@ -105,9 +53,13 @@ shader_parameter/vignette_strength = 0.1
 shader_parameter/dither_strength = 0.01
 shader_parameter/vignette_color = Color(1, 0, 0, 1)
 
-[sub_resource type="LabelSettings" id="LabelSettings_7r6wg"]
-font = ExtResource("20_0lqjg")
-font_size = 32
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_raj38"]
+color = Color(1, 1, 1, 0.0627451)
+thickness = 20
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_8e0uq"]
+color = Color(0, 0.733333, 1, 1)
+thickness = 20
 
 [sub_resource type="LabelSettings" id="LabelSettings_3un3w"]
 font = ExtResource("21_ot4q4")
@@ -131,64 +83,95 @@ thickness = 10
 color = Color(1, 1, 1, 1)
 thickness = 10
 
-[node name="Game" type="Node3D" groups=["gameManager"]]
+[node name="Game" type="Node3D" unique_id=402036711 groups=["gameManager"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00516129, 0.0140705, -0.0098381)
 script = ExtResource("1_jmc7e")
 spawnSeed = "2891365617"
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=511593857]
 environment = ExtResource("2_kpeq3")
-compositor = SubResource("Compositor_0qyyx")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment"]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment" unique_id=127311676]
 transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 4, 0)
 layers = 3
 light_cull_mask = 4294967291
 
-[node name="player" parent="." node_paths=PackedStringArray("healthbar", "shieldbar", "speedLabel", "inventory", "statusRing") instance=ExtResource("2_de30o")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 9.63764)
+[node name="player" parent="." unique_id=532396271 node_paths=PackedStringArray("crosshair", "healthbar", "shieldbar", "speedLabel", "inventory", "statusRing", "innerRing") instance=ExtResource("2_de30o")]
+transform = Transform3D(-0.9980211, 0, -0.062877685, 0, 1, 0, 0.062877685, 0, -0.9980211, 0, 0, 0)
+mouseDamping = 15.0
+mouseIdleThreshold = 0.3
+crosshair = NodePath("../UI/CrossHairGroup")
+joystick_sensitivity = 0.15
+joystick_radius = 250.0
+crosshair_smooth_speed = 15.0
 raycastRange = 10000
 healthbar = NodePath("../UI/Bottom UI/VBoxContainer/HBoxContainer/MarginContainer/Bars/HealthBarContainer/healthbar")
 shieldbar = NodePath("../UI/Bottom UI/VBoxContainer/HBoxContainer/MarginContainer/Bars/ShieldBarContainer/shieldbar")
+immortal = true
 speedLabel = NodePath("../UI/Bottom UI/VBoxContainer/speed")
 inventory = NodePath("../UI/Bottom UI/VBoxContainer/HBoxContainer/inventory")
 statusRing = NodePath("../UI/CrossHairGroup/statusRing")
+innerRing = NodePath("../UI/idleRing")
+normalVignetteColor = Color(0, 0, 0, 1)
+damageVignetteColor = Color(1, 0, 0, 1)
 
-[node name="outlines" type="MeshInstance3D" parent="."]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -0.2)
+[node name="outlines" type="MeshInstance3D" parent="." unique_id=1724831246]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+visible = false
 layers = 3
 extra_cull_margin = 16384.0
 mesh = SubResource("QuadMesh_gmtlk")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("ShaderMaterial_qm2r1")
 
-[node name="UI" type="CanvasLayer" parent="."]
+[node name="UI" type="CanvasLayer" parent="." unique_id=2120487514]
+follow_viewport_enabled = true
 
-[node name="vignette" type="ColorRect" parent="UI"]
+[node name="vignette" type="ColorRect" parent="UI" unique_id=2130355153]
 material = SubResource("ShaderMaterial_kgtun")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = 2.0
-offset_bottom = 2.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="CrossHairGroup" type="Control" parent="UI"]
+[node name="EXPBar" type="ProgressBar" parent="UI" unique_id=1444826319]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 10.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0.5, 0.5, 0.5, 1)
+theme_override_font_sizes/font_size = 16
+theme_override_styles/background = SubResource("StyleBoxLine_raj38")
+theme_override_styles/fill = SubResource("StyleBoxLine_8e0uq")
+value = 50.0
+show_percentage = false
+
+[node name="exp points" type="Label" parent="UI/EXPBar" unique_id=939362034]
+visible = false
+layout_mode = 0
+offset_left = 1719.0
+offset_top = 119.0
+offset_right = 1759.0
+offset_bottom = 164.33333
+text = "10"
+label_settings = ExtResource("10_i0vto")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CrossHairGroup" type="Control" parent="UI" unique_id=1760085314]
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("18_xd0wm")
 
-[node name="Crosshair" type="CenterContainer" parent="UI/CrossHairGroup"]
+[node name="Crosshair" type="CenterContainer" parent="UI/CrossHairGroup" unique_id=259600896]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -206,7 +189,7 @@ script = ExtResource("7_mhgb4")
 innerRadius = 1.0
 outerRadius = 0.0
 
-[node name="statusRing" type="TextureProgressBar" parent="UI/CrossHairGroup"]
+[node name="statusRing" type="TextureProgressBar" parent="UI/CrossHairGroup" unique_id=891654359]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -228,7 +211,16 @@ texture_progress = ExtResource("7_n3nd6")
 tint_under = Color(1, 1, 1, 0.25098)
 tint_over = Color(1, 1, 1, 0)
 
-[node name="distance" type="Label" parent="UI"]
+[node name="idleRing" type="TextureRect" parent="UI" unique_id=883290199]
+modulate = Color(1, 1, 1, 0.039215688)
+offset_right = 100.0
+offset_bottom = 100.0
+pivot_offset_ratio = Vector2(0.5, 0.5)
+texture = ExtResource("7_n3nd6")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="distance" type="Label" parent="UI" unique_id=235966107]
 anchors_preset = 14
 anchor_top = 0.5
 anchor_right = 1.0
@@ -238,11 +230,11 @@ offset_bottom = -105.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "distance"
-label_settings = SubResource("LabelSettings_7r6wg")
+label_settings = ExtResource("10_i0vto")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="FPS" type="Label" parent="UI"]
+[node name="FPS" type="Label" parent="UI" unique_id=1315990775]
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
@@ -255,44 +247,61 @@ pivot_offset = Vector2(37, 17)
 text = "FPS 60"
 label_settings = SubResource("LabelSettings_3un3w")
 
-[node name="currencyContainer" type="HBoxContainer" parent="UI"]
-offset_left = 77.0
-offset_top = 64.0
-offset_right = 264.0
-offset_bottom = 110.0
+[node name="currencyContainer" type="HBoxContainer" parent="UI" unique_id=801951492]
+offset_left = 64.0
+offset_top = 80.0
+offset_right = 279.0
+offset_bottom = 126.0
 theme_override_constants/separation = 32
 
-[node name="icon" type="TextureRect" parent="UI/currencyContainer"]
+[node name="icon" type="TextureRect" parent="UI/currencyContainer" unique_id=125691561]
 layout_mode = 2
 texture = ExtResource("28_sje32")
 expand_mode = 2
 stretch_mode = 4
 
-[node name="currencyLabel" type="Label" parent="UI/currencyContainer"]
+[node name="currencyLabel" type="Label" parent="UI/currencyContainer" unique_id=194086033]
 layout_mode = 2
-text = "moneies
-"
-label_settings = SubResource("LabelSettings_7r6wg")
+text = "moneies"
+label_settings = ExtResource("10_i0vto")
 
-[node name="waveLabel" type="Label" parent="UI"]
-offset_left = 77.0
-offset_top = 136.0
-offset_right = 214.0
-offset_bottom = 182.0
-text = "wave: 
-"
-label_settings = SubResource("LabelSettings_7r6wg")
+[node name="waveLabel" type="Label" parent="UI" unique_id=625609474]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -201.0
+offset_top = 80.0
+offset_right = -64.0
+offset_bottom = 126.0
+grow_horizontal = 0
+text = "wave: 5"
+label_settings = ExtResource("10_i0vto")
+horizontal_alignment = 2
 
-[node name="enemyLabel" type="Label" parent="UI"]
-offset_left = 77.0
+[node name="expLabel" type="Label" parent="UI/waveLabel" unique_id=1170783108]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -138.0
+offset_top = 40.0
+offset_right = -1.0
+offset_bottom = 86.0
+grow_horizontal = 0
+text = "1933"
+label_settings = ExtResource("10_i0vto")
+horizontal_alignment = 2
+
+[node name="enemyLabel" type="Label" parent="UI" unique_id=1800100695]
+visible = false
+offset_left = 64.0
 offset_top = 200.0
-offset_right = 271.0
+offset_right = 259.0
 offset_bottom = 246.0
-text = "enemies left
-"
-label_settings = SubResource("LabelSettings_7r6wg")
+text = "enemies left"
+label_settings = ExtResource("10_i0vto")
 
-[node name="interactionLabel" type="Label" parent="UI"]
+[node name="interactionLabel" type="Label" parent="UI" unique_id=1881534509]
 visible = false
 anchors_preset = 7
 anchor_left = 0.5
@@ -308,7 +317,8 @@ grow_vertical = 0
 text = "F to Enter"
 label_settings = SubResource("LabelSettings_27fdn")
 
-[node name="gyroscope" parent="UI" instance=ExtResource("9_i6eme")]
+[node name="gyroscope" parent="UI" unique_id=723325249 instance=ExtResource("9_i6eme")]
+visible = false
 offset_left = -400.0
 offset_top = 0.0
 offset_right = 0.0
@@ -318,16 +328,7 @@ target = NodePath("../../player")
 followTarget = true
 keyBind = &"gyroscope"
 
-[node name="minimap" parent="UI" instance=ExtResource("9_7ngw5")]
-visible = false
-offset_left = -520.0
-offset_top = 21.0
-offset_right = -20.0
-offset_bottom = 521.0
-playerPath = NodePath("../../player")
-solarSystemSpawnerPath = NodePath("../../world/Solar System Spawner")
-
-[node name="Bottom UI" type="PanelContainer" parent="UI"]
+[node name="Bottom UI" type="PanelContainer" parent="UI" unique_id=1283200291]
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
@@ -338,15 +339,15 @@ size_flags_horizontal = 3
 size_flags_vertical = 6
 theme_override_styles/panel = SubResource("StyleBoxEmpty_w8y8v")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/Bottom UI"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Bottom UI" unique_id=1009395285]
 layout_mode = 2
 theme_override_constants/separation = 16
 
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/Bottom UI/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/Bottom UI/VBoxContainer" unique_id=612210819]
 layout_mode = 2
 alignment = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="UI/Bottom UI/VBoxContainer/HBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="UI/Bottom UI/VBoxContainer/HBoxContainer" unique_id=1672770212]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/margin_left = 8
@@ -354,25 +355,25 @@ theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 256
 theme_override_constants/margin_bottom = 8
 
-[node name="Bars" type="VBoxContainer" parent="UI/Bottom UI/VBoxContainer/HBoxContainer/MarginContainer"]
+[node name="Bars" type="VBoxContainer" parent="UI/Bottom UI/VBoxContainer/HBoxContainer/MarginContainer" unique_id=552600299]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 8
 alignment = 1
 
-[node name="ShieldBarContainer" type="HBoxContainer" parent="UI/Bottom UI/VBoxContainer/HBoxContainer/MarginContainer/Bars"]
+[node name="ShieldBarContainer" type="HBoxContainer" parent="UI/Bottom UI/VBoxContainer/HBoxContainer/MarginContainer/Bars" unique_id=1697399786]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 16
 
-[node name="icon" type="TextureRect" parent="UI/Bottom UI/VBoxContainer/HBoxContainer/MarginContainer/Bars/ShieldBarContainer"]
+[node name="icon" type="TextureRect" parent="UI/Bottom UI/VBoxContainer/HBoxContainer/MarginContainer/Bars/ShieldBarContainer" unique_id=1165353579]
 layout_mode = 2
 size_flags_horizontal = 0
 texture = ExtResource("5_o6m3p")
 expand_mode = 3
 stretch_mode = 4
 
-[node name="shieldbar" type="ProgressBar" parent="UI/Bottom UI/VBoxContainer/HBoxContainer/MarginContainer/Bars/ShieldBarContainer"]
+[node name="shieldbar" type="ProgressBar" parent="UI/Bottom UI/VBoxContainer/HBoxContainer/MarginContainer/Bars/ShieldBarContainer" unique_id=682765035]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
@@ -383,20 +384,20 @@ theme_override_styles/fill = SubResource("StyleBoxLine_wyk5l")
 value = 50.0
 show_percentage = false
 
-[node name="HealthBarContainer" type="HBoxContainer" parent="UI/Bottom UI/VBoxContainer/HBoxContainer/MarginContainer/Bars"]
+[node name="HealthBarContainer" type="HBoxContainer" parent="UI/Bottom UI/VBoxContainer/HBoxContainer/MarginContainer/Bars" unique_id=1161812084]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 16
 alignment = 1
 
-[node name="icon" type="TextureRect" parent="UI/Bottom UI/VBoxContainer/HBoxContainer/MarginContainer/Bars/HealthBarContainer"]
+[node name="icon" type="TextureRect" parent="UI/Bottom UI/VBoxContainer/HBoxContainer/MarginContainer/Bars/HealthBarContainer" unique_id=1870372004]
 layout_mode = 2
 size_flags_vertical = 3
 texture = ExtResource("6_2yts4")
 expand_mode = 2
 stretch_mode = 4
 
-[node name="healthbar" type="ProgressBar" parent="UI/Bottom UI/VBoxContainer/HBoxContainer/MarginContainer/Bars/HealthBarContainer"]
+[node name="healthbar" type="ProgressBar" parent="UI/Bottom UI/VBoxContainer/HBoxContainer/MarginContainer/Bars/HealthBarContainer" unique_id=1547419076]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
@@ -407,36 +408,35 @@ theme_override_styles/fill = SubResource("StyleBoxLine_wyk5l")
 value = 50.0
 show_percentage = false
 
-[node name="Expand Spacer" type="Control" parent="UI/Bottom UI/VBoxContainer/HBoxContainer"]
+[node name="Expand Spacer" type="Control" parent="UI/Bottom UI/VBoxContainer/HBoxContainer" unique_id=1674970561]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="inventory" parent="UI/Bottom UI/VBoxContainer/HBoxContainer" instance=ExtResource("25_n22hb")]
+[node name="inventory" parent="UI/Bottom UI/VBoxContainer/HBoxContainer" unique_id=967457881 instance=ExtResource("25_n22hb")]
 layout_mode = 2
 
-[node name="speed" type="Label" parent="UI/Bottom UI/VBoxContainer"]
+[node name="speed" type="Label" parent="UI/Bottom UI/VBoxContainer" unique_id=1228358746]
 layout_mode = 2
 text = "100 u/s"
-label_settings = SubResource("LabelSettings_7r6wg")
+label_settings = ExtResource("10_i0vto")
 
-[node name="world" type="Node3D" parent="." groups=["worldNode"]]
+[node name="world" type="Node3D" parent="." unique_id=874042622 groups=["worldNode"]]
 script = ExtResource("3_aiun5")
 
-[node name="Solar System Spawner" type="Node3D" parent="world"]
+[node name="Solar System Spawner" type="Node3D" parent="world" unique_id=1284458914]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10000, 0, 0)
 script = ExtResource("4_s4hp0")
 maxNumber = 1
 minNumber = 1
-maxSpawnRadius = 300000.0
-minSpawnRadius = 100000.0
-bodySpacingBuffer = 25.0
+maxSpawnRadius = 0.0
+bodySpacingBuffer = 0.0
 solarSystems = Array[PackedScene]([ExtResource("5_synb3")])
 
-[node name="space station" parent="world" instance=ExtResource("14_h7gm1")]
+[node name="space station" parent="world" unique_id=428250114 instance=ExtResource("14_h7gm1")]
 transform = Transform3D(125, 0, 0, 0, 125, 0, 0, 0, 125, 0, 0, -498.94)
 
-[node name="EnemySpawner" parent="world" node_paths=PackedStringArray("player", "waveLabel", "enemyLabel") instance=ExtResource("6_t04ed")]
+[node name="EnemySpawner" parent="world" unique_id=1710202453 node_paths=PackedStringArray("player", "enemyLabel") instance=ExtResource("6_t04ed")]
 enemies = Array[PackedScene]([ExtResource("33_6fwoh"), ExtResource("33_m0fq4"), ExtResource("35_dapno")])
 player = NodePath("../../player")
 spawnRadius = 1000.0
-waveLabel = NodePath("../../UI/waveLabel")
 enemyLabel = NodePath("../../UI/enemyLabel")

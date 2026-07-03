@@ -1,13 +1,19 @@
-[gd_scene load_steps=21 format=4 uid="uid://cm3ydrh3c6bxd"]
+[gd_scene format=4 uid="uid://cm3ydrh3c6bxd"]
 
-[ext_resource type="Script" path="res://Scripts/player.gd" id="1_ho7d4"]
-[ext_resource type="Script" path="res://Scripts/components/health.gd" id="2_kcxjs"]
+[ext_resource type="Script" uid="uid://cdofu02tu1xys" path="res://Scripts/player.gd" id="1_ho7d4"]
+[ext_resource type="Script" uid="uid://cxhjh5dihk8al" path="res://Scripts/components/health.gd" id="2_kcxjs"]
 [ext_resource type="PackedScene" uid="uid://brhvvyyekkbfn" path="res://Scenes/explosion.tscn" id="2_uxdkn"]
 [ext_resource type="PackedScene" uid="uid://cx7vdmwhs2ds6" path="res://Scenes/target_lock.tscn" id="2_wavay"]
 [ext_resource type="PackedScene" uid="uid://2pdt6eob40jq" path="res://Scenes/gameOverScene.tscn" id="3_qpheg"]
 [ext_resource type="Material" uid="uid://bt8mgpyjr7d5n" path="res://Assets/materials/blueGlow.tres" id="4_4qdu7"]
 [ext_resource type="PackedScene" uid="uid://cxhbnxsocgt5p" path="res://Scenes/Guns and Bullets/MachineGuns.tscn" id="5_4yu8b"]
-[ext_resource type="Script" path="res://Scripts/camera.gd" id="9_g6b74"]
+[ext_resource type="Shader" uid="uid://cvqhfg2drfqs8" path="res://GPUTrail-main/shaders/trail.gdshader" id="7_ukyrk"]
+[ext_resource type="Shader" uid="uid://cigkuqrq3gp3x" path="res://GPUTrail-main/shaders/trail_draw_pass.gdshader" id="8_7dp3o"]
+[ext_resource type="Script" uid="uid://b3nh348n3t20v" path="res://Scripts/camera.gd" id="9_g6b74"]
+[ext_resource type="Texture2D" uid="uid://crk6pkb7e5rwc" path="res://GPUTrail-main/defaults/texture.tres" id="9_h4iuc"]
+[ext_resource type="Texture2D" uid="uid://ct31fhxvcragr" path="res://GPUTrail-main/defaults/curve.tres" id="10_fd4e3"]
+[ext_resource type="Script" uid="uid://cxrpew6vss15e" path="res://GPUTrail-main/GPUTrail3D.gd" id="11_qqcod"]
+[ext_resource type="Script" uid="uid://ctxrj5ocv10oh" path="res://Scenes/trailsClaude.gd" id="12_7dp3o"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_601g4"]
 resource_name = "main"
@@ -209,33 +215,82 @@ albedo_color = Color(1, 0.572549, 0.00784314, 1)
 metallic_specular = 1.0
 roughness = 0.6
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_ixwam"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_7dp3o"]
 viewport_path = NodePath("SubViewport")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fs7ks"]
+shader = ExtResource("7_ukyrk")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_l6n3p"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("8_7dp3o")
+shader_parameter/uv_offset = Vector2(0, 0)
+shader_parameter/color_ramp = ExtResource("9_h4iuc")
+shader_parameter/curve = ExtResource("10_fd4e3")
+shader_parameter/emmission_transform = Projection(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)
+shader_parameter/flags = 40
+
+[sub_resource type="QuadMesh" id="QuadMesh_olqyp"]
+material = SubResource("ShaderMaterial_l6n3p")
+
+[sub_resource type="Gradient" id="Gradient_ukyrk"]
+colors = PackedColorArray(0.69687116, 0.7978064, 1, 1, 0, 0, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_7dp3o"]
+gradient = SubResource("Gradient_ukyrk")
+
+[sub_resource type="Curve" id="Curve_ukyrk"]
+_data = [Vector2(0, 0), 0.0, 0.9816727, 0, 0, Vector2(1, 1), 1.0210032, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_7dp3o"]
+curve = SubResource("Curve_ukyrk")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ukyrk"]
+gravity = Vector3(0, 0, 0)
+scale_min = 0.0
+scale_curve = SubResource("CurveTexture_7dp3o")
+color_ramp = SubResource("GradientTexture1D_7dp3o")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h4iuc"]
+transparency = 1
+vertex_color_use_as_albedo = true
+
+[sub_resource type="TubeTrailMesh" id="TubeTrailMesh_ukyrk"]
+material = SubResource("StandardMaterial3D_h4iuc")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_vjklj"]
 resource_local_to_scene = true
 size = Vector3(1.5, 0.4, 1.5)
 
-[node name="player" type="CharacterBody3D" node_paths=PackedStringArray("listOfGuns") groups=["player"]]
+[node name="player" type="CharacterBody3D" unique_id=2134512299 node_paths=PackedStringArray("listOfGuns") groups=["player"]]
 disable_mode = 1
 collision_layer = 3
 collision_mask = 3
 script = ExtResource("1_ho7d4")
+strifeSpeed = 15.0
+hoverSpeed = 10.0
+rollSpeed = 10.0
 boostSpeed = 2.0
-mouseDamping = 15.0
-mouseIdleThreshold = 0.05
+joystick_sensitivity = null
+joystick_radius = null
+crosshair_smooth_speed = null
 decay = 1.5
 maxRotation = Vector3(0.5, 0.5, 0.5)
 canvasShakeMultiplier = 0.25
 raycastRange = 100000
 targetMarkerNormalColour = Color(1, 1, 1, 1)
 targetMarkerLockedColour = Color(1, 0, 0, 1)
+immortal = null
 listOfGuns = [NodePath("mesh/weapons/machineGuns")]
 explode = ExtResource("2_uxdkn")
 gameOverScreen = ExtResource("3_qpheg")
+normalVignetteColor = null
+damageVignetteColor = null
 regenVignetteColor = Color(0, 0.732143, 1, 1)
 
-[node name="mesh" type="MeshInstance3D" parent="."]
+[node name="mesh" type="MeshInstance3D" parent="." unique_id=1036513550]
 transform = Transform3D(1.22857e-15, -8.74228e-08, 0.643, -0.643, -8.74228e-08, 2.04266e-23, 2.81064e-08, -2, -2.81064e-08, 0, 0, 0)
 mesh = SubResource("ArrayMesh_5wedx")
 skeleton = NodePath("")
@@ -243,43 +298,79 @@ surface_material_override/0 = SubResource("StandardMaterial3D_u4y5p")
 surface_material_override/3 = ExtResource("4_4qdu7")
 surface_material_override/4 = SubResource("StandardMaterial3D_8iuv3")
 
-[node name="targetLock" parent="mesh" instance=ExtResource("2_wavay")]
+[node name="targetLock" parent="mesh" unique_id=150233792 instance=ExtResource("2_wavay")]
 transform = Transform3D(-4.80825e-10, -0.035, -3.70568e-28, 0.011, -1.5299e-09, 5.73265e-15, -1.80169e-15, 2.50582e-22, 0.035, 0, 2.5652e-14, 1.65079e-06)
 visible = false
-texture = SubResource("ViewportTexture_ixwam")
+texture = SubResource("ViewportTexture_7dp3o")
 targetLockSpriteColor = Color(1, 1, 1, 1)
 distance = 24.2
 shieldValue = 76.99
 healthValue = 36.08
 
-[node name="weapons" type="Node3D" parent="mesh"]
+[node name="weapons" type="Node3D" parent="mesh" unique_id=1312997642]
 transform = Transform3D(0, -17.2315, 0, -8.67938e-08, 0, 1.98561, -5.85869, 0, -2.56092e-07, 0, 0, 0)
 
-[node name="machineGuns" parent="mesh/weapons" node_paths=PackedStringArray("ship", "cam") instance=ExtResource("5_4yu8b")]
+[node name="machineGuns" parent="mesh/weapons" unique_id=326964222 node_paths=PackedStringArray("ship", "cam") instance=ExtResource("5_4yu8b")]
 ship = NodePath("../../..")
 gunName = &"MachineGun"
+bulletDamage = 50.0
 cam = NodePath("../../../cameraGimbal/Camera")
 
-[node name="boxCollider" type="CollisionShape3D" parent="."]
+[node name="GPUTrail3D" type="GPUParticles3D" parent="mesh" unique_id=1918614354]
+transform = Transform3D(0.9999999, 0, -1.1368684e-13, 1.0658141e-14, -4.3711374e-08, -0.99999917, 1.4823077e-21, 0.9999997, -4.371126e-08, -3.713383e-07, 2.731216, 3.713383e-07)
+visible = false
+amount = 100
+lifetime = 100.0
+explosiveness = 1.0
+fixed_fps = 120
+trail_enabled = true
+process_material = SubResource("ShaderMaterial_fs7ks")
+draw_pass_1 = SubResource("QuadMesh_olqyp")
+script = ExtResource("11_qqcod")
+length_seconds = 0.8333333333333334
+color_ramp = ExtResource("9_h4iuc")
+curve = ExtResource("10_fd4e3")
+_defaults_have_been_set = true
+metadata/_custom_type_script = "uid://cxrpew6vss15e"
+
+[node name="Trail (Hopefully)" type="GPUParticles3D" parent="mesh" unique_id=2263463]
+transform = Transform3D(0.9999999, 1.9895197e-13, -8.4703295e-22, 2.0428104e-14, 0.99999857, -2.0428104e-14, 2.9646153e-21, -1.9895197e-13, 0.9999999, -3.673741e-07, 2.7020602, 3.673741e-07)
+visible = false
+amount = 1000
+lifetime = 0.25
+preprocess = 1.44
+fixed_fps = 0
+process_material = SubResource("ParticleProcessMaterial_ukyrk")
+draw_pass_1 = SubResource("TubeTrailMesh_ukyrk")
+
+[node name="Node3D" type="Node3D" parent="mesh" unique_id=440503413]
+transform = Transform3D(0.9999999, 2.842171e-14, -2.1175824e-22, 8.881784e-16, 0.9999999, -8.881784e-16, 0, -2.842171e-14, 0.9999999, -3.563549e-07, 2.621012, 3.563549e-07)
+visible = false
+script = ExtResource("12_7dp3o")
+trail_width = 2.0
+
+[node name="boxCollider" type="CollisionShape3D" parent="." unique_id=1765211813]
 transform = Transform3D(-4.37114e-07, 0, 10, 0, 10, 0, -10, 0, -4.37114e-07, 0, 0.3, -0.4)
 shape = SubResource("BoxShape3D_vjklj")
 
-[node name="cameraGimbal" type="Node3D" parent="."]
+[node name="cameraGimbal" type="Node3D" parent="." unique_id=1267068474]
 top_level = true
 
-[node name="Camera" type="Camera3D" parent="cameraGimbal"]
+[node name="Camera" type="Camera3D" parent="cameraGimbal" unique_id=865169311]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 4, -15)
 current = true
 near = 3.0
-far = 5e+07
+far = 50000000.0
 script = ExtResource("9_g6b74")
 
-[node name="AudioListener3D" type="AudioListener3D" parent="."]
+[node name="AudioListener3D" type="AudioListener3D" parent="." unique_id=1654839532]
 transform = Transform3D(1, 0, 3.55271e-15, 0, 1, 0, -3.55271e-15, 0, 1, 0, 1.49012e-08, 0)
 current = true
 
-[node name="healthData" type="Node" parent="."]
+[node name="healthData" type="Node" parent="." unique_id=196197374]
 script = ExtResource("2_kcxjs")
+
+[node name="DebugRay" type="RayCast3D" parent="." unique_id=491166325]
 
 [connection signal="health_changed" from="healthData" to="." method="_on_health_data_health_changed"]
 [connection signal="max_health_changed" from="healthData" to="." method="_on_health_data_max_health_changed"]

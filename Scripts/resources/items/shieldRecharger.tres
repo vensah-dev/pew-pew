@@ -20,8 +20,8 @@ name = &"Shield Recharger"
 description = &"Upgrades shield to recharge faster by 0.1"
 icon = SubResource("CompressedTexture2D_hykx4")
 priceRange = {
-"max": 600,
-"min": 400
+"max": 150,
+"min": 150
 }
 function = SubResource("Resource_0jcxt")
 immediate = false

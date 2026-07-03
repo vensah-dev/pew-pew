@@ -1,10 +1,10 @@
 [gd_scene load_steps=16 format=3 uid="uid://cv77pm8badd5p"]
 
-[ext_resource type="Script" path="res://Scripts/components/itemUI.gd" id="1_cm7gi"]
+[ext_resource type="Script" uid="uid://cbsxqxxs4eshq" path="res://Scripts/components/itemUI.gd" id="1_cm7gi"]
 [ext_resource type="Texture2D" uid="uid://da6mtyhcrgjyd" path="res://Assets/UI/shield icon.png" id="2_03ypi"]
-[ext_resource type="FontFile" uid="uid://bkrdskw5vg6dl" path="res://Assets/Poppins/Poppins-Bold.ttf" id="3_s7nhm"]
-[ext_resource type="FontFile" uid="uid://pw18l2pw732g" path="res://Assets/Poppins/Poppins-Light.ttf" id="4_h41dt"]
-[ext_resource type="FontFile" uid="uid://bpp4ya4c2q4m3" path="res://Assets/Poppins/Poppins-Medium.ttf" id="5_gktox"]
+[ext_resource type="FontFile" uid="uid://bkrdskw5vg6dl" path="res://Assets/fonts/Poppins/Poppins-Bold.ttf" id="3_s7nhm"]
+[ext_resource type="FontFile" uid="uid://pw18l2pw732g" path="res://Assets/fonts/Poppins/Poppins-Light.ttf" id="4_h41dt"]
+[ext_resource type="FontFile" uid="uid://bpp4ya4c2q4m3" path="res://Assets/fonts/Poppins/Poppins-Medium.ttf" id="5_gktox"]
 [ext_resource type="Texture2D" uid="uid://drph0c56jxfcg" path="res://Assets/UI/Graduation Hat.png" id="6_x66to"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8348h"]
