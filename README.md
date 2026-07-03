@@ -6,6 +6,8 @@ For more info and a detailed technical walkthrogh here are some *Pew Pew* [blogs
 
 The game so far has a simple game loop where you destroy waves of enemies endlessly, gaining exp as you do so.
 
+## some screenshots of ganeplay
+
 <img width="1512" height="949" alt="Screenshot 2026-07-04 at 12 13 47 AM" src="https://github.com/user-attachments/assets/5811cbd5-578e-4bc5-a251-f639a57f57af" />
 
 ##### distance meter
