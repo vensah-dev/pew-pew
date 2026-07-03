@@ -1,0 +1,82 @@
+res://addons/godot_super-wakatime/api_key_prompt.tscn::a6988a5ba43d5aa92a08f216c1db28db::1782648069::res://.godot/exported/133200997/export-cd8705cb5e2533bd79c64579ac674dae-api_key_prompt.scn
+res://addons/godot_super-wakatime/counter.tscn::7f13ad35960e259f6de719f9785ce249::1782648069::res://.godot/exported/133200997/export-4af6c9115c1c285af5925fa1ce6a526e-counter.scn
+res://Assets/audio/default_bus_layout.tres::4cdcc25809e7bbecd347e6578e29b536::1783091007::res://.godot/exported/133200997/export-a8819cbfad678c9e3da4f5184d7ed105-default_bus_layout.res
+res://Assets/fonts/normal label.tres::240ada825a94d640b397c8c6fd84dc3f::1773990257::res://.godot/exported/133200997/export-7bd6de4e79ec9c6428f50c4de1fa97c5-normal label.res
+res://Assets/materials/blueGlow.tres::e40d8ee368810dda2fb2d6f5558effd7::1773990258::res://.godot/exported/133200997/export-4c7103b7c2e240d02cf9da22cd348ca1-blueGlow.res
+res://Assets/materials/enemyTrails.tres::e441a9e5c01e9960fe2350a2aba89b5f::1773990258::res://.godot/exported/133200997/export-4fa6c084e980a538d1337ef5ae44e095-enemyTrails.res
+res://Assets/materials/outline.tres::73ef3a939475fcd848e54355467721f0::1773990258::res://.godot/exported/133200997/export-a7d6a011f3504c73b6e7b65c9117e6c6-outline.res
+res://Assets/materials/playerTrails.tres::1eb610991c238dcbd1e3a933924df5cd::1773990258::res://.godot/exported/133200997/export-576984990a6e57a51b1c9ce8c4fa2c0d-playerTrails.res
+res://Assets/materials/purpleGlow.tres::bc7d2adebaa3e8c606595864f8147989::1773990258::res://.godot/exported/133200997/export-af829f5fcf5adc4c341f088e64468612-purpleGlow.res
+res://Assets/materials/redGlow.tres::5f915ad3283d0e55c089db0bcb6c2c1e::1773990258::res://.godot/exported/133200997/export-983e95c6674236a1310191ef0a78ba0a-redGlow.res
+res://Assets/materials/toonMaterial.tres::6beb766f2df9fc079cde842dda89003a::1773990258::res://.godot/exported/133200997/export-319b80bfb8b7107b96224ca0a8295854-toonMaterial.res
+res://Assets/materials/toonShadedMaterial.tres::75c0fe77609b75522f2888e36c9fbcb9::1773990258::res://.godot/exported/133200997/export-4ec77c54a47ee6a442c15e8af50fef1c-toonShadedMaterial.res
+res://Assets/materials/trail texture.tres::db75e0f6a312b454dd0f3664e08866aa::1773990258::res://.godot/exported/133200997/export-6b8d289f0b5b9dbce85d8e9cb7a41f83-trail texture.res
+res://Assets/materials/yellowGlow.tres::b511d288a5e2f1a090a09e4f93182397::1773990258::res://.godot/exported/133200997/export-2edbd8ad52390f10725fa227f6179849-yellowGlow.res
+res://Assets/Models/flat donut.tres::8374e1005c86859a9cd8c99afdb5509e::1773990258::res://.godot/exported/133200997/export-22c1d13ff9cb775a19dc40dd0946ef91-flat donut.res
+res://Assets/Models/flat dpnuyt.tres::f0e56d197d3a5aa64bc3f877a03b7469::1773990258::res://.godot/exported/133200997/export-94d2fc7c11a6f3cfdd1d5a35c629b095-flat dpnuyt.res
+res://Assets/Models/flat torus.tres::67909315404f8e143b38d7b3372e9948::1773990258::res://.godot/exported/133200997/export-ff688d33ed5a6f40b63bcdaa572cfdeb-flat torus.res
+res://Assets/particle effects/bulletImpactEffect.tres::0d5a3175e66de00de2437c5f6c964ea9::1783091083::res://.godot/exported/133200997/export-a28099f2ea5fa73ad07aeb39c60e7e3e-bulletImpactEffect.res
+res://Assets/particle effects/particleEffectMaterial.tres::0776659cccf225dbedcce1237440849f::1773990258::res://.godot/exported/133200997/export-f530fef51d1b3f184b1c31db661f0553-particleEffectMaterial.res
+res://Assets/presets/standardLabel.tres::91a3063d9b649444a74ee93b9e6a7bb0::1773990257::res://.godot/exported/133200997/export-8bfa5d692ee898284bff8626568c95c1-standardLabel.res
+res://Assets/Texture/environment.tres::ec6af6f987dc8c7af55429a2452a357b::1783094121::res://.godot/exported/133200997/export-4e17353a136ff318963f481128b05e05-environment.res
+res://GPUTrail-main/defaults/curve.tres::99c8b4ed6e66a7a20070af7fc96c0d11::1783091083::res://.godot/exported/133200997/export-8060d63f2e91ad5cab465f5d8073a223-curve.res
+res://GPUTrail-main/defaults/texture.tres::3fb5efcf6e57306fe2808a88180c83f2::1783091083::res://.godot/exported/133200997/export-804d5625b800c3f2ba70b7fe493588f7-texture.res
+res://Scenes/enemies/enemy.tscn::03ea578f7dea6906d9777fd07233c5e8::1773990281::res://.godot/exported/133200997/export-fd17a92ba064dfc807fd23b41b9267cf-enemy.scn
+res://Scenes/enemies/EU6.1(aggressive).tscn::7f03d393d98b6fe155b41c1b26e2a7fb::1773990281::res://.godot/exported/133200997/export-32595e0ba8c521201148714d54812f0a-EU6.1(aggressive).scn
+res://Scenes/enemies/EU6.1(sniper).tscn::ce6dc7f022a3b6de3cfc796868985125::1773990281::res://.godot/exported/133200997/export-437fc69fb5a6f32c1e0cae90531f917a-EU6.1(sniper).scn
+res://Scenes/enemies/EU6.1.tscn::94086381c940e505a2c369e1050ba82d::1773990281::res://.godot/exported/133200997/export-50a7ae9e6c6cea34ef3c3a03bf49af74-EU6.1.scn
+res://Scenes/environment/planets/bluePlanet.tscn::1d97aaa06e9edbbf3c61fa2b8b108fa8::1773990281::res://.godot/exported/133200997/export-8adc0b3e0feb202539156c98365e85a6-bluePlanet.scn
+res://Scenes/environment/planets/greenPlanet.tscn::ff85465f2e46f56d8b3d3a81960286a4::1773990281::res://.godot/exported/133200997/export-ad647fa617c314a29f2be540eaa7fb7f-greenPlanet.scn
+res://Scenes/environment/planets/planet.tscn::376f4784afcf34d462c32a0bab1e4364::1773990281::res://.godot/exported/133200997/export-b3fe0d26ff2b1315073e041338251cd0-planet.scn
+res://Scenes/environment/planets/redPlanet.tscn::d6856f2ab9d2bc5e85d462fbe5711f4e::1773990281::res://.godot/exported/133200997/export-7ca21811c47b91ad4282239591dab1b5-redPlanet.scn
+res://Scenes/environment/stars/starBlue.tscn::38fca6bbe2527b1cb3adad7dad344396::1773990281::res://.godot/exported/133200997/export-02304706d3f08cc7474ca3f9ba5b267a-starBlue.scn
+res://Scenes/environment/stars/starOrange.tscn::5e530d7abb57bf67cfc64c389a7c50a8::1773990281::res://.godot/exported/133200997/export-187b57a51dca124e1c08963eac99ed96-starOrange.scn
+res://Scenes/environment/stars/starPurple.tscn::903b64abf2b8070c8bda40712910e197::1773990281::res://.godot/exported/133200997/export-3bb0822ac761569ad2f9e8f7932f43ee-starPurple.scn
+res://Scenes/environment/stars/starRed.tscn::a50f716cbaf4d4095e408bc1cffe8b49::1773990281::res://.godot/exported/133200997/export-e827108816e0063f58ae46530625c569-starRed.scn
+res://Scenes/environment/stars/starWhite.tscn::864ede70ce6fcf89779ca6cd9b191250::1773990281::res://.godot/exported/133200997/export-ee93fdae418ad3b2723bd43fd0167dfa-starWhite.scn
+res://Scenes/environment/stars/starYellow.tscn::4365567cb21ff86379d8049b3e018ba7::1773990281::res://.godot/exported/133200997/export-8916e8823ef48dadcfbaaf295776b2cc-starYellow.scn
+res://Scenes/environment/starSystems/solarSystem.tscn::a8bf210f203893ffe1ab5fd7107feb72::1773990281::res://.godot/exported/133200997/export-1b51a3f03c4d8ee7a1d873a471583e64-solarSystem.scn
+res://Scenes/Guns and Bullets/Boomer.tscn::e8b72018df009ca711d7dbcea91b542b::1773990281::res://.godot/exported/133200997/export-3849ab76a29b5e1e2bab29ac747ab6be-Boomer.scn
+res://Scenes/Guns and Bullets/bullet.tscn::343a84d4ecb525dd1894a3e0aa98f803::1773990281::res://.godot/exported/133200997/export-0ab7ff86bbad213edbbc1eb9b0ee0cd7-bullet.scn
+res://Scenes/Guns and Bullets/bulletPurple.tscn::b98563e9f7483a53937af8df3ec6b91c::1773990281::res://.godot/exported/133200997/export-4fe5e54e2a7fce206a1687a752602e59-bulletPurple.scn
+res://Scenes/Guns and Bullets/bulletRed.tscn::31c28c900777a2d9a3e4416526a6f363::1773990281::res://.godot/exported/133200997/export-26f4ae7407480147223819f36edb7d83-bulletRed.scn
+res://Scenes/Guns and Bullets/bulletYellow.tscn::4828a27fdf11a26c20d2067818941613::1773990281::res://.godot/exported/133200997/export-a1a506213ea812343f459565034cbee3-bulletYellow.scn
+res://Scenes/Guns and Bullets/homingBullet.tscn::325ec081a076bf08d983240eb04f87dc::1773990281::res://.godot/exported/133200997/export-3077f0fce9f70a7bcc77d71ef26a21aa-homingBullet.scn
+res://Scenes/Guns and Bullets/homingBulletYellow.tscn::15f85c7ad16ce923e7cdddc5db284f93::1773990281::res://.godot/exported/133200997/export-421cfdb94b1711896478c9f0aa6a4bc8-homingBulletYellow.scn
+res://Scenes/Guns and Bullets/MachineGuns.tscn::961af5632ca8e56b2f124fa4c9fde765::1773990281::res://.godot/exported/133200997/export-f097f7a0b0916c070adca6dfa28c5e5b-MachineGuns.scn
+res://Scenes/Guns and Bullets/Railgun.tscn::a89952760deebb11abee76fb87ce65cd::1773990281::res://.godot/exported/133200997/export-94dac576250530a825e2edd921397f27-Railgun.scn
+res://Scenes/spawners/asteroid_spawner.tscn::f4a2127667045562a8d7b910011b4cb9::1773990281::res://.godot/exported/133200997/export-40bbfa3e0a1af83738f8b3e2a4e868f7-asteroid_spawner.scn
+res://Scenes/spawners/enemySpawner.tscn::b04a55369a2c256e2b357a710082852d::1773990281::res://.godot/exported/133200997/export-a4b285566edc2bde471755e12d28afdf-enemySpawner.scn
+res://Scenes/spawners/solar_system_spawner.tscn::8dda8f3d74c42f9758345509d4d8f290::1773990281::res://.godot/exported/133200997/export-08946220c9d28e4d0a19dab8e69dee42-solar_system_spawner.scn
+res://Scenes/asteroidDefault.tscn::0a0ebbe5eda42226593f35df89d4a5d1::1773990281::res://.godot/exported/133200997/export-8aead36a71acaeea9b52fe441b08711d-asteroidDefault.scn
+res://Scenes/cameraView.tscn::7ac1645a6cb03fc86325bcd4154554d8::1773990281::res://.godot/exported/133200997/export-6d6c34e160ec848158c0a00bac44bed3-cameraView.scn
+res://Scenes/currency.tscn::f0657e4b3f7f6e53d6eb02c4b31dbbd4::1773990281::res://.godot/exported/133200997/export-e4f3b37c3787dba58aabbc8ded8df7c1-currency.scn
+res://Scenes/diamondStar.tscn::71eb7f1510989d07596a704e1084ee80::1773990281::res://.godot/exported/133200997/export-dc3e246f7a7bdc6ac7a89ab8e9ed9fb7-diamondStar.scn
+res://Scenes/enemyWithMissles.tscn::b119b31a5f7d89a1900c3344266bdfa1::1773990281::res://.godot/exported/133200997/export-0f17c0dd3caed3b8bea6df55b5044876-enemyWithMissles.scn
+res://Scenes/enemy_indicator.tscn::032e81a786928848998b916a1f652b2d::1773990281::res://.godot/exported/133200997/export-af7a9970def8f8dbd907d3081a27f2ba-enemy_indicator.scn
+res://Scenes/explosion.tscn::1eee9a3f201d520e74228e97079f896c::1773990281::res://.godot/exported/133200997/export-684afae0e3e464ad6cc7c587981433c3-explosion.scn
+res://Scenes/Game.tscn::34d1368a45c7554c06a74f428aa1e352::1783094121::res://.godot/exported/133200997/export-8ec1ce4394550eef6b399142f35b815f-Game.scn
+res://Scenes/gameOverScene.tscn::dd148dedc44ddcaecdb0aa8c753419f7::1773990281::res://.godot/exported/133200997/export-709c2ae325b33a61bf75848ad367951e-gameOverScene.scn
+res://Scenes/inventory.tscn::a72650058966944bcd077ef75a6dcd68::1773990281::res://.godot/exported/133200997/export-8cc4086b57f48da850bce4404ebc4bb3-inventory.scn
+res://Scenes/MainMenu.tscn::568551db4cd598a62ac5dc830ffa5a17::1774431328::res://.godot/exported/133200997/export-5d46f2c25b5b7595677274e5845c73b8-MainMenu.scn
+res://Scenes/minimap.tscn::4baddf057c590747c2aaee1d8c66ccab::1773990281::res://.godot/exported/133200997/export-789bf596de23f569cd0c0cde7dee3a99-minimap.scn
+res://Scenes/player.tscn::13115766f7b7a61c9b11830475e3c2e3::1781797021::res://.godot/exported/133200997/export-1753c997600d68ab5d20ae99fddb15c6-player.scn
+res://Scenes/playerBackup.tscn::e7a8c00d245dacbaaecd2bab4dfc28e9::1773990281::res://.godot/exported/133200997/export-2b99627d1d899534589def1d047bf4f1-playerBackup.scn
+res://Scenes/player_trail.tscn::94abd50587dcb0f062a936da629b6afe::1773990281::res://.godot/exported/133200997/export-31245b19f4437692d13e212a2d24eaaf-player_trail.scn
+res://Scenes/rootScene.tscn::12d8eb3a67b25c75e127a9990748d2d2::1773990281::res://.godot/exported/133200997/export-acfbb0c25fc7eb133499fc0209a99ee3-rootScene.scn
+res://Scenes/shop.tscn::55b4bb0b63cd38407f4d202dc741bb04::1773990281::res://.godot/exported/133200997/export-b7dd42cb7bf84e38525288ceeaa155a5-shop.scn
+res://Scenes/shopItem.tscn::4a2e384d4f3778ac685f5fb6dc2906de::1773990281::res://.godot/exported/133200997/export-be7fd7082d8fd1899db12dc97d64d9ba-shopItem.scn
+res://Scenes/spaceship collisions.tscn::589dc9912ca31cc42ece8f5dc02631f0::1773990281::res://.godot/exported/133200997/export-3faa48b704948930943065c7a05b11ca-spaceship collisions.scn
+res://Scenes/SpaceShip.tscn::27dd4670555d019c0858f436c51e5aee::1773990281::res://.godot/exported/133200997/export-5bc1ab89e4c21708e2f7b2a836aaee9e-SpaceShip.scn
+res://Scenes/spaceStation.tscn::4a7ac022363c7230171f8a6cebca23f7::1773990281::res://.godot/exported/133200997/export-f8d3937f0c5d048672ba2ebd5df4593e-spaceStation.scn
+res://Scenes/spaceStationExterior.tscn::61485e52147028303b44efb02c3714cb::1773990281::res://.godot/exported/133200997/export-701bfdbd7ae1638bcbcf4a14620b3091-spaceStationExterior.scn
+res://Scenes/target_lock.tscn::f243bb9166ce990f809231abd5b1548c::1773990281::res://.godot/exported/133200997/export-7c7fade4035a7dbd8e9ff0f3dee7733e-target_lock.scn
+res://Scripts/resources/items/functionResources/potion.tres::de0fef37c5799e0f0b73f50917c17262::1773990272::res://.godot/exported/133200997/export-8f05e959818a670d383049f6fcaf2f9c-potion.res
+res://Scripts/resources/items/boomerItem.tres::d11f4001542d06fe1f2ba649bda24d24::1773990272::res://.godot/exported/133200997/export-f22523dbd69597839f772a98d15d9c88-boomerItem.res
+res://Scripts/resources/items/machineGunItem.tres::bb9e7a81951e93713660eff4358f7462::1783091083::res://.godot/exported/133200997/export-540c0a9f66532e8ae25cd3781a74853c-machineGunItem.res
+res://Scripts/resources/items/maxHealthBoost.tres::4900622380408809f61fdefa287b7c5a::1783091083::res://.godot/exported/133200997/export-21f5ba63fc435581735eeb8ba4533f7f-maxHealthBoost.res
+res://Scripts/resources/items/railgunItem.tres::e0def8037b60c3308522e72e1405df6a::1783091083::res://.godot/exported/133200997/export-07e7e9368c31bda6b605afcef67cef29-railgunItem.res
+res://Scripts/resources/items/repairKit.tres::984908e9c1f4a64370ee84d04813487f::1783091083::res://.godot/exported/133200997/export-65955d72e24b6c8c813ffef49b3022d3-repairKit.res
+res://Scripts/resources/items/shieldCapcityUpgrade.tres::f09a422d63573b4914725f2f86b3b869::1783091083::res://.godot/exported/133200997/export-74a1e804b943cc42cc21d8046bec80f0-shieldCapcityUpgrade.res
+res://Scripts/resources/items/shieldRecharger.tres::e9ecb188d1d7d3a8bbc1b4e0e093c7a7::1773990272::res://.godot/exported/133200997/export-9b63a9320fa56c4fb1b4f65c1ce11917-shieldRecharger.res
+res://BetterSpaceship(joined).tscn::cd61426b33f6d6b48041d0b837ab51dd::1773990251::res://.godot/exported/133200997/export-699b9be2c5b5a31a9f89065171693cdd-BetterSpaceship(joined).scn
