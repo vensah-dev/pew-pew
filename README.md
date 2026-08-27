@@ -6,7 +6,7 @@ For more info and a detailed technical walkthrogh here are some *Pew Pew* [blogs
 
 The game so far has a simple game loop where you destroy waves of enemies endlessly, gaining exp as you do so.
 
-## some screenshots of ganeplay
+## some screenshots of gameplay
 
 <img width="1512" height="949" alt="Screenshot 2026-07-04 at 12 13 47 AM" src="https://github.com/user-attachments/assets/5811cbd5-578e-4bc5-a251-f639a57f57af" />
 
@@ -48,5 +48,9 @@ The game so far has a simple game loop where you destroy waves of enemies endles
 <img width="1512" height="949" alt="Screenshot 2026-07-04 at 12 11 56 AM" src="https://github.com/user-attachments/assets/e378d6d3-c5cf-476b-a18b-15b7bd68b3ed" />
 
 ##### main menu
+
+https://github.com/user-attachments/assets/694e53c8-175a-4369-adc2-e3183ba1578d
+
+##### Gameplay Video demoing the boss system
 
 
