@@ -49,7 +49,7 @@ The game so far has a simple game loop where you destroy waves of enemies endles
 
 ##### main menu
 
-https://github.com/user-attachments/assets/694e53c8-175a-4369-adc2-e3183ba1578d
+https://github.com/user-attachments/assets/b335330c-dc66-41a5-988a-9d8f95b7f07b
 
 ##### Gameplay Video demoing the boss system
 
