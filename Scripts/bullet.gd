@@ -51,20 +51,12 @@ func _physics_process(delta: float) -> void:
 	else:
 		position += transform.basis * Vector3(0, 0, currentSpeed) * delta
 
-	# if global_position.distance_to(player.global_position) > range:	
-	# 	queue_free()
-
 	if rayCast.is_colliding():
 		var collided_object = rayCast.get_collider()  
 
 		if collided_object.is_in_group("enemy") or collided_object.is_in_group("player"):
 			collided_object.hit(damage, 0.25)
 
-		# if collided_object.is_in_group("enemy"):
-		# 	collided_object.get_child(0).health -= 5
-
-		# 	if collided_object.get_child(0).health <= 0:
-		# 		collided_object.die()
 		hit()
 
 	if enemyBullet and global_position.distance_to(player.global_position) < 20:

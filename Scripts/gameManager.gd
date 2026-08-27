@@ -13,7 +13,7 @@ signal seed_ready
 @onready var currencyLabel = $"UI/currencyContainer/currencyLabel"
 @onready var expBar = $"UI/EXPBar"
 @onready var waveLabel = $"UI/waveLabel"
-@onready var expLabel = $"UI/waveLabel/expLabel"
+@onready var expLabel = $"UI/EXPBar/expLabel"
 
 
 @onready var enemySpawner = $world/EnemySpawner
@@ -89,7 +89,7 @@ func addEXP(points: int):
 	var finalTween = get_tree().create_tween().bind_node(self).set_trans(Tween.TRANS_QUAD)
 	finalTween.tween_property(expBar, "value", currentExperiencePoints, 0.3)
 	await finalTween.finished
-	expLabel.text = str(currentExperiencePoints)
+	expLabel.text = str(totalExperiencePoints)
 
 
 # func set_currentExperiencePoints(new_value: int) -> void:

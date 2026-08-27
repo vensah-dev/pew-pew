@@ -11,7 +11,6 @@ extends CharacterBody3D
 @export var acceleration = 10.0   
 @export var turningSpeed = 2.5
 @export var drops: Array[PackedScene]
-@export var aimBoxMultipler = 0.2
 # @export_group("UI")
 # @export var healthbar:Node
 # @export var shieldbar:Node
@@ -28,10 +27,10 @@ extends CharacterBody3D
 @onready var healthData = $healthData
 @onready var rayCast = $RayCast3D
 @onready var collider = $boxCollider
+@onready var actualAimBox = $main/aimBox/aimBoxCollider
 @onready var main = $main
-@onready var guns = get_child(0).get_child(0)
+@onready var guns: Array[Node] = get_child(0).get_child(0).get_children()
 @onready var predictionReticle = $main/predictionReticle
-@onready var aimBox: Area3D = $main/aimBox
 
 @onready var root = get_tree().current_scene
 
@@ -54,25 +53,19 @@ var indicator
 
 @onready var lockedTarget = player
 
+@onready var gunsLength = guns.size()
+@onready var gun = guns[gunIndex]
+var gunIndex = 0
+
 func _ready() -> void:
+	print(guns)
+	predictionReticle.scale = Vector3.ONE
 	healthData.setHealth(healthData.maxHealth)
 	healthData.setShield(healthData.maxShield)
 
-	rayCast.scale = Vector3.ONE * guns.bulletRange
+	rayCast.scale = Vector3.ONE * gun.bulletRange
 
 	healthData.setHealth(healthData.maxHealth)
-
-	# for child in player.get_children():
-	# 	if child.name == "model":
-
-	# 		for kid in child.get_children():
-	# 			if kid.name == "Guns":
-
-	# 				playerGuns = kid
-
-	# indicator = enemyIndicator.instantiate()
-
-	# player.ui.add_child(indicator)
 
 func _physics_process(delta: float) -> void:
 	if player.selectedIndex < player.listOfGuns.size():
@@ -81,25 +74,13 @@ func _physics_process(delta: float) -> void:
 		playerGuns = null
 
 	var multiplier = global_position.distance_to(player.global_position) * 0.2
-	aimBox.get_child(0).shape.size = (Vector3.ONE * multiplier).clamp(collider.shape.size*1.5, Vector3.ONE * multiplier)
 	predictionReticle.get_child(0).scale = Vector3.ONE * multiplier * 1.25
-
-
-	# print("enemy health: ", healthData.health)
-	# if healthData.health <= 0 and state != "dead":
-	# 	die()
 		
 	behaviour.behave(self, delta)
 				
 	updatePredictionReticle()
 
 	move_and_slide()
-
-	# var angleToLookAt = Vector3.UP.angle_to(player.global_position)
-	
-	# # var look_at_transform = self.transform
-	# # look_at_transform.looking_at(player.global_position, transform.basis.y) 
-	# indicator.look_at(global_position, Vector3.UP)
 
 func accelerate():
 
@@ -118,7 +99,6 @@ func lookAtButSmooth(target, delta):
 		var target_basis = Basis.looking_at(-target_vector)
 		basis = basis.slerp(target_basis, turningSpeed * delta)
 		
-		#if basis.get_scale().snapped(Vector3(0.01, 0.01, 0.01)) == target_basis.get_scale().snapped(Vector3(0.01, 0.01, 0.01)):
 		if basis.is_equal_approx(target_basis):
 			return true
 		else:
@@ -126,16 +106,15 @@ func lookAtButSmooth(target, delta):
 
 func shoot(times):
 		for i in range(times):
-			# guns.addedVar = 0.0
-
-			if guns.canShoot:
-				guns.shoot()
+			if gun.canShoot:
+				gun.shoot()
+			else:
+				gunIndex = (gunIndex + 1) % gunsLength
+				gun = guns[gunIndex]
 
 
 func updatePredictionReticle():
 	if predictionReticle and playerGuns:
-		# var player_position = player.global_position
-		# var player_velocity = player.linear_velocity
 
 		# Calculate the time it takes for the projectile to reach the target
 		var distance_to_player = global_position.distance_to(player.global_position)
@@ -150,16 +129,6 @@ func updatePredictionReticle():
 
 		predictionReticle.visible = true
 
-		# if velocity.length() > playerGuns.bulletSpeed/100 and player.updatePredictionReticle:
-		# 	var time_to_impact = distance_to_player / playerGuns.bulletSpeed
-
-		# 	# Calculate the predicted position of the target
-		# 	var predicted_position = global_position + velocity * time_to_impact
-
-		# 	# Set the position of the leading indicator
-		# 	predictionReticle.global_position = predicted_position
-
-		# else:
 	else:
 		predictionReticle.visible = false
 
@@ -182,26 +151,16 @@ func die():
 	state = "dead"
 	velocity = Vector3.ZERO
 	main.visible = false
-	aimBox.get_child(0).disabled = true
+	actualAimBox.disabled = true
 	collider.disabled = true
 	collider.get_shape().size = Vector3.ZERO
 
 	enemySpawner.currentEnemies.erase(self)
 
-	# for i in enemySpawner.currentEnemies.size():
-	# 	if enemySpawner.currentEnemies[i] == self:
-	# 		enemySpawner.currentEnemies[i].remo
-
 	if player.lockedTarget:
 		if player.lockedTarget == self:
 			player.targetLocked = false
 			player.lockedTarget = null
-
-	# print(state)
-
-	# collider.visible = false	
-	# main.visible = false
-
 
 	var explosion = explode.instantiate()
 	add_child(explosion)

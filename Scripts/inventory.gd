@@ -10,6 +10,9 @@ var selectedIndex
 
 
 # func _ready() -> void:
+
+func _process(delta: float) -> void:
+	updateInventory()
 		
 func updateInventory() -> void:
 	for itemSlot in itemSlots:

@@ -59,16 +59,6 @@ var timer: Timer
 
 var currentGunPoint = 0
 
-# func fire(action:StringName):   
-
-	
-# 	if guns.automatic:
-# 		if Input.is_action_pressed(action) guns.canShoot:
-# 			shoot()
-# 	else:
-# 		if Input.is_action_just_released(action):
-# 			shoot()
-
 func _ready():
 	add_to_group("guns")
 	numberOfBullets = magSize
@@ -80,10 +70,7 @@ func _ready():
 	statusRing.max_value = magSize
 
 func _process(delta: float) -> void:
-
-	# main = get_tree().current_scene.get_child(0).get_child(-1)
-
-
+	
 	if cam:
 		crossHair = ship.crosshair.global_position
 
@@ -231,6 +218,7 @@ func handleShoot():
 		canShoot = true
 	else:
 		await reload()
+
 
 func reload():
 	numberOfBullets = 0
